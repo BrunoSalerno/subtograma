@@ -49,7 +49,9 @@
         var year = $("<div id ='"+i+"'class='vertical_line'style='left:"+ left +"%;width:"+width+"%'></div>")
 
         year.hover(function(){
-          $('.hover_year').html(this.id);
+          $('.hover_year').show().html(this.id);
+        },function(){
+          $('.hover_year').hide();
         });
 
         year.click(function(){
@@ -104,7 +106,7 @@
 
   $(document).ready(function(){
     var defaults = {
-      coords : [-34.6150499,-58.4222003],
+      coords : [-34.6050499,-58.4122003],
       zoom   : 13,
       init_year : 1911,
       speed : 50
@@ -167,18 +169,20 @@
       },
       point : {
         buildstart:{
-          stroke:false,
+          radius:5,
+          stroke:true,
           opacity:1,
           fillOpacity:1,
-          color:'#848484',
+          color:'#6E6E6E',
           fillColor:'#848484'
         },
         opening:{
-          stroke:false,
+          radius:5,
+          stroke:true,
           opacity:1,
           fillOpacity:1,
-          color:'black',
-          fillColor:'black'
+          color:'#1C1C1C',
+          fillColor:'white'
         }
       }
     };

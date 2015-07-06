@@ -23,11 +23,23 @@ var Section = function(map, feature, styles, type){
     return self.__type;
   };
 
+  this.__popup_content = function(){
+    var content ='';
+    if (self.type()=='station') content += '<i>'+self.properties.name+'</i><br />'
+    content += 'Línea '+ self.properties.line + '. <br/>'
+    if (self.type()=='line') content += 'Información del tramo: <br />';
+    if (self.properties.buildstart) content += 'Construcción inicia en ' + self.properties.buildstart + '. <br/>';
+    if (self.properties.opening) content += 'Se inaugura en ' + self.properties.opening + '. <br/>';
+    if (self.properties.closure) content += 'Se clausura en ' + self.properties.closure + '. <br/>';
+
+    return content;
+  }
+
   this.__style = function(operation){
     var style;
     switch (self.__type){
       case 'line':
-        style = (operation == 'opening') ? self.styles.line[operation][self.properties.linea] : self.styles.line[operation];
+        style = (operation == 'opening') ? self.styles.line[operation][self.properties.line] : self.styles.line[operation];
         break;
       case 'station':
         style = self.styles.point[operation];
@@ -54,9 +66,11 @@ var Section = function(map, feature, styles, type){
         break;
       case 'Point':
         var coords = [self.geometry.coordinates[1],self.geometry.coordinates[0]];
-        feature_var = L.circle(coords,50,style);
+        feature_var = L.circleMarker(coords,style);
         break;
     }
+
+    feature_var.bindPopup(self.__popup_content());
     feature_var.addTo(self.map);
     self.feature = feature_var;
   };
