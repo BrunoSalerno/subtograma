@@ -37,6 +37,8 @@
           }
           y--;
         }, defaults.speed);
+      } else {
+        self.timeline.release();
       }
     };
 
@@ -67,13 +69,14 @@
     };
 
     this.timeline = new Timeline(data,map,years,styles);
-
     this.create_slider(years);
 
     //this.change_to_year(years.start,this.timeline);
     this.timeline.up_to_year(years.start);
     $('.current_year').html(years.start);
     $('#'+years.start).css('backgroundColor','red');
+
+
   };
 
   var load_map = function(defaults,callback){
@@ -169,6 +172,7 @@
       },
       point : {
         buildstart:{
+          weight:2,
           radius:5,
           stroke:true,
           opacity:1,
@@ -177,19 +181,22 @@
           fillColor:'#848484'
         },
         opening:{
+          weight:2,
           radius:5,
           stroke:true,
           opacity:1,
           fillOpacity:1,
           color:'#1C1C1C',
-          fillColor:'white'
+          fillColor:'#E6E6E6'
         }
       }
     };
 
+    $(".spinner-container").show().addClass('spinner');
     load_map(defaults, function(map){
       load_data(function(data){
         window.app = new App(defaults,data,map,years,styles)
+        $(".spinner-container").hide();
       });
     });
   });

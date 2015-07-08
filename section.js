@@ -25,13 +25,14 @@ var Section = function(map, feature, styles, type){
 
   this.__popup_content = function(){
     var content ='';
-    if (self.type()=='station') content += '<i>'+self.properties.name+'</i><br />'
-    content += 'Línea '+ self.properties.line + '. <br/>'
+    if (self.type()=='station') content += '<div class="popup-title">' + toTitleCase(self.properties.name) + '</div>'
+    content += '<div class="popup-subtitle">Línea '+ self.properties.line + '</div>'
     if (self.type()=='line') content += 'Información del tramo: <br />';
-    if (self.properties.buildstart) content += 'Construcción inicia en ' + self.properties.buildstart + '. <br/>';
-    if (self.properties.opening) content += 'Se inaugura en ' + self.properties.opening + '. <br/>';
-    if (self.properties.closure) content += 'Se clausura en ' + self.properties.closure + '. <br/>';
-
+    content +='<ul>'
+    if (self.properties.buildstart) content += '<li>Construcción inicia en ' + self.properties.buildstart + '. <br/>';
+    if (self.properties.opening) content += '<li>Se inaugura en ' + self.properties.opening + '. <br/>';
+    if (self.properties.closure) content += '<li>Se clausura en ' + self.properties.closure + '. <br/>';
+    content +='</ul>'
     return content;
   }
 
@@ -71,6 +72,15 @@ var Section = function(map, feature, styles, type){
     }
 
     feature_var.bindPopup(self.__popup_content());
+
+    feature_var.on('mouseover', function (e) {
+      this.setStyle({color:'black',weight:5});
+    });
+
+    feature_var.on('mouseout', function (e) {
+      this.setStyle(self.__style(self.status));
+    });
+
     feature_var.addTo(self.map);
     self.feature = feature_var;
   };
@@ -82,7 +92,7 @@ var Section = function(map, feature, styles, type){
     } else {
      self.draw('buildstart');
     }
-    self.status = 'building';
+    self.status = 'buildstart';
   };
 
   this.open = function(){
@@ -92,7 +102,7 @@ var Section = function(map, feature, styles, type){
     } else {
       self.draw('opening')
     }
-    self.status = 'opened';
+    self.status = 'opening';
   };
 
   this.close = function(){
@@ -102,6 +112,6 @@ var Section = function(map, feature, styles, type){
     } else {
       //console.log('closure: inexistent ' + self.type());
     }
-    self.status = 'closed';
+    self.status = 'closure';
   };
 }
