@@ -7,7 +7,7 @@ TODO
 - [x] Spinner
 - [x] BUG: Yendo para atrás, si el año destino empezó una obra, no va a figurar la obra en construcción.
     Lo mismo pasa con la inauguración. Es como si faltara considerar esa posibilidad.
-- [] Params: zoom, coordenadas y año
+- [x] Params: zoom, coordenadas y año
 - [] Share de fb, twitter,etc...
 - [] Panel flotante con capas: líneas x separado, nombre de empresas, proyectos
 - [] Mapa sin etiquetas de barrios (el de Google?)

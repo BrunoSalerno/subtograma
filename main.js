@@ -1,6 +1,6 @@
 (function(){
 
-  var App = function(defaults,data,map,years,styles){
+  var App = function(defaults,data,map,years,styles,starting_year){
     var self = this;
 
     this.change_to_year = function(year){
@@ -14,6 +14,7 @@
       if (year > self.timeline.current_year()) {
         interval = setInterval(function(){
           if (y > year) {
+            save_params(year,null);
             clearInterval(interval);
             self.timeline.release();
           }else{
@@ -27,6 +28,7 @@
       } else if (year < self.timeline.current_year()){
         interval = setInterval(function(){
           if (y < year) {
+            save_params(year,null);
             clearInterval(interval);
             self.timeline.release();
           }else{
@@ -76,7 +78,7 @@
     $('.current_year').html(years.start);
     $('#'+years.start).css('backgroundColor','red');
 
-    //this.change_to_year(years.start,this.timeline);
+    if (starting_year) this.change_to_year(starting_year,this.timeline);
   };
 
   var load_map = function(defaults,callback){
@@ -92,6 +94,10 @@
 
     map.whenReady(function(){
       if (typeof callback === 'function') callback(map);
+    });
+
+    map.on('moveend',function(){
+      save_params(null,map);
     });
   };
 
@@ -193,9 +199,17 @@
     };
 
     $(".spinner-container").show().addClass('spinner');
+
+    var params = getSearchParameters();
+
+    if (params.coords) {
+      defaults.coords = [params.coords.lat,params.coords.lon];
+      defaults.zoom = params.coords.z;
+    }
+
     load_map(defaults, function(map){
       load_data(function(data){
-        window.app = new App(defaults,data,map,years,styles)
+        window.app = new App(defaults,data,map,years,styles,params.year)
         $(".spinner-container").hide();
       });
     });
