@@ -19,7 +19,7 @@
             self.timeline.release();
           }else{
             self.timeline.up_to_year(y);
-            $('.current_year').html(y);
+            $('.current-year').html(y);
             $('#'+y).css('backgroundColor','red');
             $('#'+(y-1)).css('backgroundColor','');
           }
@@ -33,7 +33,7 @@
             self.timeline.release();
           }else{
             self.timeline.down_to_year(y);
-            $('.current_year').html(y);
+            $('.current-year').html(y);
             $('#'+y).css('backgroundColor','red');
             $('#'+(y+1)).css('backgroundColor','');
           }
@@ -45,7 +45,6 @@
     };
 
     this.create_slider = function(years){
-
       for (var i = years.start; i < (years.end +1); i++){
         var left = (i-years.start)/(years.end-years.start+1)*100;
         var width = 100 / (years.end-years.start +1) + 0.1;
@@ -67,15 +66,33 @@
 
       $('.first_year').html(years.start);
       $('.last_year').html(years.end);
-
     };
 
     this.timeline = new Timeline(data,map,years,styles);
     this.create_slider(years);
 
+    $('.current-year').keydown(function(e){
+      var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
+      var charStr = String.fromCharCode(charCode);
+      if (e.which != 13 && e.which != 8 && e.which != 46 &&
+        ($(this).html().length >= 4 || !(/\d/.test(charStr)))) {
+        e.preventDefault();
+      } else if (e.which == 13){
+        e.preventDefault();
+        $(this).blur();
+      }
+    }).blur(function(){
+      var new_year = parseInt($(this).html());
+      if (new_year < years.start || new_year > years.end){
+        $(this).html(years.current);
+      } else {
+        self.change_to_year(new_year);
+      }
+    });
+
     //Init to the start year
     this.timeline.up_to_year(years.start);
-    $('.current_year').html(years.start);
+    $('.current-year').html(years.start);
     $('#'+years.start).css('backgroundColor','red');
 
     if (starting_year) this.change_to_year(starting_year,this.timeline);
@@ -209,9 +226,9 @@
 
     load_map(defaults, function(map){
       load_data(function(data){
-        window.app = new App(defaults,data,map,years,styles,params.year)
+        window.app = new App(defaults,data,map,years,styles,params.year);
         $(".spinner-container").hide();
       });
     });
   });
-})()
+})();
