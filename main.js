@@ -71,12 +71,12 @@
     this.timeline = new Timeline(data,map,years,styles);
     this.create_slider(years);
 
-    //this.change_to_year(years.start,this.timeline);
+    //Init to the start year
     this.timeline.up_to_year(years.start);
     $('.current_year').html(years.start);
     $('#'+years.start).css('backgroundColor','red');
 
-
+    //this.change_to_year(years.start,this.timeline);
   };
 
   var load_map = function(defaults,callback){

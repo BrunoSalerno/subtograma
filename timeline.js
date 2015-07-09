@@ -91,7 +91,7 @@ var Timeline = function(data,map,years,styles){
   };
 
   this.undraw = function() {
-    var current_year_data = self.data[self.years.current];
+    var current_year_data = self.data[self.years.current + 1];
 
     if (!current_year_data) return;
 
@@ -118,7 +118,7 @@ var Timeline = function(data,map,years,styles){
           }
 
           if (c=='buildstart'){
-            self.sections[id].close();
+            if (self.sections[id]) self.sections[id].close();
           }
         })
       }
