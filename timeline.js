@@ -100,6 +100,7 @@ var Timeline = function(data,map,years,styles){
       for (var c in current_year_data[category]){
         current_year_data[category][c].forEach(function(obj){
           var id = type + '_' + obj.properties.id;
+          if (!self.sections[id]) return;
 
           if (c=='opening'){
             if (self.sections[id].has_building_data()){
@@ -118,7 +119,7 @@ var Timeline = function(data,map,years,styles){
           }
 
           if (c=='buildstart'){
-            if (self.sections[id]) self.sections[id].close();
+            self.sections[id].close();
           }
         })
       }

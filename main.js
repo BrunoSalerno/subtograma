@@ -227,7 +227,8 @@
     load_map(defaults, function(map){
       load_data(function(data){
         window.app = new App(defaults,data,map,years,styles,params.year);
-        $(".spinner-container").hide();
+        $(".spinner-container").fadeOut();
+        $(".slider").fadeIn();
       });
     });
   });
