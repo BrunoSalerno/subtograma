@@ -198,7 +198,6 @@ Taken from http://stephanwagner.me/only-css-loading-spinner
     margin: 12px;
     color: #2E2E2E;
     font-size: 20px;
-    cursor: pointer;
     border-radius: 3px;
     font-weight: bold;
     line-height: 15px;
@@ -216,7 +215,6 @@ Taken from http://stephanwagner.me/only-css-loading-spinner
     margin-top: 3px;
     color: #2E2E2E;
     font-size: 25px;
-    cursor: pointer;
     border-radius: 3px;
     font-style: italic;
     text-shadow: 0 1px 0 #fff;
@@ -230,6 +228,7 @@ Taken from http://stephanwagner.me/only-css-loading-spinner
     float:left;
     margin:5px;
     border-radius: 3px;
+    cursor: pointer;
 }
 
 .menu:hover {
