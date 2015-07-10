@@ -28,19 +28,12 @@
     height: 100%;
     top:0;
     left:0;
-    background-color: #424242;
+    background-color: #6E6E6E;
     opacity:0.9;
-    /*box-shadow: 0 2px 5px #000;
-    border-radius: 5px;*/
     border-top: solid 2px #2E2E2E;
 }
 
 .slider .reference {
-    /*position:absolute;
-    width:60%;
-    height:100%;
-    top:0;
-    left:20%;*/
     width:60%;
     height: 100%;
     position:relative;
@@ -72,9 +65,6 @@
     width: 100%;
 }
 .slider .share {
-    /*position:absolute;
-    width:20%;
-    left:60%;*/
     float:right;
     margin:10px;
     margin-top: 17px;
@@ -112,13 +102,14 @@
     font-size:50px;
     color:#2E2E2E;
     position:absolute;
-    width:120px;
+    width:115px;
+    padding: 5px;
     left:0;
     margin: 2%;
     top:0;
-    /*background-color: yellow;*/
-    opacity: 0.9;
-    text-shadow: 0 1px 4px #585858;
+    background-color: #D8D8D8;
+    border-radius: 3px;
+    opacity: 0.8;
 }
 
 .popup-title{
@@ -187,29 +178,7 @@ Taken from http://stephanwagner.me/only-css-loading-spinner
     z-index:1000;
 }
 
-@media (min-width: 501px) and (max-width:800px){
-    /*.slider .current-year {
-        font-size: 26px;
-        margin-top:-15px !important;
-    }*/
-}
-
 @media (max-width: 630px){
-    /*.slider{
-        width:100%;
-        bottom:0;
-        left:0;
-    }
-
-    .slider .background {
-        border-radius: 0;
-    }*/
-
-    /*.slider .current-year {
-        font-size: 16px;
-        margin-top:-10px !important;
-    }*/
-
     .hover_year {
         display: none !important;
     }
@@ -223,29 +192,47 @@ Taken from http://stephanwagner.me/only-css-loading-spinner
     border-radius: 5px;
 }
 
-.layers {
-    position:relative;
-    float:left;
-    padding: 7px;
-    margin:12px;
-    color:white;
-    font-size: 16px;
-    cursor:pointer;
+.arrow {
+    position: relative;
+    float: left;
+    margin: 12px;
+    color: #2E2E2E;
+    font-size: 20px;
+    cursor: pointer;
     border-radius: 3px;
+    font-weight: bold;
+    line-height: 15px;
+    margin-top: 20px;
+    margin-left: 0;
+    display:none;
+    text-shadow: 0 1px 0 #fff;
 }
 
 .app {
-    position:relative;
-    float:left;
+    position: relative;
+    float: left;
     padding: 7px;
-    margin:12px;
-    color:white;
-    font-size: 16px;
-    cursor:pointer;
+    margin: 7px;
+    margin-top: 3px;
+    color: #2E2E2E;
+    font-size: 25px;
+    cursor: pointer;
     border-radius: 3px;
     font-style: italic;
+    text-shadow: 0 1px 0 #fff;
+    font-weight: bold;
 }
 
-.layers:hover {
-    background-color: #585858;
+.menu {
+    position:relative;
+    width:200px;
+    height:85%;
+    float:left;
+    margin:5px;
+    border-radius: 3px;
 }
+
+.menu:hover {
+    background-color: #A4A4A4;
+}
+.menu:hover > .arrow { display:block }
