@@ -25,7 +25,7 @@ var Section = function(map, feature, styles, type){
 
   this.__popup_content = function(){
 
-    var content ='<div class="info-window"><div class="popup-title">';
+    var content ='<div class="info-window"><div>';
     if (self.type()=='station') content += toTitleCase(self.properties.name) + ' - '
     content += 'Línea '+ self.properties.line + '</div>'
 

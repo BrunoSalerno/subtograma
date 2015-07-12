@@ -27,6 +27,8 @@ function transformToAssocArray( prmstr ) {
 
     } else if (tmparr[0] == 'year') {
       params[tmparr[0]] = parseInt(tmparr[1]);
+    } else if (tmparr[0] == 'lines'){
+      params[tmparr[0]] = tmparr[1].split(',')
     }else{
       params[tmparr[0]] = tmparr[1];
     }
@@ -36,7 +38,7 @@ function transformToAssocArray( prmstr ) {
 }
 
 
-function save_params(year,map){
+function save_params(year,map,lines){
   var current_params = getSearchParameters();
 
   var url=location.pathname+'?';
@@ -48,6 +50,12 @@ function save_params(year,map){
     url += '&coords=' + center.lat + ',' + center.lng + ',' + map.getZoom();
   } else if (current_params.coords) {
     url += '&coords=' + current_params.coords.lat + ',' + current_params.coords.lon + ',' + current_params.coords.z;
+  }
+
+  if (lines){
+    url += '&lines=' + (lines.join(',') || 0)
+  } else if (current_params.lines){
+    url += '&lines=' + current_params.lines.join(',')
   }
 
   history.pushState(document.title + ' ' + year ,document.title,url);

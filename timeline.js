@@ -12,8 +12,19 @@ var Timeline = function(data,map,years,styles){
     return self.__lines;
   };
 
+  this.set_lines = function(lines){
+    for (var l in self.__lines){
+      if ($.inArray(l,lines)==-1) self.__lines[l].show = false;
+    }
+  };
+
   this.toggle_line = function(line){
     self.__lines[line].show = !self.__lines[line].show
+    var lines_params = [];
+    for (var l in self.__lines){
+      if (self.__lines[l].show) lines_params.push(l)
+    }
+    return lines_params;
   };
 
   this.get_busy = function(){
@@ -75,8 +86,8 @@ var Timeline = function(data,map,years,styles){
     return t;
   };
 
-  this.draw = function() {
-    var current_year_data = self.data[self.years.current];
+  this.draw = function(year,line) {
+    var current_year_data = self.data[year];
 
     if (!current_year_data) return;
 
@@ -85,7 +96,8 @@ var Timeline = function(data,map,years,styles){
       for (var c in current_year_data[category]){
         current_year_data[category][c].forEach(function(obj){
 
-          if (!self.__lines[obj.properties.line].show) return;
+          if (line && obj.properties.line != line) return;
+          if (!line && !self.__lines[obj.properties.line].show) return;
 
           var id = type + '_' + obj.properties.id;
 
@@ -109,8 +121,8 @@ var Timeline = function(data,map,years,styles){
     self.stations_to_front();
   };
 
-  this.undraw = function() {
-    var current_year_data = self.data[self.years.current + 1];
+  this.undraw = function(year,line) {
+    var current_year_data = self.data[year + 1];
 
     if (!current_year_data) return;
 
@@ -119,7 +131,8 @@ var Timeline = function(data,map,years,styles){
       for (var c in current_year_data[category]){
         current_year_data[category][c].forEach(function(obj){
 
-          if (!self.__lines[obj.properties.line].show) return;
+          if (line && obj.properties.line != line) return;
+          if (!line && !self.__lines[obj.properties.line].show) return;
 
           var id = type + '_' + obj.properties.id;
           if (!self.sections[id]) return;
@@ -155,14 +168,14 @@ var Timeline = function(data,map,years,styles){
     self.years.current = year;
   };
 
-  this.up_to_year = function(year){
-    self.set_year(year);
-    self.draw();
+  this.up_to_year = function(year,line){
+    if (!line) self.set_year(year);
+    self.draw(year,line);
   };
 
-  this.down_to_year = function(year){
-    self.set_year(year);
-    self.undraw();
+  this.down_to_year = function(year,line){
+    if (!line) self.set_year(year);
+    self.undraw(year,line);
   };
 
   this.data = this.__load_data(data);

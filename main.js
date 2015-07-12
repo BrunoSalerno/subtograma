@@ -1,7 +1,37 @@
 (function(){
 
-  var App = function(defaults,data,map,years,styles,starting_year){
+  var App = function(defaults,data,map,years,styles,starting_year,lines_to_show){
     var self = this;
+
+    this.change_line_to_year = function(year_start,year_end,line){
+      if (self.timeline.busy()) return;
+      var speed=1;
+      self.timeline.get_busy();
+      var y = year_start;
+      var interval;
+
+      if (year_end > year_start) {
+        interval = setInterval(function(){
+          if (y > year_end) {
+            self.timeline.release();
+            clearInterval(interval);
+          } else {
+            self.timeline.up_to_year(y,line);
+          }
+          y++;
+        },speed);
+      } else {
+        interval = setInterval(function(){
+          if (y < year_end) {
+            self.timeline.release();
+            clearInterval(interval);
+          } else {
+            self.timeline.down_to_year(y,line);
+          }
+          y--;
+        },speed);
+      }
+    };
 
     this.change_to_year = function(year){
       if (self.timeline.busy()) return;
@@ -103,10 +133,13 @@
     });
 
     // Lines layers
+    if (lines_to_show) this.timeline.set_lines(lines_to_show);
+
     var lines = this.timeline.lines();
     var lines_str='<ul class="lines">';
     for (var line in lines){
-      lines_str += '<li><input type="checkbox" id="checkbox_'+line+'" checked/>' +
+      var checked_str = (lines[line].show) ? 'checked' : '';
+      lines_str += '<li><input type="checkbox" id="checkbox_'+line+'" ' + checked_str + '/>' +
         '<label id="label_'+line+'" for="checkbox_'+line+'"></label><div class="line-reference" style="background-color: '+styles.line.opening[line].color+'">' +
         '</div><div class="text-reference">Línea ' + line + '</div></li>';
     }
@@ -117,7 +150,13 @@
 
     for (var l in this.timeline.lines()){
       $('#label_'+l).click(function(){
-        self.timeline.toggle_line($(this).attr('id').split('_')[1]);
+        var line= $(this).attr('id').split('_')[1];
+        var lines_params = self.timeline.toggle_line(line);
+        var year_start = (self.timeline.lines()[line].show) ? years.start : self.timeline.current_year();
+        var year_end = (self.timeline.lines()[line].show) ? self.timeline.current_year() : years.start;
+
+        self.change_line_to_year(year_start,year_end,line);
+        save_params(null,null,lines_params);
       });
     }
 
@@ -126,7 +165,7 @@
     $('.current-year').html(years.start);
     $('#'+years.start).css('backgroundColor','red');
 
-    if (starting_year) this.change_to_year(starting_year,this.timeline);
+    if (starting_year) this.change_to_year(starting_year);
   };
 
   var load_map = function(defaults,callback){
@@ -258,7 +297,7 @@
 
     load_map(defaults, function(map){
       load_data(function(data){
-        window.app = new App(defaults,data,map,years,styles,params.year);
+        window.app = new App(defaults,data,map,years,styles,params.year,params.lines);
         $(".spinner-container").fadeOut();
         $(".slider").fadeIn();
         $(".current-year").fadeIn();
