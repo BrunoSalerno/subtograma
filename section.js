@@ -24,15 +24,17 @@ var Section = function(map, feature, styles, type){
   };
 
   this.__popup_content = function(){
-    var content ='';
-    if (self.type()=='station') content += '<div class="popup-title">' + toTitleCase(self.properties.name) + '</div>'
-    content += '<div class="popup-subtitle">Línea '+ self.properties.line + '</div>'
-    if (self.type()=='line') content += 'Información del tramo: <br />';
+
+    var content ='<div class="info-window"><div class="popup-title">';
+    if (self.type()=='station') content += toTitleCase(self.properties.name) + ' - '
+    content += 'Línea '+ self.properties.line + '</div>'
+
+    if (self.type()=='line') content += '(Información del tramo) <br />';
     content +='<ul>'
-    if (self.properties.buildstart) content += '<li>Construcción inicia en ' + self.properties.buildstart + '. <br/>';
-    if (self.properties.opening) content += '<li>Se inaugura en ' + self.properties.opening + '. <br/>';
-    if (self.properties.closure) content += '<li>Se clausura en ' + self.properties.closure + '. <br/>';
-    content +='</ul>'
+    if (self.properties.buildstart) content += '<li>Construcción: ' + self.properties.buildstart;
+    if (self.properties.opening) content += '<li>Inauguración: ' + self.properties.opening;
+    if (self.properties.closure) content += '<li>Clausura: ' + self.properties.closure;
+    content +='</ul></div>'
     return content;
   }
 

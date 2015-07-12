@@ -90,7 +90,38 @@
       }
     });
 
-    //Init to the start year
+    $(".menu").click(function(){
+      switch ($(this).hasClass('pressed')){
+        case true:
+          $(this).removeClass('pressed');
+          break;
+        case false:
+          $(this).addClass('pressed');
+          break;
+      }
+      $('.panel').slideToggle('500','swing');
+    });
+
+    // Lines layers
+    var lines = this.timeline.lines();
+    var lines_str='<ul class="lines">';
+    for (var line in lines){
+      lines_str += '<li><input type="checkbox" id="checkbox_'+line+'" checked/>' +
+        '<label id="label_'+line+'" for="checkbox_'+line+'"></label><div class="line-reference" style="background-color: '+styles.line.opening[line].color+'">' +
+        '</div><div class="text-reference">Línea ' + line + '</div></li>';
+    }
+
+    lines_str += '</ul>';
+
+    $(".panel").append(lines_str);
+
+    for (var l in this.timeline.lines()){
+      $('#label_'+l).click(function(){
+        self.timeline.toggle_line($(this).attr('id').split('_')[1]);
+      });
+    }
+
+    // Init to the start year
     this.timeline.up_to_year(years.start);
     $('.current-year').html(years.start);
     $('#'+years.start).css('backgroundColor','red');
@@ -106,9 +137,14 @@
 
     var map = L.map('map', options).setView(defaults.coords, defaults.zoom);
 
-    L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',{
-      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
-    }).addTo(map);
+    /*L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/{type}/{z}/{x}/{y}.{ext}',{
+      type: 'map',
+      ext: 'jpg',
+      attribution: 'Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      subdomains: '1234'
+    }).addTo(map);*/
+
+    L.tileLayer('https://{s}.tiles.mapbox.com/v4/brunosalerno.mmfg5lpk/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYnJ1bm9zYWxlcm5vIiwiYSI6IlJxeWpheTAifQ.yoZDrB8Hrn4TvSzcVUFHBA').addTo(map)
 
     L.control.zoom({position:'topright'}).addTo(map);
 
@@ -232,6 +268,7 @@
         window.app = new App(defaults,data,map,years,styles,params.year);
         $(".spinner-container").fadeOut();
         $(".slider").fadeIn();
+        $(".current-year").fadeIn();
       });
     });
   });

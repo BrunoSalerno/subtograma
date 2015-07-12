@@ -2,26 +2,35 @@ var Timeline = function(data,map,years,styles){
   var self = this;
 
   this.__busy = false;
+  this.__lines = {};
 
   this.busy = function(){
     return self.__busy;
-  }
+  };
+
+  this.lines = function(){
+    return self.__lines;
+  };
+
+  this.toggle_line = function(line){
+    self.__lines[line].show = !self.__lines[line].show
+  };
 
   this.get_busy = function(){
     self.__busy = true;
-  }
+  };
 
   this.release = function(){
     self.__busy = false;
-  }
+  };
 
   this.current_year = function(){
     return years.current;
-  }
+  };
 
   this.starting_year = function(){
     return years.start;
-  }
+  };
 
   this.__init_year = function(){
     return {
@@ -52,10 +61,17 @@ var Timeline = function(data,map,years,styles){
           if (year){
             if (!t[year]) t[year] = self.__init_year();
             t[year][category][y].push(element)
+
+            if (category == 'lines'){
+              if (!self.__lines[element.properties.line]){
+                self.__lines[element.properties.line]={show:true}
+              }
+            }
           }
         }
       })
     }
+
     return t;
   };
 
@@ -68,6 +84,9 @@ var Timeline = function(data,map,years,styles){
       var category = (type == 'line') ? 'lines' : 'stations';
       for (var c in current_year_data[category]){
         current_year_data[category][c].forEach(function(obj){
+
+          if (!self.__lines[obj.properties.line].show) return;
+
           var id = type + '_' + obj.properties.id;
 
           if (c=='opening'){
@@ -99,6 +118,9 @@ var Timeline = function(data,map,years,styles){
       var category = (type == 'line') ? 'lines' : 'stations';
       for (var c in current_year_data[category]){
         current_year_data[category][c].forEach(function(obj){
+
+          if (!self.__lines[obj.properties.line].show) return;
+
           var id = type + '_' + obj.properties.id;
           if (!self.sections[id]) return;
 
