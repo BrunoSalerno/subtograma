@@ -33,7 +33,7 @@
       }
     };
 
-    this.change_to_year = function(year){
+    this.change_to_year = function(year,speed){
       if (self.timeline.busy()) return;
 
       self.timeline.get_busy();
@@ -54,7 +54,7 @@
             $('#'+(y-1)).css('backgroundColor','');
           }
           y++;
-        }, defaults.speed);
+        }, speed || defaults.speed);
       } else if (year < self.timeline.current_year()){
         interval = setInterval(function(){
           if (y < year) {
@@ -68,7 +68,7 @@
             $('#'+(y+1)).css('backgroundColor','');
           }
           y--;
-        }, defaults.speed);
+        }, speed || defaults.speed);
       } else {
         self.timeline.release();
       }
@@ -165,7 +165,7 @@
     $('.current-year').html(years.start);
     $('#'+years.start).css('backgroundColor','red');
 
-    if (starting_year) this.change_to_year(starting_year);
+    if (starting_year) this.change_to_year(starting_year,1);
   };
 
   var load_map = function(defaults,callback){
