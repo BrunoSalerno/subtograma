@@ -137,13 +137,6 @@
 
     var map = L.map('map', options).setView(defaults.coords, defaults.zoom);
 
-    /*L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/{type}/{z}/{x}/{y}.{ext}',{
-      type: 'map',
-      ext: 'jpg',
-      attribution: 'Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-      subdomains: '1234'
-    }).addTo(map);*/
-
     L.tileLayer('https://{s}.tiles.mapbox.com/v4/brunosalerno.mmfg5lpk/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYnJ1bm9zYWxlcm5vIiwiYSI6IlJxeWpheTAifQ.yoZDrB8Hrn4TvSzcVUFHBA').addTo(map)
 
     L.control.zoom({position:'topright'}).addTo(map);
@@ -183,44 +176,44 @@
       line : {
         buildstart: {
           color: '#A4A4A4',
-          weight: 5,
+          weight: 6,
           opacity: 1,
           smoothFactor:0
         },
         opening : {
           'A': {
             color: '#01A9DB',
-            weight: 5,
+            weight: 6,
             opacity: 1,
             smoothFactor:0
           },
           'B': {
             color: '#DF0101',
-            weight: 5,
+            weight: 6,
             opacity: 1,
             smoothFactor:0
           },
           'C': {
             color: '#0000FF',
-            weight: 5,
+            weight: 6,
             opacity: 1,
             smoothFactor:0
           },
           'D': {
             color: '#088A08',
-            weight: 5,
+            weight: 6,
             opacity: 1,
             smoothFactor:0
           },
           'E': {
             color: '#8A084B',
-            weight: 5,
+            weight: 6,
             opacity: 1,
             smoothFactor:0
           },
           'H': {
             color: '#F7FE2E',
-            weight: 5,
+            weight: 6,
             opacity: 1,
             smoothFactor:0
           },

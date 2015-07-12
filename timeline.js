@@ -150,8 +150,6 @@ var Timeline = function(data,map,years,styles){
     self.stations_to_front();
   };
 
-
-
   this.set_year = function(year){
     self.years.previous = self.years.current;
     self.years.current = year;
