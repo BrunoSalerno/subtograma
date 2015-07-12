@@ -12,6 +12,7 @@ TODO
 - [x] Share de fb, twitter,etc...
 - [x] Mapa sin etiquetas de barrios (el de Google?)
 - [x] Eliminar el botón "^", agrandar el título de la app y que el panel de capas salga de ahí?
+- [] Modificar labels de mapbox (que no se vea fundamentalmente la etiqueta de la ciudad)
 - [] Agregar url actual a los shares
 - [] Arreglar soporte mobile x cambio de ui
 - [x] Mejorar estilos de textos y tipografías
