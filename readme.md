@@ -14,5 +14,5 @@ TODO
 - [x] Eliminar el botón "^", agrandar el título de la app y que el panel de capas salga de ahí?
 - [] Agregar url actual a los shares
 - [] Arreglar soporte mobile x cambio de ui
-- [] Mejorar estilos de textos y tipografías
-- [] Panel de capas
+- [x] Mejorar estilos de textos y tipografías
+- [x] Panel de capas
