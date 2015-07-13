@@ -149,7 +149,13 @@
     $(".panel").append(lines_str);
 
     for (var l in this.timeline.lines()){
-      $('#label_'+l).click(function(){
+      $('#label_'+l).click(function(e){
+        
+        if (self.timeline.busy()){
+          e.preventDefault();
+          return;
+        }
+
         var line= $(this).attr('id').split('_')[1];
         var lines_params = self.timeline.toggle_line(line);
         var year_start = (self.timeline.lines()[line].show) ? years.start : self.timeline.current_year();
