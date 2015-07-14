@@ -198,6 +198,7 @@ Taken from http://stephanwagner.me/only-css-loading-spinner
     line-height: 57px;
     float: left;
     margin-top: 1px;
+    padding-right: 5px;
     width: 170px;
     height: 100%;
     color: #424242;
@@ -205,6 +206,7 @@ Taken from http://stephanwagner.me/only-css-loading-spinner
     border-radius: 3px;
     font-style: italic;
     text-shadow: 0 1px 0 #fff;
+    cursor:pointer;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
