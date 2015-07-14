@@ -67,7 +67,7 @@
 .slider .share {
     float:right;
     margin:10px;
-    margin-top: 19px;
+    margin-top: 17px;
     position:relative;
 }
 
@@ -183,6 +183,10 @@ Taken from http://stephanwagner.me/only-css-loading-spinner
 
     .first_year,.last_year{
         font-size: 10px ;
+    }
+
+    .reference{
+        display:none;
     }
 }
 
