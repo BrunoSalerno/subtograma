@@ -16,6 +16,7 @@ TODO
 - [x] Bug: si está busy el timeline, que no toglee los checkboxes (porque no se está togleando en timeline)
 - [x] Mejorar estilos de textos y tipografías
 - [x] Panel de capas
-- [] Repensar colores de los checkbox
-- [] Agregar url actual a los shares
-- [] Arreglar soporte mobile x cambio de ui
+- [x] Arreglar soporte mobile x cambio de ui
+- [ ] A veces no funciona bien el ingreso del año por el current-year
+- [ ] Repensar colores de los checkbox
+- [ ] Agregar url actual a los shares
