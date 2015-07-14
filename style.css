@@ -105,15 +105,15 @@
     font-size:50px;
     color:#2E2E2E;
     position:absolute;
-    width:115px;
+    width:130px;
     padding: 5px;
     left:0;
     margin: 2%;
     top:0;
     background-color: white;
-    border-radius: 3px;
+    border-radius: 4px;
     opacity: 0.8;
-    border: 1px solid #BDBDBD;
+    border: 1px solid #585858;
     display: none;
 }
 

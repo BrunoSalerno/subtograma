@@ -33,7 +33,7 @@
       }
     };
 
-    this.change_to_year = function(year,speed){
+    this.change_to_year = function(year,speed,from_input){
       if (self.timeline.busy()) return;
 
       self.timeline.get_busy();
@@ -49,7 +49,7 @@
             self.timeline.release();
           }else{
             self.timeline.up_to_year(y);
-            $('.current-year').html(y);
+            if (!from_input) $('.current-year').val(y);
             $('#'+y).css('backgroundColor','red');
             $('#'+(y-1)).css('backgroundColor','');
           }
@@ -63,7 +63,7 @@
             self.timeline.release();
           }else{
             self.timeline.down_to_year(y);
-            $('.current-year').html(y);
+            if (!from_input) $('.current-year').val(y);
             $('#'+y).css('backgroundColor','red');
             $('#'+(y+1)).css('backgroundColor','');
           }
@@ -101,22 +101,17 @@
     this.timeline = new Timeline(data,map,years,styles);
     this.create_slider(years);
 
-    $('.current-year').keydown(function(e){
-      var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
-      var charStr = String.fromCharCode(charCode);
-      if (e.which != 13 && e.which != 8 && e.which != 46 &&
-        ($(this).html().length >= 4 || !(/\d/.test(charStr)))) {
-        e.preventDefault();
-      } else if (e.which == 13){
-        e.preventDefault();
-        $(this).blur();
-      }
-    }).blur(function(){
-      var new_year = parseInt($(this).html());
+    $('.current-year').
+      attr('min',years.start).
+      attr('max',years.end).
+        change(function(e){
+      var new_year = parseInt($(this).val());
       if (new_year < years.start || new_year > years.end){
-        $(this).html(years.current);
+        $(this).blur();
+        $(this).val(years.current);
       } else {
-        self.change_to_year(new_year);
+        $(this).blur();
+        self.change_to_year(new_year,null,true);
       }
     });
 

@@ -17,6 +17,6 @@ TODO
 - [x] Mejorar estilos de textos y tipografías
 - [x] Panel de capas
 - [x] Arreglar soporte mobile x cambio de ui
-- [ ] A veces no funciona bien el ingreso del año por el current-year
+- [x] A veces no funciona bien el ingreso del año por el current-year
 - [ ] Repensar colores de los checkbox
 - [ ] Agregar url actual a los shares
