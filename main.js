@@ -150,7 +150,7 @@
 
     for (var l in this.timeline.lines()){
       $('#label_'+l).click(function(e){
-        
+
         if (self.timeline.busy()){
           e.preventDefault();
           return;
@@ -223,50 +223,66 @@
           color: '#A4A4A4',
           weight: 6,
           opacity: 1,
-          smoothFactor:0
+          smoothFactor:0,
+          lineJoin: 'round',
+          lineCap: 'round'
         },
         opening : {
           'A': {
             color: '#01A9DB',
             weight: 6,
             opacity: 1,
-            smoothFactor:0
+            smoothFactor:0,
+            lineJoin: 'round',
+            lineCap: 'round'
           },
           'B': {
             color: '#DF0101',
             weight: 6,
             opacity: 1,
-            smoothFactor:0
+            smoothFactor:0,
+            lineJoin: 'round',
+            lineCap: 'round'
           },
           'C': {
             color: '#0000FF',
             weight: 6,
             opacity: 1,
-            smoothFactor:0
+            smoothFactor:0,
+            lineJoin: 'round',
+            lineCap: 'round'
           },
           'D': {
             color: '#088A08',
             weight: 6,
             opacity: 1,
-            smoothFactor:0
+            smoothFactor:0,
+            lineJoin: 'round',
+            lineCap: 'round'
           },
           'E': {
             color: '#8A084B',
             weight: 6,
             opacity: 1,
-            smoothFactor:0
+            smoothFactor:0,
+            lineJoin: 'round',
+            lineCap: 'round'
           },
           'H': {
             color: '#F7FE2E',
             weight: 6,
             opacity: 1,
-            smoothFactor:0
+            smoothFactor:0,
+            lineJoin: 'round',
+            lineCap: 'round'
           },
           'P': {
             color: '#FF8000',
             weight: 2,
             opacity: 1,
-            smoothFactor:0
+            smoothFactor:0,
+            lineJoin: 'round',
+            lineCap: 'round'
           }
         }
       },
