@@ -190,26 +190,21 @@ Taken from http://stephanwagner.me/only-css-loading-spinner
     border-radius: 5px;
 }
 
-.app {
+.app-menu {
     position: relative;
+    display:inline-block;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 57px;
     float: left;
-    padding: 7px;
-    margin: 7px;
-    margin-top: 7px;
+    margin-top: 1px;
+    width: 170px;
+    height: 100%;
     color: #424242;
     font-size: 25px;
     border-radius: 3px;
     font-style: italic;
     text-shadow: 0 1px 0 #fff;
-}
-
-.menu {
-    position: relative;
-    width: 181px;
-    height: 100%;
-    float: left;
-    top: 1px;
-    cursor: pointer;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -218,7 +213,7 @@ Taken from http://stephanwagner.me/only-css-loading-spinner
     user-select: none;
 }
 
-.menu:hover {
+.app-menu:hover {
     background-color: #A4A4A4;
 }
 

@@ -120,7 +120,7 @@
       }
     });
 
-    $(".menu").click(function(){
+    $(".app-menu").click(function(){
       switch ($(this).hasClass('pressed')){
         case true:
           $(this).removeClass('pressed');
