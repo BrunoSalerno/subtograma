@@ -163,7 +163,7 @@
 
     // Init to the start year
     this.timeline.up_to_year(years.start);
-    $('.current-year').html(years.start);
+    $('.current-year').val(years.start);
     $('#'+years.start).css('backgroundColor','red');
 
     if (starting_year) this.change_to_year(starting_year,1);

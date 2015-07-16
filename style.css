@@ -278,3 +278,10 @@ input[type="checkbox"]:checked + label {
     background-color: #DF01D7;
     border-bottom: 1px solid #585858;
 }
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+
+    opacity: 1;
+
+}

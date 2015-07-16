@@ -19,6 +19,7 @@ TODO
 - [x] Arreglar soporte mobile x cambio de ui
 - [x] A veces no funciona bien el ingreso del año por el current-year
 - [x] Agregar url actual a los shares (ya estaba hecho)
+- [x] Favicon
+- [ ] Hacer un about
 - [ ] Repensar colores de los checkbox
-- [ ] Favicon
 - [ ] Imgs para compartir en Facebook
