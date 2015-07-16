@@ -19,4 +19,4 @@ TODO
 - [x] Arreglar soporte mobile x cambio de ui
 - [x] A veces no funciona bien el ingreso del año por el current-year
 - [ ] Repensar colores de los checkbox
-- [ ] Agregar url actual a los shares
+- [x] Agregar url actual a los shares (ya estaba hecho)
