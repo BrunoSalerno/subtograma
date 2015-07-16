@@ -29,7 +29,6 @@
     top:0;
     left:0;
     background-color: #BDBDBD;
-    border-top: solid 1px #585858;
 }
 
 .slider .reference {
@@ -103,7 +102,7 @@
 
 .current-year{
     font-size:50px;
-    color:#2E2E2E;
+    color:#424242;
     position:absolute;
     width:130px;
     padding: 5px;
@@ -111,10 +110,9 @@
     margin: 2%;
     top:0;
     background-color: white;
-    border-radius: 4px;
-    opacity: 0.8;
-    border: 1px solid #585858;
+    border-radius: 3px;
     display: none;
+    border:none;
 }
 
 .info-window li {
@@ -226,11 +224,9 @@ Taken from http://stephanwagner.me/only-css-loading-spinner
 .panel {
     display: none;
     position:absolute;
-    bottom:57px;
+    bottom:58px;
     width:100%;
     background-color: white;
-    border-top: solid 1px #585858;
-    border-bottom: solid 1px #848484;
 }
 
 ul.lines {
