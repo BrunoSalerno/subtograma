@@ -115,16 +115,12 @@
       }
     });
 
-    $(".app-menu").click(function(){
-      switch ($(this).hasClass('pressed')){
-        case true:
-          $(this).removeClass('pressed');
-          break;
-        case false:
-          $(this).addClass('pressed');
-          break;
-      }
-      $('.panel').slideToggle('500','swing');
+    $(".eye").click(function(){
+      var bottom = '58px';
+      if ($(".panel-container").css('bottom')=='58px') bottom = '9px';
+      $('.panel-container').animate({
+        'bottom' : bottom
+      });
     });
 
     // Lines layers
