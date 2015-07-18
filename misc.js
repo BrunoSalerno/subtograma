@@ -43,7 +43,7 @@ function save_params(year,map,lines){
 
   var url=location.pathname+'?';
   year = (year)? year : current_params.year;
-  url += 'year=' + year;
+  if (year) url += 'year=' + year;
 
   if (map){
     var center = map.getCenter();
