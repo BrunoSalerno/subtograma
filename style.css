@@ -230,7 +230,7 @@ Taken from http://stephanwagner.me/only-css-loading-spinner
     height:18px;
     border-top-right-radius: 4px;
     border-top-left-radius: 4px;
-    margin-left: 9px;
+    margin-left: 8px;
     background-color: white;
     padding:5px;
     cursor:pointer;
@@ -268,7 +268,7 @@ input[type="checkbox"] + label {
     color:#424242;
     float:left;
     display:inline-block;
-    width:20px;
+    width:18px;
     text-align: center;
     padding:5px;
     margin:-1px 4px 0 0;
