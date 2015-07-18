@@ -21,5 +21,7 @@ TODO
 - [x] Agregar url actual a los shares (ya estaba hecho)
 - [x] Favicon
 - [x] Imgs para compartir en Facebook
-- [ ] Hacer un about
-- [ ] Repensar colores de los checkbox
+- [x] Repensar colores de los checkbox
+- [ ] Hacer un about (hastag de twiter)
+- [ ] Timeline versión ponzo
+- [ ] Ley 670

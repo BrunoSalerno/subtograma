@@ -234,28 +234,13 @@ ul.lines {
     margin-top: 5px;
 }
 ul.lines li{
-    color:#424242;
     list-style-type: none;
     padding:2px;
-    margin-left:10px;
+    margin-left:5px;
     display:inline-block;
     position:relative;
 }
 
-ul.lines li .line-reference {
-    width:30px;
-    height: 8px;
-    position:relative;
-    margin:4px;
-    background-color: black;
-    float:left;
-    border-bottom: 1px solid #585858;
-    border-radius: 2px;
-}
-ul.lines li .text-reference {
-    float:left;
-    margin-left: 5px;
-}
 
 /* Checkbox inspired from
 http://webdesign.tutsplus.com/tutorials/quick-tip-easy-css3-checkboxes-and-radio-buttons--webdesign-8953 */
@@ -264,19 +249,32 @@ input[type="checkbox"] {
     display:none;
 }
 input[type="checkbox"] + label {
+    color:#424242;
     float:left;
     display:inline-block;
-    width:17px;
-    height:17px;
+    width:20px;
+    text-align: center;
+    padding:5px;
     margin:-1px 4px 0 0;
     vertical-align:middle;
-    background-color: #6E6E6E;
     border-radius: 3px;
     cursor:pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 input[type="checkbox"]:checked + label {
-    background-color: #DF01D7;
+    color:white;
+    border: solid 1px transparent;
     border-bottom: 1px solid #585858;
+}
+
+input[type="checkbox"]:not(:checked) + label {
+    background-color: transparent !important;
+    border:1px solid #BDBDBD;
 }
 
 input[type=number]::-webkit-inner-spin-button,

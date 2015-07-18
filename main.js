@@ -135,8 +135,7 @@
     for (var line in lines){
       var checked_str = (lines[line].show) ? 'checked' : '';
       lines_str += '<li><input type="checkbox" id="checkbox_'+line+'" ' + checked_str + '/>' +
-        '<label id="label_'+line+'" for="checkbox_'+line+'"></label><div class="line-reference" style="background-color: '+styles.line.opening[line].color+'">' +
-        '</div><div class="text-reference">Línea ' + line + '</div></li>';
+        '<label id="label_'+line+'" for="checkbox_'+line+'" style="background-color: '+styles.line.opening[line].color+'">' + line + '</label></li>';
     }
 
     lines_str += '</ul>';
@@ -264,7 +263,7 @@
             lineCap: 'round'
           },
           'H': {
-            color: '#F7FE2E',
+            color: '#FFBF00',
             weight: 6,
             opacity: 1,
             smoothFactor:0,
