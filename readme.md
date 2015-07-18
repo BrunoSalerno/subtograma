@@ -23,5 +23,6 @@ TODO
 - [x] Imgs para compartir en Facebook
 - [x] Repensar colores de los checkbox
 - [ ] Hacer un about (hastag de twiter)
+- [ ] Call to action: botón de play
 - [ ] Timeline versión ponzo
 - [ ] Ley 670
