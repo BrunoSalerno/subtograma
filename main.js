@@ -115,7 +115,7 @@
       }
     });
 
-    $(".eye").click(function(){
+    $(".layers-tab").click(function(){
       var bottom = '58px';
       if ($(".panel-container").css('bottom')=='58px') bottom = '9px';
       $('.panel-container').animate({
