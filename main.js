@@ -101,6 +101,8 @@
     this.timeline = new Timeline(data,map,years,styles);
     this.create_slider(years);
 
+    // Current year functionality
+    // --------------------------
     $('.current-year').
       attr('min',years.start).
       attr('max',years.end).
@@ -115,17 +117,34 @@
       }
     });
 
-    $(".layers-tab").click(function(){
-      var bottom = '58px';
-      if ($(".panel-container").css('bottom')=='58px') bottom = '9px';
-      $('.panel-container').animate({
-        'bottom' : bottom
-      });
+    // Tabs toggle
+    // -----------
+    $(".tab").click(function(){
+      var tab = $(this)[0].classList[1];
+      var bottom;
+
+      if ($(".panel-container").css('bottom')=='58px') {
+        if (!$(".content."+tab).is(":visible")){
+          $(".content").hide();
+          $(".tab").not(".tab."+tab).addClass('not-selected');
+          $(".tab."+tab).removeClass('not-selected');
+          $(".content."+tab).show();
+          return;
+        }
+        bottom = 58 - $(".panel").height() + 'px';
+      } else {
+        bottom = '58px';
+      }
+      $(".content").hide();
+      $(".tab").not(".tab."+tab).addClass('not-selected');
+      $(".tab."+tab).removeClass('not-selected');
+      $(".content."+tab).show();
+      $('.panel-container').animate({bottom:bottom});
     });
 
     // Lines layers
+    // ------------
     if (lines_to_show) this.timeline.set_lines(lines_to_show);
-
     var lines = this.timeline.lines();
     var lines_str='<ul class="lines">';
     for (var line in lines){
@@ -135,12 +154,10 @@
     }
 
     lines_str += '</ul>';
-
-    $(".panel").append(lines_str);
+    $(".content.layers").append(lines_str);
 
     for (var l in this.timeline.lines()){
       $('#label_'+l).click(function(e){
-
         if (self.timeline.busy()){
           e.preventDefault();
           return;
@@ -157,6 +174,7 @@
     }
 
     // Init to the start year
+    // ----------------------
     this.timeline.up_to_year(years.start);
     $('.current-year').val(years.start);
     $('#'+years.start).css('backgroundColor','red');
@@ -313,6 +331,7 @@
         $(".spinner-container").fadeOut();
         $(".slider").fadeIn();
         $(".current-year").fadeIn();
+        $(".panel-container").show().css('bottom',58-$(".panel").height()+'px');
       });
     });
   });

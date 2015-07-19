@@ -23,7 +23,7 @@ TODO
 - [x] Imgs para compartir en Facebook
 - [x] Repensar colores de los checkbox
 - [x] Cambiar ícono de ojo a capas
-- [ ] Hacer un about (hastag de twiter)
+- [x] Hacer un tab de about
 - [ ] Call to action: botón de play
 - [ ] Timeline versión ponzo
 - [ ] Ley 670
