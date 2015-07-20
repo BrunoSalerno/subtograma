@@ -6,6 +6,11 @@
 
 a {
     color:black;
+    text-decoration: none;
+}
+
+i {
+    font-style: italic;
 }
 
 body {
@@ -65,13 +70,13 @@ body {
     display: none;
     position:absolute;
     bottom:16px;
-    height:17px;
+    height:16px;
     text-align: center;
     border-radius: 3px;
-    width:44px;
+    width:42px;
     margin-left: -25px;
     color:white;
-    background-color: black;
+    background-color: #1C1C1C;
 }
 
 .slider .reference .vertical_line {
