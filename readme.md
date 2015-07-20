@@ -24,6 +24,7 @@ TODO
 - [x] Repensar colores de los checkbox
 - [x] Cambiar ícono de ojo a capas
 - [x] Hacer un tab de about
-- [ ] Call to action: botón de play
-- [ ] Timeline versión ponzo
+- [x] Timeline versión ponzo
+- [ ] Timeline: hover de año
 - [ ] Ley 670
+- [ ] Call to action: botón de play ?

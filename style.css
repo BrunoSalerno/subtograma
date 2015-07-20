@@ -42,29 +42,42 @@ body {
     background-color: #BDBDBD;
 }
 
-.slider .reference {
-    width:60%;
-    height: 100%;
+.slider .reference-container {
     position:relative;
     margin:0 auto;
-    margin-top: 9px;
+    width:60%;
+    height: 25%;
 }
-
+.slider .reference {
+    width:100%;
+    height: 100%;
+    margin-top: 22px;
+    cursor:pointer;
+    background-color: #585858;
+    border-radius: 2px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 
 .slider .reference .vertical_line {
-    background-color: #F781F3;
     position:absolute;
-    height: 15%;
-    top:35%;
-    cursor:pointer;
-    border-bottom: 1px solid #585858;
+    height: 75%;
+    color:white;
+    font-size:13px;
+    text-align:center;
 }
 
-.slider .reference .vertical_line:nth-child(odd) {
-    background-color: #E6E6E6;
-}
-.slider .reference .vertical_line:hover {
-    background-color: #888 !important;
+.year-marker {
+    position:absolute;
+    bottom:0;
+    height:100%;
+    width:4px;
+    margin-left: -2px;
+    background-color: #FE2E64 ;
 }
 
 .slider .reference .content {
@@ -79,36 +92,6 @@ body {
     margin:10px;
     margin-top: 18px;
     position:relative;
-}
-
-.slider .reference .first_year{
-    position:relative;
-    float:left;
-    color:#585858;
-    padding:5px;
-    font-size:12px;
-    text-shadow: 0px 1px 0px #ffffff;
-}
-
-.slider .reference .hover_year{
-    position:absolute;
-    margin-left: -50px;
-    left:50%;
-    width:100px;
-    color:#585858;
-    padding:5px;
-    text-align: center;
-    font-size:12px;
-    text-shadow: 0px 1px 0px #ffffff;
-}
-
-.slider .reference .last_year{
-    position:relative;
-    float:right;
-    color:#585858;
-    padding:5px;
-    font-size:12px;
-    text-shadow: 0px 1px 0px #ffffff;
 }
 
 .current-year{
@@ -194,7 +177,7 @@ Taken from http://stephanwagner.me/only-css-loading-spinner
         font-size: 10px ;
     }
 
-    .reference{
+    .reference-container{
         display:none;
     }
 }
@@ -280,7 +263,7 @@ ul.lines li{
 }
 
 .tab.not-selected {
-    background-color: #A4A4A4
+    background-color: #D8D8D8;
 }
 
 /* Checkbox inspired from

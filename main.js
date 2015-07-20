@@ -34,6 +34,7 @@
     };
 
     this.change_to_year = function(year,speed,from_input){
+      if (year > years.end) return;
       if (self.timeline.busy()) return;
 
       self.timeline.get_busy();
@@ -50,8 +51,7 @@
           }else{
             self.timeline.up_to_year(y);
             if (!from_input) $('.current-year').val(y);
-            $('#'+y).css('backgroundColor','red');
-            $('#'+(y-1)).css('backgroundColor','');
+            self.set_year_maker(y);
           }
           y++;
         }, speed || defaults.speed);
@@ -64,8 +64,7 @@
           }else{
             self.timeline.down_to_year(y);
             if (!from_input) $('.current-year').val(y);
-            $('#'+y).css('backgroundColor','red');
-            $('#'+(y+1)).css('backgroundColor','');
+            self.set_year_maker(y);
           }
           y--;
         }, speed || defaults.speed);
@@ -75,27 +74,24 @@
     };
 
     this.create_slider = function(years){
-      for (var i = years.start; i < (years.end +1); i++){
-        var left = (i-years.start)/(years.end-years.start+1)*100;
-        var width = 100 / (years.end-years.start +1) + 0.1;
+      for (var i = years.start; i < (years.end); i += 10){
+        var left = (i-years.start)/(years.end-years.start+5)*100;
+        var width = 100 / (years.end-years.start+5) * 10;
+        var year = $("<div class='vertical_line' style='left:"+ left +"%;width:"+width+"%'>"+
+          i +'</div>');
 
-        var year = $("<div id ='"+i+"'class='vertical_line'style='left:"+ left +"%;width:"+width+"%'></div>")
-
-        year.hover(function(){
-          $('.hover_year').show().html(this.id);
-        },function(){
-          $('.hover_year').hide();
+        $('.reference').append(year).click(function(e){
+          var posX = $(this).offset().left;
+          var left = (e.pageX - posX) / $(this).width();
+          var year = parseInt(left * (years.end - years.start +10) + years.start);
+          self.change_to_year(year);
         });
-
-        year.click(function(){
-          self.change_to_year(parseInt(this.id));
-        });
-
-        $('.reference').append(year);
       }
+    };
 
-      $('.first_year').html(years.start);
-      $('.last_year').html(years.end);
+    this.set_year_maker = function (y){
+      var left =(y-years.start)/(years.end-years.start+5)*100;
+      $('.year-marker').css('left',left+'%');
     };
 
     this.timeline = new Timeline(data,map,years,styles);
@@ -177,7 +173,7 @@
     // ----------------------
     this.timeline.up_to_year(years.start);
     $('.current-year').val(years.start);
-    $('#'+years.start).css('backgroundColor','red');
+    self.set_year_maker(years.start);
 
     if (starting_year) this.change_to_year(starting_year,1);
   };
@@ -329,7 +325,7 @@
       load_data(function(data){
         window.app = new App(defaults,data,map,years,styles,params.year,params.lines);
         $(".spinner-container").fadeOut();
-        $(".slider").fadeIn();
+        $(".slider").show();
         $(".current-year").fadeIn();
         $(".panel-container").show().css('bottom',58-$(".panel").height()+'px');
       });
