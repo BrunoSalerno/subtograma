@@ -83,7 +83,7 @@
         $('.reference').append(year).click(function(e){
           var posX = $(this).offset().left;
           var left = (e.pageX - posX) / $(this).width();
-          var year = parseInt(left * (years.end - years.start +10) + years.start);
+          var year = parseInt(left * (years.end - years.start +5) + years.start);
           self.change_to_year(year);
         });
       }
