@@ -80,12 +80,22 @@
         var year = $("<div class='vertical_line' style='left:"+ left +"%;width:"+width+"%'>"+
           i +'</div>');
 
-        $('.reference').append(year).click(function(e){
-          var posX = $(this).offset().left;
-          var left = (e.pageX - posX) / $(this).width();
-          var year = parseInt(left * (years.end - years.start +5) + years.start);
-          self.change_to_year(year);
-        });
+        $('.reference').
+          append(year).
+          click(function(e){
+            var posX = $(this).offset().left;
+            var left = (e.pageX - posX) / $(this).width();
+            var year = parseInt(left * (years.end - years.start +5) + years.start);
+            self.change_to_year(year);}).
+          mousemove(function(e){
+            var posX = $(this).offset().left;
+            var left = (e.pageX - posX) / $(this).width();
+            var year = parseInt(left * (years.end - years.start +5) + years.start);
+            $('.year-hover').html(year).css({left:left*100+'%'}).fadeIn();
+          }).
+          mouseleave(function(){
+            $('.year-hover').fadeOut();
+          })
       }
     };
 
