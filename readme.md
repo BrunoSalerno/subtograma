@@ -25,6 +25,6 @@ TODO
 - [x] Cambiar ícono de ojo a capas
 - [x] Hacer un tab de about
 - [x] Timeline versión ponzo
-- [ ] Timeline: hover de año
+- [x] Timeline: hover de año
 - [ ] Ley 670
 - [ ] Call to action: botón de play ?
