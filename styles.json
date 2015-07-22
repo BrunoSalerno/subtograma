@@ -1,0 +1,62 @@
+{
+  "line": {
+    "buildstart": {
+      "color": "#A4A4A4",
+      "weight": 6,
+      "opacity": 1,
+      "smoothFactor": 0,
+      "lineJoin": "round",
+      "lineCap": "round"
+    },
+    "opening": {
+      "default": {
+        "weight": 6,
+        "opacity": 1,
+        "smoothFactor": 0,
+        "lineJoin": "round",
+        "lineCap": "round"
+      },
+      "A": {
+        "color": "#01A9DB"
+      },
+      "B": {
+        "color": "#DF0101"
+      },
+      "C": {
+        "color": "#0000FF"
+      },
+      "D": {
+        "color": "#088A08"
+      },
+      "E": {
+        "color": "#8A084B"
+      },
+      "H": {
+        "color": "#FFBF00"
+      },
+      "P": {
+        "color": "#FF8000"
+      }
+    }
+  },
+  "point": {
+    "buildstart": {
+      "weight": 2,
+      "radius": 5,
+      "stroke": true,
+      "opacity": 1,
+      "fillOpacity": 1,
+      "color": "#6E6E6E",
+      "fillColor": "#848484"
+    },
+    "opening": {
+      "weight": 2,
+      "radius": 5,
+      "stroke": true,
+      "opacity": 1,
+      "fillOpacity": 1,
+      "color": "#424242",
+      "fillColor": "#E6E6E6"
+    }
+  }
+}

@@ -42,7 +42,9 @@ var Section = function(map, feature, styles, type){
     var style;
     switch (self.__type){
       case 'line':
-        style = (operation == 'opening') ? self.styles.line[operation][self.properties.line] : self.styles.line[operation];
+        style = (operation == 'opening') ?
+          $.extend(true,{},self.styles.line[operation]["default"],self.styles.line[operation][self.properties.line]) :
+          self.styles.line[operation];
         break;
       case 'station':
         style = self.styles.point[operation];

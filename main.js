@@ -221,6 +221,13 @@
     });
   };
 
+  // Styles loader
+  var load_styles = function(callback){
+    $.getJSON('styles.json', function(json){
+      if (typeof callback == 'function') callback(json)
+    });
+  };
+
   $(document).ready(function(){
     var defaults = {
       coords : [-34.6050499,-58.4122003],
@@ -230,97 +237,6 @@
     };
 
     var years = {start:1910,end:2015, current:null, previous:null};
-
-    var styles = {
-      line : {
-        buildstart: {
-          color: '#A4A4A4',
-          weight: 6,
-          opacity: 1,
-          smoothFactor:0,
-          lineJoin: 'round',
-          lineCap: 'round'
-        },
-        opening : {
-          'A': {
-            color: '#01A9DB',
-            weight: 6,
-            opacity: 1,
-            smoothFactor:0,
-            lineJoin: 'round',
-            lineCap: 'round'
-          },
-          'B': {
-            color: '#DF0101',
-            weight: 6,
-            opacity: 1,
-            smoothFactor:0,
-            lineJoin: 'round',
-            lineCap: 'round'
-          },
-          'C': {
-            color: '#0000FF',
-            weight: 6,
-            opacity: 1,
-            smoothFactor:0,
-            lineJoin: 'round',
-            lineCap: 'round'
-          },
-          'D': {
-            color: '#088A08',
-            weight: 6,
-            opacity: 1,
-            smoothFactor:0,
-            lineJoin: 'round',
-            lineCap: 'round'
-          },
-          'E': {
-            color: '#8A084B',
-            weight: 6,
-            opacity: 1,
-            smoothFactor:0,
-            lineJoin: 'round',
-            lineCap: 'round'
-          },
-          'H': {
-            color: '#FFBF00',
-            weight: 6,
-            opacity: 1,
-            smoothFactor:0,
-            lineJoin: 'round',
-            lineCap: 'round'
-          },
-          'P': {
-            color: '#FF8000',
-            weight: 2,
-            opacity: 1,
-            smoothFactor:0,
-            lineJoin: 'round',
-            lineCap: 'round'
-          }
-        }
-      },
-      point : {
-        buildstart:{
-          weight:2,
-          radius:5,
-          stroke:true,
-          opacity:1,
-          fillOpacity:1,
-          color:'#6E6E6E',
-          fillColor:'#848484'
-        },
-        opening:{
-          weight:2,
-          radius:5,
-          stroke:true,
-          opacity:1,
-          fillOpacity:1,
-          color:'#424242',
-          fillColor:'#E6E6E6'
-        }
-      }
-    };
 
     $(".spinner-container").show().addClass('spinner');
 
@@ -332,12 +248,14 @@
     }
 
     load_map(defaults, function(map){
-      load_data(function(data){
-        window.app = new App(defaults,data,map,years,styles,params.year,params.lines);
-        $(".spinner-container").fadeOut();
-        $(".slider").show();
-        $(".current-year").fadeIn();
-        $(".panel-container").show().css('bottom',58-$(".panel").height()+'px');
+      load_data(function(data,projects_data){
+        load_styles(function(styles){
+          window.app = new App(defaults,data,projects_data,map,years,styles,params.year,params.lines);
+          $(".spinner-container").fadeOut();
+          $(".slider").show();
+          $(".current-year").fadeIn();
+          $(".panel-container").show().css('bottom',58-$(".panel").height()+'px');
+        });
       });
     });
   });
