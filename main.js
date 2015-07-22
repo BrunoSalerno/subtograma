@@ -235,7 +235,7 @@
       line : {
         buildstart: {
           color: '#A4A4A4',
-          weight: 6,
+          weight: 5,
           opacity: 1,
           smoothFactor:0,
           lineJoin: 'round',
@@ -244,7 +244,7 @@
         opening : {
           'A': {
             color: '#01A9DB',
-            weight: 6,
+            weight: 5,
             opacity: 1,
             smoothFactor:0,
             lineJoin: 'round',
@@ -252,7 +252,7 @@
           },
           'B': {
             color: '#DF0101',
-            weight: 6,
+            weight: 5,
             opacity: 1,
             smoothFactor:0,
             lineJoin: 'round',
@@ -260,7 +260,7 @@
           },
           'C': {
             color: '#0000FF',
-            weight: 6,
+            weight: 5,
             opacity: 1,
             smoothFactor:0,
             lineJoin: 'round',
@@ -268,7 +268,7 @@
           },
           'D': {
             color: '#088A08',
-            weight: 6,
+            weight: 5,
             opacity: 1,
             smoothFactor:0,
             lineJoin: 'round',
@@ -276,7 +276,7 @@
           },
           'E': {
             color: '#8A084B',
-            weight: 6,
+            weight: 5,
             opacity: 1,
             smoothFactor:0,
             lineJoin: 'round',
@@ -284,7 +284,7 @@
           },
           'H': {
             color: '#FFBF00',
-            weight: 6,
+            weight: 5,
             opacity: 1,
             smoothFactor:0,
             lineJoin: 'round',
