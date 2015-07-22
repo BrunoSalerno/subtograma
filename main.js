@@ -316,7 +316,7 @@
           stroke:true,
           opacity:1,
           fillOpacity:1,
-          color:'#1C1C1C',
+          color:'#424242',
           fillColor:'#E6E6E6'
         }
       }
