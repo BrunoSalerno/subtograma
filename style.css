@@ -5,7 +5,7 @@
 }
 
 a {
-    color:black;
+    color:#FE2E64;
     text-decoration: none;
 }
 
@@ -322,4 +322,15 @@ input[type=number]::-webkit-outer-spin-button {
 
     opacity: 1;
 
+}
+
+.plan-label {
+    color:#424242;
+    float:left;
+    display:inline-block;
+    width:auto;
+    text-align: center;
+    padding:5px;
+    padding-left:15px;
+    border-left:1px solid #585858;
 }

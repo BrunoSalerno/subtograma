@@ -47,7 +47,9 @@ var Section = function(map, feature, styles, type){
           self.styles.line[operation];
         break;
       case 'station':
-        style = self.styles.point[operation];
+        style = (operation == 'opening') ?
+          $.extend(true,{},self.styles.point[operation],self.styles.line[operation][self.properties.line]) :
+          self.styles.point[operation];
         break;
     }
     return style;
@@ -78,7 +80,8 @@ var Section = function(map, feature, styles, type){
     feature_var.bindPopup(self.__popup_content());
 
     feature_var.on('mouseover', function (e) {
-      this.setStyle({color:'black',weight:5});
+      this.setStyle({color:'#2E2E2E'});
+      if (self.geometry.type=='Point') this.setStyle({weight:3});
     });
 
     feature_var.on('mouseout', function (e) {

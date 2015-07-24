@@ -2,7 +2,7 @@
   "line": {
     "buildstart": {
       "color": "#A4A4A4",
-      "weight": 6,
+      "weight": 7,
       "opacity": 1,
       "smoothFactor": 0,
       "lineJoin": "round",
@@ -10,7 +10,7 @@
     },
     "opening": {
       "default": {
-        "weight": 6,
+        "weight": 7,
         "opacity": 1,
         "smoothFactor": 0,
         "lineJoin": "round",
@@ -32,10 +32,25 @@
         "color": "#8A084B"
       },
       "H": {
-        "color": "#FFBF00"
+        "color": "#FFFF00"
       },
       "P": {
-        "color": "#FF8000"
+        "color": "#FF8000",
+        "weight": 4
+      }
+    },
+    "project":{
+      "default":{
+        "weight": 7,
+        "opacity": 1,
+        "smoothFactor": 0,
+        "lineJoin": "round",
+        "lineCap": "round"
+      },
+      "Ley 670":{
+        "F":{
+          "color":"#8A0808"
+        }
       }
     }
   },
@@ -46,8 +61,8 @@
       "stroke": true,
       "opacity": 1,
       "fillOpacity": 1,
-      "color": "#6E6E6E",
-      "fillColor": "#848484"
+      "color":"#A4A4A4",
+      "fillColor": "#E6E6E6"
     },
     "opening": {
       "weight": 2,
@@ -55,7 +70,14 @@
       "stroke": true,
       "opacity": 1,
       "fillOpacity": 1,
-      "color": "#424242",
+      "fillColor": "#E6E6E6"
+    },
+    "project":{
+      "weight": 2,
+      "radius": 5,
+      "stroke": true,
+      "opacity": 1,
+      "fillOpacity": 1,
       "fillColor": "#E6E6E6"
     }
   }

@@ -1,0 +1,19 @@
+{
+"type": "FeatureCollection",
+                                                                                
+"features": [
+{ "type": "Feature", "properties": { "id": 5, "name": "Rivadavia", "line": "F", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.391887984436778, -34.609756641539136 ] } },
+{ "type": "Feature", "properties": { "id": 4, "name": "México", "line": "F", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.391671792530616, -34.615984115916419 ] } },
+{ "type": "Feature", "properties": { "id": 3, "name": "San Juan", "line": "F", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.391449568484212, -34.622988407203557 ] } },
+{ "type": "Feature", "properties": { "id": 2, "name": "Sáenz Peña", "line": "F", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.387701276968301, -34.627134681786401 ] } },
+{ "type": "Feature", "properties": { "id": 1, "name": "Constitución", "line": "F", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.380889945067644, -34.626886366464909 ] } },
+{ "type": "Feature", "properties": { "id": 7, "name": "Santa Fe", "line": "F", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.393266207838529, -34.595631888328271 ] } },
+{ "type": "Feature", "properties": { "id": 7, "name": "Córdoba", "line": "F", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.392887872002746, -34.599925177679012 ] } },
+{ "type": "Feature", "properties": { "id": 6, "name": "Corrientes", "line": "F", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.39226632027254, -34.604663109863843 ] } },
+{ "type": "Feature", "properties": { "id": 12, "name": "Plaza Italia", "line": "F", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.421442093608754, -34.580987433276846 ] } },
+{ "type": "Feature", "properties": { "id": 11, "name": "Salguero", "line": "F", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.410399416401837, -34.582194460895309 ] } },
+{ "type": "Feature", "properties": { "id": 10, "name": "Sánchez de Bustamant", "line": "F", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.402643531768284, -34.583462655352108 ] } },
+{ "type": "Feature", "properties": { "id": 9, "name": "Pueyrredón", "line": "F", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.397481950008675, -34.587267122607706 ] } },
+{ "type": "Feature", "properties": { "id": 8, "name": "Junín", "line": "F", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.393617519686053, -34.590359514438489 ] } }
+]
+}

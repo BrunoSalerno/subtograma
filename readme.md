@@ -26,5 +26,10 @@ TODO
 - [x] Hacer un tab de about
 - [x] Timeline versión ponzo
 - [x] Timeline: hover de año
-- [ ] Ley 670
+- [x] Probar que el stroke de la estación sea del color que la línea. (Ver z-indexes cómo quedan)
+- [x] Mejorar z-index de las estaciones
+- [x] Ley 670
+- [ ] Líneas G e I
+- [ ] Al hacer zoom, agrandar un poco el tamaño de las estaciones?
+- [ ] Cuando se selleciona tramo, discorda borde de estación
 - [ ] Call to action: botón de play ?

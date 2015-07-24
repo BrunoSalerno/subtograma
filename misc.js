@@ -29,6 +29,8 @@ function transformToAssocArray( prmstr ) {
       params[tmparr[0]] = parseInt(tmparr[1]);
     } else if (tmparr[0] == 'lines'){
       params[tmparr[0]] = tmparr[1].split(',')
+    } else if (tmparr[0] == 'plans'){
+      params[tmparr[0]] = tmparr[1].split(',')
     }else{
       params[tmparr[0]] = tmparr[1];
     }
@@ -38,7 +40,7 @@ function transformToAssocArray( prmstr ) {
 }
 
 
-function save_params(year,map,lines){
+function save_params(year,map,lines,plans){
   var current_params = getSearchParameters();
 
   var url=location.pathname+'?';
@@ -56,6 +58,12 @@ function save_params(year,map,lines){
     url += '&lines=' + (lines.join(',') || 0)
   } else if (current_params.lines){
     url += '&lines=' + current_params.lines.join(',')
+  }
+
+  if (plans){
+    url += '&plans=' + (plans.join(',') || 0)
+  } else if (current_params.plans){
+    url += '&plans=' + current_params.plans.join(',')
   }
 
   history.pushState(document.title + ' ' + year ,document.title,url);

@@ -1,6 +1,6 @@
 (function(){
 
-  var App = function(defaults,data,map,years,styles,starting_year,lines_to_show){
+  var App = function(defaults,data,projects_data,map,years,styles,starting_year,lines_to_show,plans_to_show){
     var self = this;
 
     this.change_line_to_year = function(year_start,year_end,line){
@@ -104,6 +104,7 @@
       $('.year-marker').css('left',left+'%');
     };
 
+    this.planification = new Planification(projects_data,map,styles);
     this.timeline = new Timeline(data,map,years,styles);
     this.create_slider(years);
 
@@ -148,18 +149,42 @@
       $('.panel-container').animate({bottom:bottom});
     });
 
-    // Lines layers
-    // ------------
-    if (lines_to_show) this.timeline.set_lines(lines_to_show);
+    // layers
+    // -------
+    if (lines_to_show) {
+      this.timeline.set_lines(lines_to_show);
+    }
+
+    if (plans_to_show){
+      this.planification.set_plans_lines(plans_to_show)
+    }
+
     var lines = this.timeline.lines();
     var lines_str='<ul class="lines">';
     for (var line in lines){
       var checked_str = (lines[line].show) ? 'checked' : '';
       lines_str += '<li><input type="checkbox" id="checkbox_'+line+'" ' + checked_str + '/>' +
-        '<label id="label_'+line+'" for="checkbox_'+line+'" style="background-color: '+styles.line.opening[line].color+'">' + line + '</label></li>';
+        '<label id="label_'+line+
+        '" for="checkbox_'+line+'" style="background-color: '+styles.line.opening[line].color+'">' +
+        line + '</label></li>';
     }
 
+    var plans = this.planification.plans();
+    $.each(plans,function(i,plan){
+      lines_str += '<li><div class="plan-label">'+plan.label+'</div></li>';
+      for (var line in plan.lines){
+        var checked_str = (plan.lines[line].show) ? 'checked' : '';
+        lines_str += '<li><input type="checkbox" id="checkbox_'+plan.name.replace(' ','-')+
+          '_'+line+'" ' + checked_str + '/>' +
+          '<label id="label_'+plan.name.replace(' ','-')+'_'+line +
+          '" for="checkbox_'+plan.name.replace(' ','-')+'_'+line +
+          '" style="background-color: '+styles.line.project[plan.name][line].color+'">' +
+          line + '</label></li>';
+      }
+    });
+
     lines_str += '</ul>';
+
     $(".content.layers").append(lines_str);
 
     for (var l in this.timeline.lines()){
@@ -178,6 +203,17 @@
         save_params(null,null,lines_params);
       });
     }
+
+    $.each(this.planification.plans(),function(i,p){
+      for (l in p.lines){
+        $('#label_'+ p.name.replace(' ','-')+'_'+l).click(function(e){
+          var checkbox_info = $(this).attr('id').split('_');
+          var plans_params = self.planification.toggle(checkbox_info[1].replace('-',' '),checkbox_info[2]);
+
+          save_params(null,null,null,plans_params);
+        });
+      }
+    });
 
     // Init to the start year
     // ----------------------
@@ -211,15 +247,23 @@
 
   var load_data = function(callback){
     var data = {stations:null,lines:null};
+    var project_data = {stations:null,lines:null};
 
     $.getJSON('geojson/estaciones.geojson', function(stations){
       data.stations = stations;
       $.getJSON('geojson/subte.geojson', function(lines){
         data.lines = lines;
-        if (typeof callback == 'function') callback(data);
+        $.getJSON('geojson/projects-lines.geojson',function(p_lines){
+          project_data.lines = p_lines;
+          $.getJSON('geojson/projects-stations.geojson',function(p_stations){
+            project_data.stations = p_stations;
+            if (typeof callback == 'function') callback(data,project_data);
+          });
+        })
       });
     });
   };
+
 
   // Styles loader
   var load_styles = function(callback){
@@ -250,7 +294,7 @@
     load_map(defaults, function(map){
       load_data(function(data,projects_data){
         load_styles(function(styles){
-          window.app = new App(defaults,data,projects_data,map,years,styles,params.year,params.lines);
+          window.app = new App(defaults,data,projects_data,map,years,styles,params.year,params.lines,params.plans);
           $(".spinner-container").fadeOut();
           $(".slider").show();
           $(".current-year").fadeIn();
