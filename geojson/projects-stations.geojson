@@ -14,6 +14,17 @@
 { "type": "Feature", "properties": { "id": 11, "name": "Salguero", "line": "F", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.410399416401837, -34.582194460895309 ] } },
 { "type": "Feature", "properties": { "id": 10, "name": "Sánchez de Bustamant", "line": "F", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.402643531768284, -34.583462655352108 ] } },
 { "type": "Feature", "properties": { "id": 9, "name": "Pueyrredón", "line": "F", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.397481950008675, -34.587267122607706 ] } },
-{ "type": "Feature", "properties": { "id": 8, "name": "Junín", "line": "F", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.393617519686053, -34.590359514438489 ] } }
+{ "type": "Feature", "properties": { "id": 8, "name": "Junín", "line": "F", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.393617519686053, -34.590359514438489 ] } },
+{ "type": "Feature", "properties": { "id": 19, "name": "Mario Bravo", "line": "G", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.415805782412264, -34.597878795691216 ] } },
+{ "type": "Feature", "properties": { "id": 18, "name": "Jean Jaures", "line": "G", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.406473458248676, -34.598081118976843 ] } },
+{ "type": "Feature", "properties": { "id": 17, "name": "Pueyrredón", "line": "G", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.40110449150761, -34.594837564426754 ] } },
+{ "type": "Feature", "properties": { "id": 16, "name": "Riobamba", "line": "G", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.394468172102371, -34.595842890199961 ] } },
+{ "type": "Feature", "properties": { "id": 15, "name": "Paraná", "line": "G", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.388246622659956, -34.595811276367215 ] } },
+{ "type": "Feature", "properties": { "id": 14, "name": "Cerrito", "line": "G", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.382601142610369, -34.595520428541484 ] } },
+{ "type": "Feature", "properties": { "id": 13, "name": "Retiro", "line": "G", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.373898654316228, -34.592087082683321 ] } },
+{ "type": "Feature", "properties": { "id": 21, "name": "Estado de Israel", "line": "G", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.431951087261595, -34.601830333175997 ] } },
+{ "type": "Feature", "properties": { "id": 20, "name": "Gascón", "line": "G", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.422979766584135, -34.597783956481415 ] } },
+{ "type": "Feature", "properties": { "id": 23, "name": "Cid Campeador", "line": "G", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.445961094894891, -34.607697229209712 ] } },
+{ "type": "Feature", "properties": { "id": 22, "name": "Parque Centenario", "line": "G", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.435453589169917, -34.608734008253684 ] } }
 ]
 }
