@@ -15,9 +15,14 @@ var Section = function(map, feature, styles, type){
   this.has_building_data = function(){
     return self.__has_building_data;
   };
+
   this.been_inaugurated = function(){
     return self.__been_inaugurated;
-  }
+  };
+
+  this.line = function(){
+    return self.properties.line
+  };
 
   this.type = function(){
     return self.__type;

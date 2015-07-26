@@ -50,9 +50,10 @@ var Timeline = function(data,map,years,styles){
     }
   };
 
-  this.stations_to_front = function(){
+  this.feature_to_front  = function(type,line){
     for (var f in self.sections){
-      if (self.sections[f].type()=='station') self.sections[f].bring_to_front();
+      if (self.sections[f].type()==type &&
+        self.sections[f].line() == line) self.sections[f].bring_to_front();
     }
   };
 
@@ -86,81 +87,103 @@ var Timeline = function(data,map,years,styles){
     return t;
   };
 
-  this.draw = function(year,line) {
+  this.draw = function(year,line){
     var current_year_data = self.data[year];
+    var lines;
 
-    if (!current_year_data) return;
+    if (line) {
+      var o ={};
+      o[line] = 'temporary obj';
+      lines = o;
+    } else {
+      lines = self.lines();
+    }
 
-    ['line','station'].forEach(function(type){
-      var category = (type == 'line') ? 'lines' : 'stations';
-      for (var c in current_year_data[category]){
-        current_year_data[category][c].forEach(function(obj){
+    for (var l in lines){
+      ['line','station'].forEach(function(type){
+        var category = (type == 'line') ? 'lines' : 'stations';
+        if (current_year_data && current_year_data[category]){
+          for (var c in current_year_data[category]){
+            $.each(current_year_data[category][c],function(i,obj){
 
-          if (line && obj.properties.line != line) return;
-          if (!line && !self.__lines[obj.properties.line].show) return;
+              if (obj.properties.line != l) return;
+              if (!line && !self.__lines[obj.properties.line].show) return;
 
-          var id = type + '_' + obj.properties.id;
+              var id = type + '_' + obj.properties.id;
 
-          if (c=='opening'){
-            if (!self.sections[id]) self.sections[id] = new Section(self.map,obj,self.styles,type);
-            self.sections[id].open();
+              if (c=='opening'){
+                if (!self.sections[id]) self.sections[id] = new Section(self.map,obj,self.styles,type);
+                self.sections[id].open();
+              }
+
+              if (c=='closure'){
+                self.sections[id].close();
+              }
+
+              if (c=='buildstart'){
+                if (!self.sections[id]) self.sections[id] = new Section(self.map,obj,self.styles,type);
+                self.sections[id].buildstart();
+              }
+
+            });
           }
-
-          if (c=='closure'){
-            self.sections[id].close();
-          }
-
-          if (c=='buildstart'){
-            if (!self.sections[id]) self.sections[id] = new Section(self.map,obj,self.styles,type);
-            self.sections[id].buildstart();
-          }
-        })
-      }
-    });
-
-    self.stations_to_front();
+        }
+        self.feature_to_front(type,l);
+      });
+    }
   };
+
 
   this.undraw = function(year,line) {
     var current_year_data = self.data[year + 1];
+    var lines;
 
-    if (!current_year_data) return;
+    if (line) {
+      var o ={};
+      o[line] = 'temporary obj';
+      lines = o;
+    } else {
+      lines = self.lines();
+    }
 
-    ['line','station'].forEach(function(type){
-      var category = (type == 'line') ? 'lines' : 'stations';
-      for (var c in current_year_data[category]){
-        current_year_data[category][c].forEach(function(obj){
+    for (var l in lines){
+      ['line','station'].forEach(function(type){
+        var category = (type == 'line') ? 'lines' : 'stations';
+        if (current_year_data && current_year_data[category]){
+          for (var c in current_year_data[category]){
+            current_year_data[category][c].forEach(function(obj){
 
-          if (line && obj.properties.line != line) return;
-          if (!line && !self.__lines[obj.properties.line].show) return;
+              if (obj.properties.line != l) return;
+              if (!line && !self.__lines[obj.properties.line].show) return;
 
-          var id = type + '_' + obj.properties.id;
-          if (!self.sections[id]) return;
+              var id = type + '_' + obj.properties.id;
+              if (!self.sections[id]) return;
 
-          if (c=='opening'){
-            if (self.sections[id].has_building_data()){
-              self.sections[id].buildstart();
-            } else {
-              self.sections[id].close();
-            }
+              if (c=='opening'){
+                if (self.sections[id].has_building_data()){
+                  self.sections[id].buildstart();
+                } else {
+                  self.sections[id].close();
+                }
+              }
+
+              if (c=='closure'){
+                if (self.sections[id].been_inaugurated()){
+                  self.sections[id].open();
+                } else {
+                  self.sections[id].buildstart();
+                }
+              }
+
+              if (c=='buildstart'){
+                self.sections[id].close();
+              }
+            });
           }
-
-          if (c=='closure'){
-            if (self.sections[id].been_inaugurated()){
-              self.sections[id].open();
-            } else {
-              self.sections[id].buildstart();
-            }
-          }
-
-          if (c=='buildstart'){
-            self.sections[id].close();
-          }
-        })
-      }
-    });
-
-    self.stations_to_front();
+        }
+        self.feature_to_front(type,l);
+      });
+    }
   };
 
   this.set_year = function(year){

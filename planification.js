@@ -23,6 +23,7 @@ var Planification = function(data,map,styles){
   };
 
   this.set_plans_lines = function(plan_lines){
+    if (plan_lines == 0) return;
     $.each(plan_lines,function(i,p){
       var param = p.split('.');
       var line = param[1];
