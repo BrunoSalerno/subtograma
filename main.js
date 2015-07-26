@@ -225,23 +225,25 @@
   };
 
   var load_map = function(defaults,callback){
-    var options = {
-      zoomControl: false,
-      attributionControl: false
-    };
+    $.get('php/map_url.php',function(map_url){
+      var options = {
+        zoomControl: false,
+        attributionControl: false
+      };
 
-    var map = L.map('map', options).setView(defaults.coords, defaults.zoom);
+      var map = L.map('map', options).setView(defaults.coords, defaults.zoom);
 
-    L.tileLayer('https://{s}.tiles.mapbox.com/v4/brunosalerno.mmfg5lpk/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYnJ1bm9zYWxlcm5vIiwiYSI6IlJxeWpheTAifQ.yoZDrB8Hrn4TvSzcVUFHBA').addTo(map)
+      L.tileLayer(map_url).addTo(map);
 
-    L.control.zoom({position:'topright'}).addTo(map);
+      L.control.zoom({position:'topright'}).addTo(map);
 
-    map.whenReady(function(){
-      if (typeof callback === 'function') callback(map);
-    });
+      map.whenReady(function(){
+        if (typeof callback === 'function') callback(map);
+      });
 
-    map.on('moveend',function(){
-      save_params(null,map);
+      map.on('moveend',function(){
+        save_params(null,map);
+      });
     });
   };
 
