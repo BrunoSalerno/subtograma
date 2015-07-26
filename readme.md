@@ -29,7 +29,9 @@ TODO
 - [x] Probar que el stroke de la estación sea del color que la línea. (Ver z-indexes cómo quedan)
 - [x] Mejorar z-index de las estaciones
 - [x] Ley 670
-- [ ] Líneas G e I
-- [ ] Al hacer zoom, agrandar un poco el tamaño de las estaciones?
-- [ ] Cuando se selleciona tramo, discorda borde de estación
+- [x] Líneas G e I
+- [x] Actualizar todos los geojsons
+- [x] Al hacer zoom, agrandar un poco el tamaño de las estaciones? No
+- [ ] Rara superposición de las estaciones
+- [ ] Cuando se selleciona tramo, discorda borde de estación. Not now
 - [ ] Call to action: botón de play ?
