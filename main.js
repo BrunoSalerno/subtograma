@@ -78,7 +78,7 @@
         var left = (i-years.start)/(years.end-years.start+5)*100;
         var width = 100 / (years.end-years.start+5) * 10;
         var year = $("<div class='vertical_line' style='left:"+ left +"%;width:"+width+"%'>"+
-          i +'</div>');
+          (i + 5) +'</div>');
 
         $('.reference').
           append(year).
