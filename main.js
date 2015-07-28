@@ -1,6 +1,7 @@
 (function(){
 
   var App = function(defaults,data,projects_data,map,years,styles,starting_year,lines_to_show,plans_to_show){
+    this.interval = null;
     var self = this;
 
     this.change_line_to_year = function(year_start,year_end,line){
@@ -33,21 +34,21 @@
       }
     };
 
-    this.change_to_year = function(year,speed,from_input){
+    this.change_to_year = function(year,speed,from_input, callback){
       if (year > years.end) return;
       if (self.timeline.busy()) return;
 
       self.timeline.get_busy();
 
-      var interval;
       var y = self.timeline.current_year();
 
       if (year > self.timeline.current_year()) {
-        interval = setInterval(function(){
+        self.interval = setInterval(function(){
           if (y > year) {
-            save_params(year,null);
-            clearInterval(interval);
+            save_params(year);
+            clearInterval(self.interval);
             self.timeline.release();
+            if (typeof callback == 'function') callback(true);
           }else{
             self.timeline.up_to_year(y);
             if (!from_input) $('.current-year').val(y);
@@ -56,11 +57,12 @@
           y++;
         }, speed || defaults.speed);
       } else if (year < self.timeline.current_year()){
-        interval = setInterval(function(){
+        self.interval = setInterval(function(){
           if (y < year) {
-            save_params(year,null);
-            clearInterval(interval);
+            save_params(year);
+            clearInterval(self.interval);
             self.timeline.release();
+            if (typeof callback == 'function') callback(true);
           }else{
             self.timeline.down_to_year(y);
             if (!from_input) $('.current-year').val(y);
@@ -70,6 +72,7 @@
         }, speed || defaults.speed);
       } else {
         self.timeline.release();
+        if (typeof callback == 'function') callback(false);
       }
     };
 
@@ -80,28 +83,57 @@
         var year = $("<div class='vertical_line' style='left:"+ left +"%;width:"+width+"%'>"+
           (i + 5) +'</div>');
 
-        $('.reference').
-          append(year).
-          click(function(e){
-            var posX = $(this).offset().left;
-            var left = (e.pageX - posX) / $(this).width();
-            var year = parseInt(left * (years.end - years.start +5) + years.start);
-            self.change_to_year(year);}).
-          mousemove(function(e){
-            var posX = $(this).offset().left;
-            var left = (e.pageX - posX) / $(this).width();
-            var year = parseInt(left * (years.end - years.start +5) + years.start);
-            $('.year-hover').html(year).css({left:left*100+'%'}).fadeIn();
-          }).
-          mouseleave(function(){
-            $('.year-hover').fadeOut();
-          })
+        $('.reference').append(year);
       }
+
+      $('.reference').click(function(e){
+        var posX = $(this).offset().left;
+        var left = (e.pageX - posX) / $(this).width();
+        var year = parseInt(left * (years.end - years.start +5) + years.start);
+        self.action_button_is_playing();
+        self.change_to_year(year,null,null,function(){
+          self.action_button_is_paused();
+        });
+      }).
+        mousemove(function(e){
+          var posX = $(this).offset().left;
+          var diff = (e.pageX - posX);
+          if (diff < 0) diff = 0;
+          var left = diff / $(this).width();
+          var year = parseInt(left * (years.end - years.start +5) + years.start);
+          $('.year-hover').html(year).css({left:left*100+'%'}).fadeIn();
+        }).
+        mouseleave(function(){
+          $('.year-hover').fadeOut();
+        })
+    };
+
+    this.action_button_is_playing = function(){
+      $('.action').removeClass('play').addClass('pause');
+    };
+
+    this.action_button_is_paused = function(){
+      $('.action').removeClass('pause').addClass('play');
     };
 
     this.set_year_maker = function (y){
       var left =(y-years.start)/(years.end-years.start+5)*100;
       $('.year-marker').css('left',left+'%');
+    };
+
+    this.play = function(){
+      self.action_button_is_playing();
+      self.change_to_year(years.end,null,null, function(){
+        self.action_button_is_paused();
+      });
+    };
+
+    this.pause = function(){
+      self.action_button_is_paused();
+      clearInterval(self.interval);
+      self.timeline.release();
+      $('.current-year').val(self.timeline.current_year());
+      save_params(self.timeline.current_year());
     };
 
     this.planification = new Planification(projects_data,map,styles);
@@ -120,7 +152,10 @@
         $(this).val(years.current);
       } else {
         $(this).blur();
-        self.change_to_year(new_year,null,true);
+        self.action_button_is_playing();
+        self.change_to_year(new_year,null,true,function(){
+          self.action_button_is_paused();
+        });
       }
     });
 
@@ -149,8 +184,18 @@
       $('.panel-container').animate({bottom:bottom});
     });
 
-    // layers
-    // -------
+    // Play/Pause
+    // ----------
+    $('.action').click(function(){
+      if ($(this).hasClass('play')){
+        self.play();
+      } else {
+        self.pause();
+      }
+    });
+
+    // Layers
+    // ------
     if (lines_to_show) {
       this.timeline.set_lines(lines_to_show);
     }
