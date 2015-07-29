@@ -353,10 +353,10 @@ input[type=number]::-webkit-outer-spin-button {
 
 .action {
     width:15px;
-    height:30px;
+    height:29px;
     margin-top:16px;
     cursor:pointer;
-    background-size: 30px 30px !important;
+    background-size: 30px 29px !important;
     background-repeat: no-repeat;
 }
 
