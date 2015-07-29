@@ -354,16 +354,16 @@ input[type=number]::-webkit-outer-spin-button {
 .action {
     width:15px;
     height:30px;
-    margin-top:15px;
+    margin-top:16px;
     cursor:pointer;
-    background-size: 30px 31px !important;
+    background-size: 30px 30px !important;
     background-repeat: no-repeat;
 }
 
 .action.play {
-    background: url(img/play_pause.png) 0 0;
+    background: url(img/play_pause.svg) 0 0;
 }
 
 .action.pause {
-    background: url(img/play_pause.png) 15px 0;
+    background: url(img/play_pause.svg) 15px 0;
 }
