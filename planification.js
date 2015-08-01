@@ -107,7 +107,7 @@ var Plan = function(map,plan_name,year,styles){
 
   this.__popup_content = function(line,name){
     var content ='<div class="info-window"><div>';
-    if (name) content += toTitleCase(name) + ' - ';
+    if (name) content += name + ' - ';
     content += 'Línea '+ line + '</div>';
     content +='<ul>';
     content += '<li>' + self.label();

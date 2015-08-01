@@ -12,7 +12,7 @@
 { "type": "Feature", "properties": { "id": 6, "name": "Corrientes", "line": "F", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.39226632027254, -34.604663109863843 ] } },
 { "type": "Feature", "properties": { "id": 12, "name": "Plaza Italia", "line": "F", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.421396169660497, -34.580924416048781 ] } },
 { "type": "Feature", "properties": { "id": 11, "name": "Salguero", "line": "F", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.410399416401837, -34.582194460895309 ] } },
-{ "type": "Feature", "properties": { "id": 10, "name": "Sánchez de Bustamant", "line": "F", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.402643531768284, -34.583462655352108 ] } },
+{ "type": "Feature", "properties": { "id": 10, "name": "Bustamante", "line": "F", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.402643531768284, -34.583462655352108 ] } },
 { "type": "Feature", "properties": { "id": 9, "name": "Pueyrredón", "line": "F", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.397481950008675, -34.587267122607706 ] } },
 { "type": "Feature", "properties": { "id": 8, "name": "Junín", "line": "F", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.393617519686053, -34.590359514438489 ] } },
 { "type": "Feature", "properties": { "id": 19, "name": "Mario Bravo", "line": "G", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.415805782412264, -34.597878795691216 ] } },
@@ -33,9 +33,8 @@
 { "type": "Feature", "properties": { "id": 27, "name": "Warnes", "line": "I", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.442473225571106, -34.602244261887336 ] } },
 { "type": "Feature", "properties": { "id": 30, "name": "Rivadavia", "line": "I", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.441554746605838, -34.620201828888796 ] } },
 { "type": "Feature", "properties": { "id": 29, "name": "Aranguren", "line": "I", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.441034275192195, -34.613692869647643 ] } },
-{ "type": "Feature", "properties": { "id": 28, "name": "Díaz Velez", "line": "I", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.445534822121914, -34.607536184341221 ] } },
+{ "type": "Feature", "properties": { "id": 28, "name": "Díaz Vélez", "line": "I", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.445534822121914, -34.607536184341221 ] } },
 { "type": "Feature", "properties": { "id": 32, "name": "Directorio", "line": "I", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.44277938522621, -34.630048284002768 ] } },
-{ "type": "Feature", "properties": { "id": 31, "name": "Pedro Goyena", "line": "I", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.440478085152151, -34.62610564330398 ] } },
-{ "type": "Feature", "properties": { "id": 33, "name": "Guemes", "line": "I", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.417306901923261, -34.586043003229754 ] } }
+{ "type": "Feature", "properties": { "id": 31, "name": "Pedro Goyena", "line": "I", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.440478085152151, -34.62610564330398 ] } }
 ]
 }

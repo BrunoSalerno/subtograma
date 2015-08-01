@@ -1,7 +1,3 @@
-function toTitleCase(str) {
-  return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
-}
-
 /*
  Taken from http://stackoverflow.com/questions/5448545/how-to-retrieve-get-parameters-from-javascript
  weltraumpirat answer
