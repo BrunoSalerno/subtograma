@@ -334,14 +334,14 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .plan-label {
-    color:#424242;
+    color:#585858;
     float:left;
     display:inline-block;
     width:auto;
     text-align: center;
     padding:5px;
     padding-left:15px;
-    border-left:1px solid #585858;
+    border-left:1px dotted #A4A4A4;
 }
 
 .action-container {
