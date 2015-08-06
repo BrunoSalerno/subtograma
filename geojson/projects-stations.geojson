@@ -35,6 +35,21 @@
 { "type": "Feature", "properties": { "id": 29, "name": "Aranguren", "line": "I", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.441034275192195, -34.613692869647643 ] } },
 { "type": "Feature", "properties": { "id": 28, "name": "Díaz Vélez", "line": "I", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.445534822121914, -34.607536184341221 ] } },
 { "type": "Feature", "properties": { "id": 32, "name": "Directorio", "line": "I", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.44277938522621, -34.630048284002768 ] } },
-{ "type": "Feature", "properties": { "id": 31, "name": "Pedro Goyena", "line": "I", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.440478085152151, -34.62610564330398 ] } }
+{ "type": "Feature", "properties": { "id": 31, "name": "Pedro Goyena", "line": "I", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.440478085152151, -34.62610564330398 ] } },
+{ "type": "Feature", "properties": { "id": 40, "name": "Sáenz", "line": "H", "plan": "Ley 317" }, "geometry": { "type": "Point", "coordinates": [ -58.416299161294006, -34.649128302383396 ] } },
+{ "type": "Feature", "properties": { "id": 35, "name": "Hospitales", "line": "H", "plan": "Ley 317" }, "geometry": { "type": "Point", "coordinates": [ -58.412385152533034, -34.641268942609805 ] } },
+{ "type": "Feature", "properties": { "id": 36, "name": "Córdoba", "line": "H", "plan": "Ley 317" }, "geometry": { "type": "Point", "coordinates": [ -58.403745001520008, -34.598504729400673 ] } },
+{ "type": "Feature", "properties": { "id": 34, "name": "Parque Patricios", "line": "H", "plan": "Ley 317" }, "geometry": { "type": "Point", "coordinates": [ -58.405935078192904, -34.637726014328244 ] } },
+{ "type": "Feature", "properties": { "id": 37, "name": "Santa Fe", "line": "H", "plan": "Ley 317" }, "geometry": { "type": "Point", "coordinates": [ -58.402226037924649, -34.594228002258454 ] } },
+{ "type": "Feature", "properties": { "id": 33, "name": "Corrientes", "line": "H", "plan": "Ley 317" }, "geometry": { "type": "Point", "coordinates": [ -58.405325343256052, -34.604114845987041 ] } },
+{ "type": "Feature", "properties": { "id": 38, "name": "Las Heras", "line": "H", "plan": "Ley 317" }, "geometry": { "type": "Point", "coordinates": [ -58.39736063500834, -34.58762042913478 ] } },
+{ "type": "Feature", "properties": { "id": 39, "name": "Plaza Francia", "line": "H", "plan": "Ley 317" }, "geometry": { "type": "Point", "coordinates": [ -58.392525467936984, -34.585353177884592 ] } },
+{ "type": "Feature", "properties": { "id": 44, "name": "Plaza Once", "line": "H", "plan": "Ley 317" }, "geometry": { "type": "Point", "coordinates": [ -58.40603638176448, -34.60893524225478 ] } },
+{ "type": "Feature", "properties": { "id": 45, "name": "Venezuela", "line": "H", "plan": "Ley 317" }, "geometry": { "type": "Point", "coordinates": [ -58.404731717516796, -34.615242153351325 ] } },
+{ "type": "Feature", "properties": { "id": 46, "name": "Humberto I", "line": "H", "plan": "Ley 317" }, "geometry": { "type": "Point", "coordinates": [ -58.402322731734735, -34.623092321595088 ] } },
+{ "type": "Feature", "properties": { "id": 47, "name": "Inclán", "line": "H", "plan": "Ley 317" }, "geometry": { "type": "Point", "coordinates": [ -58.400969556928274, -34.629375658098013 ] } },
+{ "type": "Feature", "properties": { "id": 41, "name": "Retiro", "line": "H", "plan": "Ley 317" }, "geometry": { "type": "Point", "coordinates": [ -58.375530581097394, -34.592505059182052 ] } },
+{ "type": "Feature", "properties": { "id": 42, "name": "Cerrito", "line": "H", "plan": "Ley 317" }, "geometry": { "type": "Point", "coordinates": [ -58.382283883930725, -34.588468974427769 ] } },
+{ "type": "Feature", "properties": { "id": 43, "name": "Nueva Pompeya", "line": "H", "plan": "Ley 317" }, "geometry": { "type": "Point", "coordinates": [ -58.416473264548863, -34.656955868344788 ] } }
 ]
 }

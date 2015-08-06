@@ -2,7 +2,7 @@
 "type": "FeatureCollection",
                                                                                 
 "features": [
-{ "type": "Feature", "properties": { "id": 1.0, "name": "Caseros", "line": "H", "buildstart": 2001, "opening": 2007, "closure": null }, "geometry": { "type": "Point", "coordinates": [ -58.398948511875751, -34.635741996860652 ] } },
+{ "type": "Feature", "properties": { "id": 1.0, "name": "Caseros", "line": "H", "buildstart": 2001, "opening": 2007, "closure": null }, "geometry": { "type": "Point", "coordinates": [ -58.398956885468834, -34.635748886502022 ] } },
 { "type": "Feature", "properties": { "id": 2.0, "name": "Inclán", "line": "H", "buildstart": 2001, "opening": 2007, "closure": null }, "geometry": { "type": "Point", "coordinates": [ -58.400969556928274, -34.629375658098013 ] } },
 { "type": "Feature", "properties": { "id": 3.0, "name": "Humberto I", "line": "H", "buildstart": 2001, "opening": 2007, "closure": null }, "geometry": { "type": "Point", "coordinates": [ -58.402322731734735, -34.623092321595088 ] } },
 { "type": "Feature", "properties": { "id": 4.0, "name": "Venezuela", "line": "H", "buildstart": 2001, "opening": 2007, "closure": null }, "geometry": { "type": "Point", "coordinates": [ -58.404731717516796, -34.615242153351325 ] } },

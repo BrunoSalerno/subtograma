@@ -129,6 +129,17 @@ var Plan = function(map,plan_name,year,styles){
   this.draw_feature = function(geometry,line){
     var feature_var;
     switch(geometry.type){
+      case 'MultiLineString':
+        var lines = [];
+        geometry.coordinates.forEach(function(line){
+            var points=[];
+            line.forEach(function(point){
+                points.push(new L.LatLng(point[1],point[0]));
+            });
+            lines.push(points);
+        });
+        feature_var = new L.multiPolyline(lines, self.__style('line',line));
+        break;
       case 'LineString':
         var points =[];
         geometry.coordinates.forEach(function(point){
