@@ -15,11 +15,16 @@ var Planification = function(data,map,styles){
         // Si está el feature, es que está dibujada
         l[k] = {show: (self.__plans[plan].is_drawn(k)) ? true : false}
       }
-      o.push({name:plan,
-              label : self.__plans[plan].label(),
-              lines:l});
+
+      var p ={name:plan,
+              year: self.__plans[plan].year(),
+              label: self.__plans[plan].label(),
+              lines:l};
+      o.push(p);
     }
-    return o;
+
+    // We return the plans sorted by year
+    return o.sort(function(a,b){return a.year-b.year});
   };
 
   this.set_plans_lines = function(plan_lines){
@@ -99,6 +104,10 @@ var Plan = function(map,plan_name,year,styles){
 
   this.label = function(){
     return self.__name +' ('+self.__year+')';
+  };
+
+  this.year = function(){
+    return self.__year;
   };
 
   this.is_drawn = function(line){
