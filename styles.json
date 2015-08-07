@@ -32,7 +32,7 @@
         "color": "#8A084B"
       },
       "H": {
-        "fillColor":"#848484",  
+        "fillColor":"#A4A4A4",  
         "color": "#FFFF00"
       },
       "P": {
@@ -61,7 +61,7 @@
       },
       "Ley 317":{
         "H":{
-          "fillColor":"#848484",
+          "fillColor":"#A4A4A4",
           "color":"#FFFF00"
         }
       }
