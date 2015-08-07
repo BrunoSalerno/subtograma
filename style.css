@@ -298,7 +298,6 @@ input[type="checkbox"] {
     display:none;
 }
 input[type="checkbox"] + label {
-    color:#424242;
     float:left;
     display:inline-block;
     width:18px;
@@ -322,6 +321,7 @@ input[type="checkbox"]:checked + label {
 }
 
 input[type="checkbox"]:not(:checked) + label {
+    color:#424242 !important;
     background-color: transparent !important;
     border:1px solid #BDBDBD;
 }
