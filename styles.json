@@ -1,7 +1,7 @@
 {
   "line": {
     "buildstart": {
-      "color": "#A4A4A4",
+      "color": "#848484",
       "weight": 7,
       "opacity": 1,
       "smoothFactor": 0,
@@ -74,7 +74,7 @@
       "stroke": true,
       "opacity": 1,
       "fillOpacity": 1,
-      "color":"#A4A4A4",
+      "color":"#848484",
       "fillColor": "#E6E6E6"
     },
     "opening": {
