@@ -46,10 +46,12 @@ var Planification = function(data,map,styles){
 
     var plan_lines = [];
 
-    for (var k in self.__plans[plan].lines()){
-      if (self.__plans[plan].is_drawn(k)) {
-        plan_lines.push(plan.replace(' ','_')+'.'+k)
-      }
+    for (var plan in self.__plans){
+        for (var k in self.__plans[plan].lines()){
+          if (self.__plans[plan].is_drawn(k)) {
+            plan_lines.push(plan.replace(' ','_')+'.'+k)
+          }
+        }
     }
 
     return plan_lines;
