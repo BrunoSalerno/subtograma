@@ -207,11 +207,11 @@
     var lines = this.timeline.lines();
     var lines_str='<ul class="lines">';
     for (var line in lines){
-      var fillcolor = styles.line.opening[line].fillColor ? 'color: '+styles.line.opening[line].fillColor+';' : '';  
+      var label_font_color = styles.line.opening[line].labelFontColor ? 'color: '+ styles.line.opening[line].labelFontColor+';' : '';  
       var checked_str = (lines[line].show) ? 'checked' : '';
       lines_str += '<li><input type="checkbox" id="checkbox_'+line+'" ' + checked_str + '/>' +
         '<label id="label_'+line+
-        '" for="checkbox_'+line+'" style="'+ fillcolor +'background-color: '+styles.line.opening[line].color+'">' +
+        '" for="checkbox_'+line+'" style="'+ label_font_color +'background-color: '+styles.line.opening[line].color+'">' +
         line + '</label></li>';
     }
 
@@ -219,13 +219,13 @@
     $.each(plans,function(i,plan){
       lines_str += '<li><div class="plan-label">'+plan.label+'</div></li>';
       for (var line in plan.lines){
-        var fillcolor = styles.line.project[plan.name][line].fillColor ? 'color: ' + styles.line.project[plan.name][line].fillColor+';' : '';
+        var label_font_color = styles.line.project[plan.name][line].labelFontColor ? 'color: ' + styles.line.project[plan.name][line].labelFontColor+';' : '';
         var checked_str = (plan.lines[line].show) ? 'checked' : '';
         lines_str += '<li><input type="checkbox" id="checkbox_'+plan.name.replace(' ','-')+
           '_'+line+'" ' + checked_str + '/>' +
           '<label id="label_'+plan.name.replace(' ','-')+'_'+line +
           '" for="checkbox_'+plan.name.replace(' ','-')+'_'+line +
-          '" style="'+fillcolor+'background-color: '+styles.line.project[plan.name][line].color+'">' +
+          '" style="' + label_font_color + 'background-color: '+styles.line.project[plan.name][line].color+'">' +
           line + '</label></li>';
       }
     });

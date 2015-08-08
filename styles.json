@@ -1,7 +1,7 @@
 {
   "line": {
     "buildstart": {
-      "color": "#848484",
+      "color": "#A4A4A4",
       "weight": 7,
       "opacity": 1,
       "smoothFactor": 0,
@@ -32,7 +32,7 @@
         "color": "#8A084B"
       },
       "H": {
-        "fillColor":"#A4A4A4",  
+        "labelFontColor":"#848484",  
         "color": "#FFFF00"
       },
       "P": {
@@ -61,7 +61,7 @@
       },
       "Ley 317":{
         "H":{
-          "fillColor":"#A4A4A4",
+          "labelFontColor":"#848484",
           "color":"#FFFF00"
         }
       }
@@ -74,7 +74,7 @@
       "stroke": true,
       "opacity": 1,
       "fillOpacity": 1,
-      "color":"#848484",
+      "color":"#A4A4A4",
       "fillColor": "#E6E6E6"
     },
     "opening": {
