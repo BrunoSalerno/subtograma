@@ -36,7 +36,7 @@
 { "type": "Feature", "properties": { "id": 28, "name": "Díaz Vélez", "line": "I", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.445534822121914, -34.607536184341221 ] } },
 { "type": "Feature", "properties": { "id": 32, "name": "Directorio", "line": "I", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.44277938522621, -34.630048284002768 ] } },
 { "type": "Feature", "properties": { "id": 31, "name": "Pedro Goyena", "line": "I", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.440478085152151, -34.62610564330398 ] } },
-{ "type": "Feature", "properties": { "id": 40, "name": "Sáenz", "line": "H", "plan": "Ley 317" }, "geometry": { "type": "Point", "coordinates": [ -58.416299161294006, -34.649128302383396 ] } },
+{ "type": "Feature", "properties": { "id": 40, "name": "Sáenz", "line": "H", "plan": "Ley 317" }, "geometry": { "type": "Point", "coordinates": [ -58.416298946987858, -34.648706408432993 ] } },
 { "type": "Feature", "properties": { "id": 35, "name": "Hospitales", "line": "H", "plan": "Ley 317" }, "geometry": { "type": "Point", "coordinates": [ -58.412385152533034, -34.641268942609805 ] } },
 { "type": "Feature", "properties": { "id": 36, "name": "Córdoba", "line": "H", "plan": "Ley 317" }, "geometry": { "type": "Point", "coordinates": [ -58.403745001520008, -34.598504729400673 ] } },
 { "type": "Feature", "properties": { "id": 34, "name": "Parque Patricios", "line": "H", "plan": "Ley 317" }, "geometry": { "type": "Point", "coordinates": [ -58.405935078192904, -34.637726014328244 ] } },

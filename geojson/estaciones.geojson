@@ -96,6 +96,8 @@
 { "type": "Feature", "properties": { "id": 92.0, "name": "Las Heras", "line": "H", "buildstart": 2012, "opening": null, "closure": null }, "geometry": { "type": "Point", "coordinates": [ -58.39736063500834, -34.58762042913478 ] } },
 { "type": "Feature", "properties": { "id": 91.0, "name": "Santa Fe", "line": "H", "buildstart": 2012, "opening": null, "closure": null }, "geometry": { "type": "Point", "coordinates": [ -58.402226037924649, -34.594228002258454 ] } },
 { "type": "Feature", "properties": { "id": 90.0, "name": "Córdoba", "line": "H", "buildstart": 2012, "opening": null, "closure": null }, "geometry": { "type": "Point", "coordinates": [ -58.403745001520008, -34.598504729400673 ] } },
-{ "type": "Feature", "properties": { "id": 95.0, "name": "Sáenz", "line": "H", "buildstart": 2012, "opening": null, "closure": null }, "geometry": { "type": "Point", "coordinates": [ -58.416299161294006, -34.649128302383396 ] } }
+{ "type": "Feature", "properties": { "id": 95.0, "name": "Sáenz", "line": "H", "buildstart": 2012, "opening": null, "closure": 2014 }, "geometry": { "type": "Point", "coordinates": [ -58.416299161293992, -34.648708100999798 ] } },
+{ "type": "Feature", "properties": { "id": 96.0, "name": "Sáenz", "line": "H", "buildstart": 2014, "opening": null, "closure": null }, "geometry": { "type": "Point", "coordinates": [ -58.416313642930675, -34.649371536172502 ] } },
+{ "type": "Feature", "properties": { "id": 97.0, "name": "Nueva Pompeya", "line": "H", "buildstart": 2012, "opening": null, "closure": 2014 }, "geometry": { "type": "Point", "coordinates": [ -58.416473264548863, -34.656955868344788 ] } }
 ]
 }
