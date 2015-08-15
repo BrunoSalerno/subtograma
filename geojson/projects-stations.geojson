@@ -50,6 +50,20 @@
 { "type": "Feature", "properties": { "id": 47, "name": "Inclán", "line": "H", "plan": "Ley 317" }, "geometry": { "type": "Point", "coordinates": [ -58.400969556928274, -34.629375658098013 ] } },
 { "type": "Feature", "properties": { "id": 41, "name": "Retiro", "line": "H", "plan": "Ley 317" }, "geometry": { "type": "Point", "coordinates": [ -58.375530581097394, -34.592505059182052 ] } },
 { "type": "Feature", "properties": { "id": 42, "name": "Cerrito", "line": "H", "plan": "Ley 317" }, "geometry": { "type": "Point", "coordinates": [ -58.382283883930725, -34.588468974427769 ] } },
-{ "type": "Feature", "properties": { "id": 43, "name": "Nueva Pompeya", "line": "H", "plan": "Ley 317" }, "geometry": { "type": "Point", "coordinates": [ -58.416473264548863, -34.656955868344788 ] } }
+{ "type": "Feature", "properties": { "id": 43, "name": "Nueva Pompeya", "line": "H", "plan": "Ley 317" }, "geometry": { "type": "Point", "coordinates": [ -58.416473264548863, -34.656955868344788 ] } },
+{ "type": "Feature", "properties": { "id": 59, "name": "Sáenz", "line": "H", "plan": "Ley 5233" }, "geometry": { "type": "Point", "coordinates": [ -58.416313642930675, -34.649371536172502 ] } },
+{ "type": "Feature", "properties": { "id": 55, "name": "Hospitales", "line": "H", "plan": "Ley 5233" }, "geometry": { "type": "Point", "coordinates": [ -58.412385152533034, -34.641268942609805 ] } },
+{ "type": "Feature", "properties": { "id": 54, "name": "Parque Patricios", "line": "H", "plan": "Ley 5233" }, "geometry": { "type": "Point", "coordinates": [ -58.405935078192904, -34.637726014328244 ] } },
+{ "type": "Feature", "properties": { "id": 53, "name": "Corrientes", "line": "H", "plan": "Ley 5233" }, "geometry": { "type": "Point", "coordinates": [ -58.405325343256052, -34.604114845987041 ] } },
+{ "type": "Feature", "properties": { "id": 56, "name": "Santa Fe", "line": "H", "plan": "Ley 5233" }, "geometry": { "type": "Point", "coordinates": [ -58.402226037924649, -34.594228002258454 ] } },
+{ "type": "Feature", "properties": { "id": 57, "name": "Las Heras", "line": "H", "plan": "Ley 5233" }, "geometry": { "type": "Point", "coordinates": [ -58.39736063500834, -34.58762042913478 ] } },
+{ "type": "Feature", "properties": { "id": 52, "name": "Plaza Once", "line": "H", "plan": "Ley 5233" }, "geometry": { "type": "Point", "coordinates": [ -58.40603638176448, -34.60893524225478 ] } },
+{ "type": "Feature", "properties": { "id": 58, "name": "Facultad de Derecho", "line": "H", "plan": "Ley 5233" }, "geometry": { "type": "Point", "coordinates": [ -58.391243836490432, -34.583312610941526 ] } },
+{ "type": "Feature", "properties": { "id": 51, "name": "Venezuela", "line": "H", "plan": "Ley 5233" }, "geometry": { "type": "Point", "coordinates": [ -58.404731717516796, -34.615242153351325 ] } },
+{ "type": "Feature", "properties": { "id": 50, "name": "Humberto I", "line": "H", "plan": "Ley 5233" }, "geometry": { "type": "Point", "coordinates": [ -58.402322731734735, -34.623092321595088 ] } },
+{ "type": "Feature", "properties": { "id": 49, "name": "Inclán", "line": "H", "plan": "Ley 5233" }, "geometry": { "type": "Point", "coordinates": [ -58.400969556928274, -34.629375658098013 ] } },
+{ "type": "Feature", "properties": { "id": 48, "name": "Caseros", "line": "H", "plan": "Ley 5233" }, "geometry": { "type": "Point", "coordinates": [ -58.398956885468834, -34.635748886502022 ] } },
+{ "type": "Feature", "properties": { "id": 61, "name": "Terminal", "line": "H", "plan": "Ley 5233" }, "geometry": { "type": "Point", "coordinates": [ -58.374888431176089, -34.584582204948568 ] } },
+{ "type": "Feature", "properties": { "id": 60, "name": "Padre Mugica", "line": "H", "plan": "Ley 5233" }, "geometry": { "type": "Point", "coordinates": [ -58.385506147224277, -34.578101697325707 ] } }
 ]
 }
