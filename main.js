@@ -217,7 +217,9 @@
 
     var plans = this.planification.plans();
     $.each(plans,function(i,plan){
-      lines_str += '<li><div class="plan-label">'+plan.label+'</div></li>';
+      lines_str += '<li><div class="plan-label">'+plan.label+'</div>';
+      lines_str +='<a href="'+plan.url+'" target="_blank" + title="Link a la ley"><img src="img/link.svg" class="plan-link"></img></a>';
+      lines_str += '</li>';
       for (var line in plan.lines){
         var label_font_color = styles.line.project[plan.name][line].labelFontColor ? 'color: ' + styles.line.project[plan.name][line].labelFontColor+';' : '';
         var checked_str = (plan.lines[line].show) ? 'checked' : '';

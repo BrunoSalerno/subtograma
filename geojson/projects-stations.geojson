@@ -49,7 +49,7 @@
 { "type": "Feature", "properties": { "id": 46, "name": "Humberto I", "line": "H", "plan": "Ley 317" }, "geometry": { "type": "Point", "coordinates": [ -58.402322731734735, -34.623092321595088 ] } },
 { "type": "Feature", "properties": { "id": 47, "name": "Inclán", "line": "H", "plan": "Ley 317" }, "geometry": { "type": "Point", "coordinates": [ -58.400969556928274, -34.629375658098013 ] } },
 { "type": "Feature", "properties": { "id": 41, "name": "Retiro", "line": "H", "plan": "Ley 317" }, "geometry": { "type": "Point", "coordinates": [ -58.375530581097394, -34.592505059182052 ] } },
-{ "type": "Feature", "properties": { "id": 42, "name": "Cerrito", "line": "H", "plan": "Ley 317" }, "geometry": { "type": "Point", "coordinates": [ -58.382283883930725, -34.588468974427769 ] } },
+{ "type": "Feature", "properties": { "id": 42, "name": "9 de Julio", "line": "H", "plan": "Ley 317" }, "geometry": { "type": "Point", "coordinates": [ -58.382283883930725, -34.588468974427769 ] } },
 { "type": "Feature", "properties": { "id": 43, "name": "Nueva Pompeya", "line": "H", "plan": "Ley 317" }, "geometry": { "type": "Point", "coordinates": [ -58.416473264548863, -34.656955868344788 ] } },
 { "type": "Feature", "properties": { "id": 59, "name": "Sáenz", "line": "H", "plan": "Ley 5233" }, "geometry": { "type": "Point", "coordinates": [ -58.416313642930675, -34.649371536172502 ] } },
 { "type": "Feature", "properties": { "id": 55, "name": "Hospitales", "line": "H", "plan": "Ley 5233" }, "geometry": { "type": "Point", "coordinates": [ -58.412385152533034, -34.641268942609805 ] } },

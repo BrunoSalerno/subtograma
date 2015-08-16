@@ -344,6 +344,13 @@ input[type=number]::-webkit-outer-spin-button {
     border-left:1px dotted #A4A4A4;
 }
 
+.plan-link {
+    width: 15px;
+    height: 15px;
+    float: left;
+    cursor: pointer; 
+}
+
 .action-container {
     position:absolute;
     height: 100%;

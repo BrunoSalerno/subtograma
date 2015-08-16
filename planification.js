@@ -19,6 +19,7 @@ var Planification = function(data,map,styles){
       var p ={name:plan,
               year: self.__plans[plan].year(),
               label: self.__plans[plan].label(),
+              url: self.__plans[plan].url(),
               lines:l};
       o.push(p);
     }
@@ -61,9 +62,10 @@ var Planification = function(data,map,styles){
     $.each(data.lines.features, function(index,line){
       var plan_name = line.properties.plan;
       var line_name = line.properties.line;
+      var plan_url = line.properties.url;
 
       if (!self.__plans[plan_name]) {
-        self.__plans[plan_name] = new Plan(self.map,plan_name,line.properties.year,styles);
+        self.__plans[plan_name] = new Plan(self.map,plan_name,line.properties.year,plan_url,styles);
       }
 
       if (!self.__plans[plan_name].lines()[line_name]){
@@ -82,15 +84,20 @@ var Planification = function(data,map,styles){
   this.__load_data(data);
 };
 
-var Plan = function(map,plan_name,year,styles){
+var Plan = function(map,plan_name,year,url,styles){
   // Soporta por plan y por línea una sóla polilínea.
 
   this.__year = year;
   this.__name = plan_name;
   this.__styles = styles;
   this.__lines = {};
+  this.__url = url;
   this.map = map;
   var self = this;
+  
+  this.url = function(){
+    return self.__url;
+  };
 
   this.lines = function(){
     return self.__lines;
