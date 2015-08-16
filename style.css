@@ -17,6 +17,14 @@ a.leaflet-control-zoom-in, a.leaflet-control-zoom-out {
     color: black !important;
 }
 
+a.leaflet-popup-close-button { 
+    color: #c3c3c3 !important;
+}
+
+a.leaflet-popup-close-button:hover {
+    color: #999 !important;
+}
+
 i {
     font-style: italic;
 }
