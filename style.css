@@ -5,12 +5,20 @@
 }
 
 a {
-    color:#FE2E64;
+    color:#FE2E64 !important;
     text-decoration: none;
+}
+
+a:hover {
+    text-decoration:underline;    
 }
 
 i {
     font-style: italic;
+}
+
+html,body {
+    height:100%;
 }
 
 body {
@@ -22,9 +30,16 @@ body {
   padding:0;
   margin:0;
   width:100%;
-  height:100%;
   left:0;
   top:0;
+  bottom:58px;
+}
+
+#wrapper {
+    position:relative;
+    height:100%;
+    padding:0;
+    margin:0;
 }
 
 .slider {
@@ -34,6 +49,7 @@ body {
     bottom:0;
     left:0;
     display: none;
+    z-index:50;
 }
 
 .slider .background {
@@ -233,6 +249,7 @@ Taken from http://stephanwagner.me/only-css-loading-spinner
     display:none;
     position:absolute;
     width:100%;
+    z-index:40;
 }
 .panel {
     display:inline-block;
@@ -373,4 +390,8 @@ input[type=number]::-webkit-outer-spin-button {
 
 .action.pause {
     background: url(img/play_pause.svg) 15px 0;
+}
+
+.leaflet-bottom.leaflet-right.back {
+    z-index:30 !important;
 }

@@ -164,6 +164,8 @@
     $(".tab").click(function(){
       var tab = $(this)[0].classList[1];
       var bottom;
+      
+      var do_attribution = 'hide';
 
       if ($(".panel-container").css('bottom')=='58px') {
         if (!$(".content."+tab).is(":visible")){
@@ -173,15 +175,26 @@
           $(".content."+tab).show();
           return;
         }
+        // We enable map attribution
+        do_attribution = 'show';
+         
         bottom = 58 - $(".panel").height() + 'px';
       } else {
+        // We disable map attribution  
+        do_attribution = 'hide'; 
+        $(".leaflet-bottom.leaflet-right").addClass("back");  
+        
         bottom = '58px';
       }
       $(".content").hide();
       $(".tab").not(".tab."+tab).addClass('not-selected');
       $(".tab."+tab).removeClass('not-selected');
       $(".content."+tab).show();
-      $('.panel-container').animate({bottom:bottom});
+      $('.panel-container').animate({bottom:bottom}, function(){
+        if (do_attribution == 'show'){
+            $(".leaflet-bottom.leaflet-right").removeClass("back");  
+        }    
+      });
     });
 
     // Play/Pause
@@ -277,12 +290,15 @@
     $.get('php/map_url.php',function(map_url){
       var options = {
         zoomControl: false,
-        attributionControl: false
       };
 
       var map = L.map('map', options).setView(defaults.coords, defaults.zoom);
 
-      L.tileLayer(map_url).addTo(map);
+      tile_options = {
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://mapbox.com/attributions">MapBox</a>',
+      }  
+      
+      L.tileLayer(map_url,tile_options).addTo(map);
 
       L.control.zoom({position:'topright'}).addTo(map);
 
