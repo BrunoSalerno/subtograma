@@ -13,6 +13,10 @@ a:hover {
     text-decoration:underline;    
 }
 
+a.leaflet-control-zoom-in, a.leaflet-control-zoom-out {
+    color: black !important;
+}
+
 i {
     font-style: italic;
 }
