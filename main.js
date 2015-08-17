@@ -51,7 +51,7 @@
             if (typeof callback == 'function') callback(true);
           }else{
             self.timeline.up_to_year(y);
-            if (!from_input) $('.current-year').val(y);
+            if (!from_input) self.set_current_year_info(y); 
             self.set_year_maker(y);
           }
           y++;
@@ -65,7 +65,7 @@
             if (typeof callback == 'function') callback(true);
           }else{
             self.timeline.down_to_year(y);
-            if (!from_input) $('.current-year').val(y);
+            if (!from_input) self.set_current_year_info(y);
             self.set_year_maker(y);
           }
           y--;
@@ -132,8 +132,19 @@
       self.action_button_is_paused();
       clearInterval(self.interval);
       self.timeline.release();
-      $('.current-year').val(self.timeline.current_year());
+      self.set_current_year_info(self.timeline.current_year());
       save_params(self.timeline.current_year());
+    };
+
+    this.set_current_year_info = function(year){
+        if (year) $('.current-year').val(year);
+        var y_i = self.timeline.year_information();
+        
+        var y_i_str = '<strong>'+y_i.km_operating+'</strong> km <br />'; 
+        y_i_str += '<strong>'+y_i.km_under_construction+'</strong>  km en obra <br />';
+        y_i_str += '<strong>'+y_i.stations+'</strong> estaciones';
+        
+        $('.current-year-container .information').html(y_i_str)
     };
 
     this.planification = new Planification(projects_data,map,styles);
@@ -154,6 +165,7 @@
         $(this).blur();
         self.action_button_is_playing();
         self.change_to_year(new_year,null,true,function(){
+          self.set_current_year_info();
           self.action_button_is_paused();
         });
       }
@@ -280,7 +292,7 @@
     // Init to the start year
     // ----------------------
     this.timeline.up_to_year(years.start);
-    $('.current-year').val(years.start);
+    self.set_current_year_info(years.start);
     self.set_year_maker(years.start);
 
     if (starting_year) this.change_to_year(starting_year,1);
@@ -364,7 +376,7 @@
           window.app = new App(defaults,data,projects_data,map,years,styles,params.year,params.lines,params.plans);
           $(".spinner-container").fadeOut();
           $(".slider").show();
-          $(".current-year").fadeIn();
+          $(".current-year-container").fadeIn();
           $(".panel-container").show().css('bottom',58-$(".panel").height()+'px');
         });
       });

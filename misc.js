@@ -64,3 +64,7 @@ function save_params(year,map,lines,plans){
 
   history.pushState(document.title + ' ' + year ,document.title,url);
 }
+
+function round(number){
+    return Number(number.toFixed(2));    
+}

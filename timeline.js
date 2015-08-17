@@ -201,6 +201,42 @@ var Timeline = function(data,map,years,styles){
     self.undraw(year,line);
   };
 
+  this.year_information = function(){
+    var information = {
+        km_operating: 0,
+        km_under_construction:0,
+        stations:0
+    };
+
+    var y = self.years.current;
+    for (var s in self.sections){
+      var section = self.sections[s];
+      if (section.feature){
+          switch (section.type()){
+            case 'line':
+                // We don't consider the Premetro.
+                if (section.line() == 'P') break;
+
+                if (section.status == 'opening'){
+                    information.km_operating += section.length();
+                    information.km_operating = round(information.km_operating);
+                } else if (section.status == 'buildstart') {
+                    information.km_under_construction += section.length();    
+                    information.km_under_construction = round(information.km_under_construction);
+                }
+            break;
+            case 'station':
+                if (section.status == 'opening'){
+                    information.stations += 1;
+                }
+            break;
+          }
+      }   
+    };      
+    
+    return information;
+  };
+
   this.data = this.__load_data(data);
   this.map = map;
   this.years = years;

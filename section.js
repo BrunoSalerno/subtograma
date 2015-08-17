@@ -30,7 +30,7 @@ var Section = function(map, feature, styles, type){
   };
 
   this.length = function(){
-    return (self.__length/1000).toFixed(2); //in km
+    return round((self.__length/1000)); //in km
   };
 
   this.__popup_content = function(){
