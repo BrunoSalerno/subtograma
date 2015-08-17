@@ -9,7 +9,8 @@ var Section = function(map, feature, styles, type){
   this.__has_building_data = false;
   this.__been_inaugurated = false;
   this.__type = type;
-
+  this.__length = feature.properties.length;
+    
   var self = this;
 
   this.has_building_data = function(){
@@ -28,13 +29,17 @@ var Section = function(map, feature, styles, type){
     return self.__type;
   };
 
+  this.length = function(){
+    return (self.__length/1000).toFixed(2); //in km
+  };
+
   this.__popup_content = function(){
 
     var content ='<div class="info-window"><div>';
     if (self.type()=='station') content += self.properties.name + ' - '
     content += 'Línea '+ self.properties.line + '</div>'
 
-    if (self.type()=='line') content += '(Información del tramo) <br />';
+    if (self.type()=='line') content += 'Tramo de <strong>'+ self.length()+'</strong> km';+' <br />';
     content +='<ul>'
     if (self.properties.buildstart) content += '<li>Construcción: ' + self.properties.buildstart;
     if (self.properties.opening) content += '<li>Inauguración: ' + self.properties.opening;

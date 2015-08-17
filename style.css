@@ -140,19 +140,41 @@ body {
     position:relative;
 }
 
+.current-year-container {
+    position:absolute;
+    width:170px;
+    margin:2%;
+    left:0;
+    top:0;
+    background-color:white;
+    border-radius:4px;    
+}
+
 .current-year{
     font-size:50px;
     color:#424242;
-    position:absolute;
-    width:130px;
-    padding: 5px;
-    left:0;
-    margin: 2%;
-    top:0;
-    background-color: white;
-    border-radius: 4px;
+    width:90%;
+    margin: 5px;
+    margin-left: 10px;
     display: none;
     border:none;
+    background-color:transparent;
+}
+
+.current-year-container .information {
+    padding-top:10px;
+    padding-left:10px;
+    padding-bottom:10px;
+    color:#585858;
+    border-top: 1px dotted #A4A4A4;
+    background-color:#D8D8D8;
+    border-bottom-left-radius:4px;
+    border-bottom-right-radius:4px;
+}
+
+strong {
+    font-family: monospace;
+    color: #000;
 }
 
 .info-window li {
@@ -353,13 +375,6 @@ input[type="checkbox"]:not(:checked) + label {
     color:#424242 !important;
     background-color: transparent !important;
     border:1px solid #BDBDBD;
-}
-
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-
-    opacity: 1;
-
 }
 
 .plan-label {
