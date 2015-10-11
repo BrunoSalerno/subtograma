@@ -266,6 +266,10 @@ Taken from http://stephanwagner.me/only-css-loading-spinner
     .plan-label {
         display:block !important;
     }
+
+    .leaflet-control-attribution.leaflet-control {
+        width:150px;
+    }
 }
 
 .leaflet-popup-content-wrapper {
