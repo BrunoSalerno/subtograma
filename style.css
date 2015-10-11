@@ -179,6 +179,11 @@ strong {
     font-size: 0.95em;
 }
 
+small {
+    color:#424242;
+    font-size: 0.85em;
+    }
+
 .info-window li {
     list-style-type: none;
     color:#424242;
@@ -390,13 +395,13 @@ input[type="checkbox"]:not(:checked) + label {
     width:auto;
     text-align: center;
     padding:5px;
-    padding-left:15px;
+    padding-left:10px;
     border-left:1px dotted #A4A4A4;
 }
 
 .plan-link {
-    width: 15px;
-    height: 15px;
+    width: 13px;
+    height: 13px;
     float: left;
     cursor: pointer; 
 }

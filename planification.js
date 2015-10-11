@@ -112,7 +112,7 @@ var Plan = function(map,plan_name,year,url,styles){
   };
 
   this.label = function(){
-    return self.__name +' ('+self.__year+')';
+    return self.__name +' <small>('+self.__year+')</small>';
   };
 
   this.year = function(){
