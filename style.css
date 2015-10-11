@@ -262,14 +262,6 @@ Taken from http://stephanwagner.me/only-css-loading-spinner
         display:none;
     }
 
-    .plan-label {
-        display:block !important;
-    }
-
-    .plan-label div {
-        padding-left: 5px !important;    
-    }
-    
     .leaflet-control-attribution.leaflet-control {
         width:150px;
     }
@@ -340,11 +332,22 @@ Taken from http://stephanwagner.me/only-css-loading-spinner
 
 ul.lines {
     padding:5px;
-    margin-top: 5px;
+    margin-bottom: 5px;
 }
 ul.lines li{
     list-style-type: none;
     padding:2px;
+    padding-bottom:0;
+    margin-left:5px;
+    display:inline-block;
+    position:relative;
+}
+
+ul.plan-list {
+    display: inline-block;
+    }
+ul.plan-list li{
+    list-style-type: none;
     margin-left:5px;
     display:inline-block;
     position:relative;
@@ -395,14 +398,24 @@ input[type="checkbox"]:not(:checked) + label {
     border:1px solid #BDBDBD;
 }
 
+.plan-label {
+    background-color:#E6E6E6;
+    padding-bottom:0 !important;
+    padding-right:5px !important;
+    border-radius:3px;
+    margin-top:5px;
+    width:auto;
+    margin-left:10px !important;
+}
+
 .plan-label div {
     color:#585858;
     float:left;
     display:inline-block;
     width:auto;
     text-align: center;
-    padding:5px;
-    padding-left:10px;
+    padding-top:8px;
+    padding-left:9px;
 }
 
 .plan-link {
