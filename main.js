@@ -179,7 +179,7 @@
       
       var do_attribution = 'hide';
 
-      if ($(".panel-container").css('bottom')=='58px') {
+      if ($(".panel-container").css('bottom')==$('.slider').height()+'px') {
         if (!$(".content."+tab).is(":visible")){
           $(".content").hide();
           $(".tab").not(".tab."+tab).addClass('not-selected');
@@ -190,13 +190,13 @@
         // We enable map attribution
         do_attribution = 'show';
          
-        bottom = 58 - $(".panel").height() + 'px';
+        bottom = $('.slider').height() - $(".panel").height() + 'px';
       } else {
         // We disable map attribution  
         do_attribution = 'hide'; 
         $(".leaflet-bottom.leaflet-right").addClass("back");  
         
-        bottom = '58px';
+        bottom = $('.slider').height() + 'px';
       }
       $(".content").hide();
       $(".tab").not(".tab."+tab).addClass('not-selected');
@@ -378,7 +378,9 @@
           $(".spinner-container").fadeOut();
           $(".slider").show();
           $(".current-year-container").fadeIn();
-          $(".panel-container").show().css('bottom',57-$(".panel").height()+'px');
+          $(".panel-container").css('bottom',-1000).show(function(){
+              $(this).css('bottom',$(".slider").height()-$(".panel").height()+'px');
+          });
         });
       });
     });
