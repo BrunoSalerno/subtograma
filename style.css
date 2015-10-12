@@ -1,7 +1,7 @@
 * {
   margin:0;
   padding:0;
-  font: 14px Ubuntu, Arial, sans-serif;
+  font: 14px Lato, Arial, sans-serif;
 }
 
 a {
@@ -70,7 +70,7 @@ body {
     height: 100%;
     top:0;
     left:0;
-    background-color: #BDBDBD;
+    background-color: #D8D8D8;
 }
 
 .slider .reference-container {
@@ -173,12 +173,12 @@ body {
 }
 
 strong {
-    font-family: monospace;
     color: #424242;
     font-size: 0.95em;
 }
 
 small {
+    letter-spacing: 0.35px;
     color:#424242;
     font-size: 0.85em;
     }
@@ -276,17 +276,14 @@ Taken from http://stephanwagner.me/only-css-loading-spinner
     display:inline-block;
     text-align: center;
     vertical-align: middle;
-    line-height: 57px;
+    line-height: 54px;
     float: left;
     margin-top: 1px;
     padding-right: 5px;
     width: 170px;
     height: 100%;
-    color: #424242;
-    font-size: 25px;
-    border-radius: 3px;
-    font-style: italic;
-    text-shadow: 0 1px 0 #fff;
+    color: #6E6E6E;
+    font-size: 24px;
 }
 
 .panel-container {
@@ -332,13 +329,14 @@ Taken from http://stephanwagner.me/only-css-loading-spinner
 
 ul.lines {
     padding:5px;
-    margin-bottom: 5px;
+    padding-bottom: 8px;
 }
 ul.lines li{
     list-style-type: none;
     padding:2px;
     padding-bottom:0;
     margin-left:5px;
+    margin-top:5px;
     display:inline-block;
     position:relative;
 }
@@ -349,18 +347,19 @@ ul.plan-list {
 ul.plan-list li{
     list-style-type: none;
     margin-left:5px;
+    margin-top:0;
     display:inline-block;
     position:relative;
 }
 
 .panel .content.about{
     display:none;
-    padding:17px 16px 16px 16px;
+    padding:13px 16px 10px 16px;
     color:#424242;
 }
 
 .tab.not-selected {
-    background-color: #D8D8D8;
+    background-color: #E6E6E6;
 }
 
 /* Checkbox inspired from
@@ -377,7 +376,7 @@ input[type="checkbox"] + label {
     padding:5px;
     margin:-1px 4px 0 0;
     vertical-align:middle;
-    border-radius: 3px;
+    border-radius: 4px;
     cursor:pointer;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -389,7 +388,6 @@ input[type="checkbox"] + label {
 input[type="checkbox"]:checked + label {
     color:white;
     border: solid 1px transparent;
-    border-bottom: 1px solid #585858;
 }
 
 input[type="checkbox"]:not(:checked) + label {
@@ -402,7 +400,6 @@ input[type="checkbox"]:not(:checked) + label {
     background-color:#F2F2F2;
     padding-right:4px !important;
     border-radius:3px;
-    margin-top:5px;
     width:auto;
     margin-right:5px;
 }

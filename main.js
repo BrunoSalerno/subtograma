@@ -378,7 +378,7 @@
           $(".spinner-container").fadeOut();
           $(".slider").show();
           $(".current-year-container").fadeIn();
-          $(".panel-container").show().css('bottom',58-$(".panel").height()+'px');
+          $(".panel-container").show().css('bottom',57-$(".panel").height()+'px');
         });
       });
     });
