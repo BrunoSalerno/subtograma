@@ -1,6 +1,6 @@
 (function(){
 
-  var App = function(defaults,data,projects_data,map,years,styles,starting_year,lines_to_show,plans_to_show){
+  var App = function(defaults,data,projects_data,map,years,styles,starting_year,lines_to_show,plans_to_show, callback){
     this.interval = null;
     var self = this;
 
@@ -297,6 +297,7 @@
     self.set_year_maker(years.start);
 
     if (starting_year) this.change_to_year(starting_year,1);
+    if (typeof callback === 'function') callback();
   };
 
   var load_map = function(defaults,callback){
@@ -374,12 +375,15 @@
     load_map(defaults, function(map){
       load_data(function(data,projects_data){
         load_styles(function(styles){
-          window.app = new App(defaults,data,projects_data,map,years,styles,params.year,params.lines,params.plans);
-          $(".spinner-container").fadeOut();
-          $(".slider").show();
-          $(".current-year-container").fadeIn();
-          $(".panel-container").css('bottom',-1000).show(function(){
-              $(this).css('bottom',$(".slider").height()-$(".panel").height()+'px');
+          window.app = new App(defaults,data,projects_data,map,years,styles,params.year,params.lines,params.plans, function(){
+              
+              $(".spinner-container").fadeOut();
+              $(".slider").show();
+              $(".current-year-container").fadeIn();
+              $(".panel-container").css('bottom',-1000).show(function(){
+                  $(this).css('bottom',$(".slider").height()-$(".panel").height()+'px');
+              });
+              
           });
         });
       });

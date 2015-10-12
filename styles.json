@@ -70,6 +70,23 @@
           "labelFontColor":"#848484",
           "color":"#FFFF00"
         }
+      },
+      "PETERS 1":{
+        "E-H":{
+          "color":"#DE9236"
+        },
+        "G":{
+          "color":"#FA58F4"
+        },
+        "J":{
+          "color":"#FF00BF"
+        },
+        "F":{
+          "color":"#8A0808"
+        },
+        "C":{
+          "color":"#0000FF"
+        }
       }
     }
   },

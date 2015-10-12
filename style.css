@@ -371,7 +371,7 @@ input[type="checkbox"] {
 input[type="checkbox"] + label {
     float:left;
     display:inline-block;
-    width:18px;
+    min-width:18px;
     text-align: center;
     padding:5px;
     margin:-1px 4px 0 0;
