@@ -4,7 +4,7 @@
     this.interval = null;
     var self = this;
 
-    this.change_line_to_year = function(year_start,year_end,line){
+    this.change_line_to_year = function(year_start,year_end,line,callback){
       if (self.timeline.busy()) return;
       var speed=1;
       self.timeline.get_busy();
@@ -16,6 +16,7 @@
           if (y > year_end) {
             self.timeline.release();
             clearInterval(interval);
+            if (typeof callback == 'function') callback();
           } else {
             self.timeline.up_to_year(y,line);
           }
@@ -26,6 +27,7 @@
           if (y < year_end) {
             self.timeline.release();
             clearInterval(interval);
+            if (typeof callback == 'function') callback();
           } else {
             self.timeline.down_to_year(y,line);
           }
@@ -274,7 +276,10 @@
         var year_start = (self.timeline.lines()[line].show) ? years.start : self.timeline.current_year();
         var year_end = (self.timeline.lines()[line].show) ? self.timeline.current_year() : years.start;
 
-        self.change_line_to_year(year_start,year_end,line);
+        self.change_line_to_year(year_start,year_end,line,function(){
+            self.set_current_year_info();
+        });
+        
         save_params(null,null,lines_params);
       });
     }
