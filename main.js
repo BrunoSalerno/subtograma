@@ -1,8 +1,14 @@
 (function(){
 
-  var App = function(defaults,data,projects_data,map,years,styles,starting_year,lines_to_show,plans_to_show, callback){
+  var App = function(defaults,data,projects_data,map,styles,params, callback){
     this.interval = null;
     var self = this;
+    this.styles = styles;
+    this.years = defaults.years;
+
+    var starting_year = params.year;
+    var starting_lines = params.lines;
+    var starting_plans = params.plans;
 
     this.change_line_to_year = function(year_start,year_end,line,callback){
       if (self.timeline.busy()) return;
@@ -37,7 +43,7 @@
     };
 
     this.change_to_year = function(year,speed,from_input, callback){
-      if (year > years.end) return;
+      if (year > self.years.end) return;
       if (self.timeline.busy()) return;
 
       self.timeline.get_busy();
@@ -78,10 +84,10 @@
       }
     };
 
-    this.create_slider = function(years){
-      for (var i = years.start; i < (years.end); i += 10){
-        var left = (i-years.start)/(years.end-years.start+5)*100;
-        var width = 100 / (years.end-years.start+5) * 10;
+    this.create_slider = function(){
+      for (var i = self.years.start; i < (self.years.end); i += 10){
+        var left = (i-self.years.start)/(self.years.end-self.years.start+5)*100;
+        var width = 100 / (self.years.end-self.years.start+5) * 10;
         var year = $("<div class='vertical_line' style='left:"+ left +"%;width:"+width+"%'>"+
           (i + 5) +'</div>');
 
@@ -91,7 +97,7 @@
       $('.reference').click(function(e){
         var posX = $(this).offset().left;
         var left = (e.pageX - posX) / $(this).width();
-        var year = parseInt(left * (years.end - years.start +5) + years.start);
+        var year = parseInt(left * (self.years.end - self.years.start +5) + self.years.start);
         self.action_button_is_playing();
         self.change_to_year(year,null,null,function(){
           self.action_button_is_paused();
@@ -102,7 +108,7 @@
           var diff = (e.pageX - posX);
           if (diff < 0) diff = 0;
           var left = diff / $(this).width();
-          var year = parseInt(left * (years.end - years.start +5) + years.start);
+          var year = parseInt(left * (self.years.end - self.years.start +5) + self.years.start);
           $('.year-hover').html(year).css({left:left*100+'%'}).fadeIn();
         }).
         mouseleave(function(){
@@ -119,13 +125,13 @@
     };
 
     this.set_year_maker = function (y){
-      var left =(y-years.start)/(years.end-years.start+5)*100;
+      var left =(y-self.years.start)/(self.years.end-self.years.start+5)*100;
       $('.year-marker').css('left',left+'%');
     };
 
     this.play = function(){
       self.action_button_is_playing();
-      self.change_to_year(years.end,null,null, function(){
+      self.change_to_year(self.years.end,null,null, function(){
         self.action_button_is_paused();
       });
     };
@@ -149,20 +155,20 @@
         $('.current-year-container .information').html(y_i_str)
     };
 
-    this.planification = new Planification(projects_data,map,styles);
-    this.timeline = new Timeline(data,map,years,styles);
-    this.create_slider(years);
+    this.planification = new Planification(projects_data,map,this.styles);
+    this.timeline = new Timeline(data,map,this.years,this.styles);
+    this.create_slider();
 
     // Current year functionality
     // --------------------------
     $('.current-year').
-      attr('min',years.start).
-      attr('max',years.end).
+      attr('min',self.years.start).
+      attr('max',self.years.end).
         change(function(e){
       var new_year = parseInt($(this).val());
-      if (new_year < years.start || new_year > years.end){
+      if (new_year < self.years.start || new_year > self.years.end){
         $(this).blur();
-        $(this).val(years.current);
+        $(this).val(self.years.current);
       } else {
         $(this).blur();
         self.action_button_is_playing();
@@ -223,83 +229,13 @@
 
     // Layers
     // ------
-    if (lines_to_show) {
-      this.timeline.set_lines(lines_to_show);
-    }
-
-    if (plans_to_show){
-      this.planification.set_plans_lines(plans_to_show)
-    }
-
-    var lines = this.timeline.lines();
-    var lines_str='<ul class="lines">';
-    for (var line in lines){
-      var label_font_color = styles.line.opening[line].labelFontColor ? 'color: '+ styles.line.opening[line].labelFontColor+';' : '';  
-      var checked_str = (lines[line].show) ? 'checked' : '';
-      lines_str += '<li><input type="checkbox" id="checkbox_'+line+'" ' + checked_str + '/>' +
-        '<label id="label_'+line+
-        '" for="checkbox_'+line+'" style="'+ label_font_color +'background-color: '+styles.line.opening[line].color+'">' +
-        line + '</label></li>';
-    }
-
-    var plans = this.planification.plans();
-    $.each(plans,function(i,plan){
-      lines_str += '<li class="plan-label"><div>'+plan.label+'</div>';
-      lines_str +='<a href="'+plan.url+'" target="_blank" + title="Link a la ley"><img src="img/link.svg" class="plan-link"></img></a>';
-      lines_str +='<ul class="plan-list">'
-      for (var line in plan.lines){
-        var label_font_color = styles.line.project[plan.name][line].labelFontColor ? 'color: ' + styles.line.project[plan.name][line].labelFontColor+';' : '';
-        var checked_str = (plan.lines[line].show) ? 'checked' : '';
-        lines_str += '<li><input type="checkbox" id="checkbox_'+plan.name.replace(' ','-')+
-          '_'+line+'" ' + checked_str + '/>' +
-          '<label id="label_'+plan.name.replace(' ','-')+'_'+line +
-          '" for="checkbox_'+plan.name.replace(' ','-')+'_'+line +
-          '" style="' + label_font_color + 'background-color: '+styles.line.project[plan.name][line].color+'">' +
-          line + '</label></li>';
-      }
-      lines_str += '</ul></li>';
-    });
-    
-    lines_str += '</ul>';
-
-    $(".content.layers").append(lines_str);
-
-    for (var l in this.timeline.lines()){
-      $('#label_'+l).click(function(e){
-        if (self.timeline.busy()){
-          e.preventDefault();
-          return;
-        }
-
-        var line= $(this).attr('id').split('_')[1];
-        var lines_params = self.timeline.toggle_line(line);
-        var year_start = (self.timeline.lines()[line].show) ? years.start : self.timeline.current_year();
-        var year_end = (self.timeline.lines()[line].show) ? self.timeline.current_year() : years.start;
-
-        self.change_line_to_year(year_start,year_end,line,function(){
-            self.set_current_year_info();
-        });
-        
-        save_params(null,null,lines_params);
-      });
-    }
-
-    $.each(this.planification.plans(),function(i,p){
-      for (l in p.lines){
-        $('#label_'+ p.name.replace(' ','-')+'_'+l).click(function(e){
-          var checkbox_info = $(this).attr('id').split('_');
-          var plans_params = self.planification.toggle(checkbox_info[1].replace('-',' '),checkbox_info[2]);
-
-          save_params(null,null,null,plans_params);
-        });
-      }
-    });
+    load_layers_control(starting_lines,starting_plans,this);
 
     // Init to the start year
     // ----------------------
-    this.timeline.up_to_year(years.start);
-    self.set_current_year_info(years.start);
-    self.set_year_maker(years.start);
+    this.timeline.up_to_year(this.years.start);
+    self.set_current_year_info(this.years.start);
+    self.set_year_maker(this.years.start);
 
     if (starting_year) this.change_to_year(starting_year,1);
     if (typeof callback === 'function') callback();
@@ -363,10 +299,9 @@
       coords : [-34.6050499,-58.4122003],
       zoom   : 13,
       init_year : 1911,
-      speed : 50
+      speed : 50,
+      years: {start:1910,end:2015, current:null, previous:null}
     };
-
-    var years = {start:1910,end:2015, current:null, previous:null};
 
     $(".spinner-container").show().addClass('spinner');
 
@@ -380,7 +315,7 @@
     load_map(defaults, function(map){
       load_data(function(data,projects_data){
         load_styles(function(styles){
-          window.app = new App(defaults,data,projects_data,map,years,styles,params.year,params.lines,params.plans, function(){
+          var app = new App(defaults,data,projects_data,map,styles,params, function(){
               
               $(".spinner-container").fadeOut();
               $(".slider").show();
