@@ -87,6 +87,38 @@
         "C":{
           "color":"#0000FF"
         }
+      },
+      "PETERS 2":{
+        "E-H":{
+          "color":"#DE9236"
+        },
+        "G":{
+          "color":"#FA58F4"
+        },
+        "F":{
+          "color":"#8A0808"
+        },
+        "C":{
+          "color":"#0000FF"
+        }
+      },
+      "PETERS 3":{
+        "E":{
+          "color":"#8A084B"
+        },
+        "G":{
+          "color":"#FA58F4"
+        },
+        "F":{
+          "color":"#8A0808"
+        },
+        "C":{
+          "color":"#0000FF"
+        },
+        "H":{
+          "labelFontColor":"#848484",
+          "color":"#FFFF00"
+        }
       }
     }
   },
