@@ -5,6 +5,19 @@ var Planification = function(data,map,styles){
   this.__plans = {};
 
   var self = this;
+  
+  this.current_km = function(){
+    var km = 0;
+    
+    for (var plan in self.__plans){
+        for (var k in self.__plans[plan].lines()){
+          if (self.__plans[plan].is_drawn(k)) {
+            km += self.__plans[plan].lines()[k].length
+          }
+        }
+    }
+    return round(km);
+  }
 
   this.plans = function(){
     var o =[];
@@ -63,13 +76,14 @@ var Planification = function(data,map,styles){
       var plan_name = line.properties.plan;
       var line_name = line.properties.line;
       var plan_url = line.properties.url;
+      var length = line.properties.length;
 
       if (!self.__plans[plan_name]) {
         self.__plans[plan_name] = new Plan(self.map,plan_name,line.properties.year,plan_url,styles);
       }
 
       if (!self.__plans[plan_name].lines()[line_name]){
-        self.__plans[plan_name].add_line(line_name,line.geometry)
+        self.__plans[plan_name].add_line(line_name,line.geometry,length)
       }
     });
 
@@ -103,8 +117,12 @@ var Plan = function(map,plan_name,year,url,styles){
     return self.__lines;
   };
 
-  this.add_line = function(name, geometry){
-    self.__lines[name] = {geometry:geometry,feature:null,stations:[]}
+  this.add_line = function(name, geometry,length){
+    self.__lines[name] = {
+        geometry:geometry,
+        feature:null,
+        stations:[],
+        length: round(length/1000)}
   };
 
   this.add_station = function(line,station){
@@ -129,6 +147,7 @@ var Plan = function(map,plan_name,year,url,styles){
     content += 'Línea '+ line + '</div>';
     content +='<ul>';
     content += '<li>' + self.label();
+    if (!name) content += '<li>Longitud: ~<strong>' + round(self.__lines[line].length) + '</strong> km';
     content +='</ul></div>';
     return content;
   };

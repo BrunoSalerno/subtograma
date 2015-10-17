@@ -66,7 +66,7 @@ var load_layers_control = function(starting_lines,starting_plans,app){
         $('#label_'+ p.name.replace(' ','-')+'_'+l).click(function(e){
           var checkbox_info = $(this).attr('id').split('_');
           var plans_params = app.planification.toggle(checkbox_info[1].replace('-',' '),checkbox_info[2]);
-
+          app.set_current_year_info();
           save_params(null,null,null,plans_params);
         });
       }

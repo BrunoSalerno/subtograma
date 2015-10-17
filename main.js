@@ -147,8 +147,8 @@
     this.set_current_year_info = function(year){
         if (year) $('.current-year').val(year);
         var y_i = self.timeline.year_information();
-        
-        var y_i_str = '<strong>'+y_i.km_operating+'</strong> km <br />'; 
+        var current_km = round(y_i.km_operating + self.planification.current_km()); 
+        var y_i_str = '<strong>'+current_km+'</strong> km <br />'; 
         y_i_str += '<strong>'+y_i.km_under_construction+'</strong>  km en obra <br />';
         y_i_str += '<strong>'+y_i.stations+'</strong> estaciones';
         
