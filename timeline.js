@@ -214,9 +214,6 @@ var Timeline = function(data,map,years,styles){
       if (section.feature){
           switch (section.type()){
             case 'line':
-                // We don't consider the Premetro.
-                if (section.line() == 'P') break;
-
                 if (section.status == 'opening'){
                     information.km_operating += section.length();
                     information.km_operating = round(information.km_operating);
