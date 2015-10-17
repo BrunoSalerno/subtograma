@@ -183,38 +183,32 @@
     // -----------
     $(".tab").click(function(){
       var tab = $(this)[0].classList[1];
-      var bottom;
-      
-      var do_attribution = 'hide';
-
-      if ($(".panel-container").css('bottom')==$('.slider').height()+'px') {
-        if (!$(".content."+tab).is(":visible")){
-          $(".content").hide();
-          $(".tab").not(".tab."+tab).addClass('not-selected');
-          $(".tab."+tab).removeClass('not-selected');
-          $(".content."+tab).show();
-          return;
-        }
-        // We enable map attribution
-        do_attribution = 'show';
          
-        bottom = $('.slider').height() - $(".panel").height() + 'px';
-      } else {
-        // We disable map attribution  
-        do_attribution = 'hide'; 
-        $(".leaflet-bottom.leaflet-right").addClass("back");  
+      var panel = $('.panel-container .panel'); 
+      var clicked_tab_content = panel.find(".content."+tab);
+      var other_tab_content = panel.find(".content").not(".content."+tab)
         
-        bottom = $('.slider').height() + 'px';
+      if (!panel.is(":visible")){
+          $(".leaflet-bottom.leaflet-right").addClass("back");
+          if (!clicked_tab_content.is(":visible")){
+            other_tab_content.hide();
+            clicked_tab_content.show();      
+            $(".tab").not(".tab."+tab).addClass('not-selected');
+            $(".tab."+tab).removeClass('not-selected');
+          }
+          panel.slideToggle(500); 
+      }else{
+          if (clicked_tab_content.is(":visible")){
+            panel.slideToggle(500,function(){
+                $(".leaflet-bottom.leaflet-right").removeClass("back");
+            });    
+          } else {
+            other_tab_content.hide();
+            clicked_tab_content.show();      
+            $(".tab").not(".tab."+tab).addClass('not-selected');
+            $(".tab."+tab).removeClass('not-selected');
+          }  
       }
-      $(".content").hide();
-      $(".tab").not(".tab."+tab).addClass('not-selected');
-      $(".tab."+tab).removeClass('not-selected');
-      $(".content."+tab).show();
-      $('.panel-container').animate({bottom:bottom}, function(){
-        if (do_attribution == 'show'){
-            $(".leaflet-bottom.leaflet-right").removeClass("back");  
-        }    
-      });
     });
 
     // Play/Pause
@@ -237,8 +231,13 @@
     self.set_current_year_info(this.years.start);
     self.set_year_maker(this.years.start);
 
-    if (starting_year) this.change_to_year(starting_year,1);
-    if (typeof callback === 'function') callback();
+    if (starting_year) {
+        this.change_to_year(starting_year,1,null,function(){
+            if (typeof callback === 'function') callback();
+        });
+    }else{
+        if (typeof callback === 'function') callback();    
+    }
   };
 
   var load_map = function(defaults,callback){
@@ -318,11 +317,8 @@
           var app = new App(defaults,data,projects_data,map,styles,params, function(){
               
               $(".spinner-container").fadeOut();
-              $(".slider").show();
+              $(".footer").show();
               $(".current-year-container").fadeIn();
-              $(".panel-container").css('bottom',-1000).show(function(){
-                  $(this).css('bottom',$(".slider").height()-$(".panel").height()+'px');
-              });
               
           });
         });
