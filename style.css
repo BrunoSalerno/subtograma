@@ -257,6 +257,22 @@ Taken from http://stephanwagner.me/only-css-loading-spinner
     .leaflet-control-attribution.leaflet-control {
         width:150px;
     }
+
+    .plan-label div{
+        font-size:12px;
+        }
+
+    .plan-label small {
+        font-size:0.6em;
+        }
+
+     li label{
+        font-size:11px;
+        }
+
+    ul.plan-list li, ul.lines li{
+        margin-left:0 !important;
+        }
 }
 
 .leaflet-popup-content-wrapper {
