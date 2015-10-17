@@ -266,10 +266,6 @@ Taken from http://stephanwagner.me/only-css-loading-spinner
         font-size:0.6em;
         }
 
-     li label{
-        font-size:11px;
-        }
-
     ul.plan-list li, ul.lines li{
         margin-left:0 !important;
         }
