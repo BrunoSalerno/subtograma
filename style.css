@@ -334,7 +334,7 @@ Taken from http://stephanwagner.me/only-css-loading-spinner
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    box-shadow:0 1px 1px #fff,0 0 1px #888;
+    box-shadow:0 1px 1px #fff,0 -1px 1px #888;
     display:inline-block;
 }
 
