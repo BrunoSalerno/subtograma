@@ -299,7 +299,7 @@
       zoom   : 13,
       init_year : 1911,
       speed : 50,
-      years: {start:1910,end:2015, current:null, previous:null}
+      years: {start:1910,end:2016, current:null, previous:null}
     };
 
     $(".spinner-container").show().addClass('spinner');
