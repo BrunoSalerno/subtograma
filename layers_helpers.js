@@ -9,7 +9,7 @@ var load_layers_control = function(starting_lines,starting_plans,app){
     }
 
     var lines = app.timeline.lines();
-    var lines_str='<ul class="lines">';
+    var lines_str='<ul class="lines"><li class="plan-label lines-label"><ul class="plan-list">';
     for (var line in lines){
       var label_font_color = app.styles.line.opening[line].labelFontColor ? 'color: '+ app.styles.line.opening[line].labelFontColor+';' : '';  
       var checked_str = (lines[line].show) ? 'checked' : '';
@@ -18,7 +18,7 @@ var load_layers_control = function(starting_lines,starting_plans,app){
         '" for="checkbox_'+line+'" style="'+ label_font_color +'background-color: '+ app.styles.line.opening[line].color+'">' +
         line + '</label></li>';
     }
-
+    lines_str +='</ul></li>'
     var plans = app.planification.plans();
     $.each(plans,function(i,plan){
       lines_str += '<li class="plan-label"><div>'+plan.label+'</div>';
