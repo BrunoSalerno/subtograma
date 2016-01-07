@@ -61,7 +61,7 @@ body {
     height: 58px;
     z-index:50;
     background-color:#D8D8D8;
-    box-shadow:0 0 1px #888;
+    box-shadow:0 0 4px #888;
 }
 
 .slider .reference-container {
@@ -234,6 +234,12 @@ Taken from http://stephanwagner.me/only-css-loading-spinner
     z-index:10000;
 }
 
+.leaflet-control-attribution.leaflet-control {
+  margin-right:5px;
+  margin-bottom:5px;
+}
+
+
 @media (max-width: 1000px){
     .slider .reference-container{
        width:50% !important;
@@ -334,7 +340,7 @@ Taken from http://stephanwagner.me/only-css-loading-spinner
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    box-shadow:0 1px 1px #fff,0 -1px 1px #888;
+    box-shadow:0 3px 1px #fff,0 0 2px #888;
     display:inline-block;
 }
 
