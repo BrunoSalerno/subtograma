@@ -436,7 +436,7 @@ input[type="checkbox"]:not(:checked) + label:hover {
     background-color:transparent !important;    
 }
 .plan-label {
-    background-color:#f2f2f2;
+    background-color:#f4f4f4;
     padding-right:4px !important;
     padding-left:4px !important;
     border-radius:3px;
