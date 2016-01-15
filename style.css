@@ -424,7 +424,7 @@ input[type="checkbox"]:checked + label {
 
 input[type="checkbox"]:not(:checked) + label {
     color:#424242 !important;
-    background-color:#ebebeb !important;
+    background-color:#efefef !important;
     /*border:1px solid #A4A4A4;*/
 }
 
@@ -436,7 +436,7 @@ input[type="checkbox"]:not(:checked) + label:hover {
     background-color:transparent !important;    
 }
 .plan-label {
-    background-color:#f4f4f4;
+    background-color:#fbfbfb;
     padding-right:4px !important;
     padding-left:4px !important;
     border-radius:3px;
