@@ -136,7 +136,7 @@ body {
 .current-year-container {
     position:absolute;
     width:170px;
-    margin:2.5%;
+    margin:2%;
     left:0;
     top:0;
     background-color:white;
@@ -442,7 +442,7 @@ input[type="checkbox"]:not(:checked) + label:hover {
     border-radius:3px;
     width:auto;
     margin-right:5px;
-    border: 1px dotted #e1e1e1;
+    border: 1px dotted #cacaca;
 }
 
 .plan-label div {
@@ -451,8 +451,13 @@ input[type="checkbox"]:not(:checked) + label:hover {
     display:inline-block;
     width:auto;
     text-align: center;
-    padding-top:7px;
+    padding-top:6px;
     padding-left:4px;
+    text-transform: lowercase;
+}
+
+.plan-label div:first-letter {
+    text-transform: uppercase;
 }
 
 .plan-link {
