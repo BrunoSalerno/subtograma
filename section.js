@@ -1,6 +1,7 @@
 var Section = function(map, feature, styles, type){
   this.status = null;
   
+  this.raw_feature = feature;
   this.feature = null;
   this.geometry = feature.geometry;
   this.map = map;
@@ -14,7 +15,14 @@ var Section = function(map, feature, styles, type){
   var self = this;
 
   this.source_name = function(){
-   return self.type() + '_' + self.properties.name  + '_' + self.properties.line +'_id_' + self.properties.id;
+   var str = '';
+   if (self.__type == 'line'){
+    str = self.type() + '_' + self.properties.name  + '_' + self.properties.line +'_id_' + self.properties.id;
+   }else{
+    str = self.__type+"_line_" + self.properties.line + "_" + self.status;
+    console.log(str);
+   }
+   return str;
   }
 
   this.has_building_data = function(){
@@ -76,8 +84,12 @@ var Section = function(map, feature, styles, type){
 
   this.draw = function(operation,batch){
     var style = self.__style(operation);
-    
-    self.feature = new Feature(self.source_name(),self.geometry,style,self.map,batch)
+   
+    if (self.__type == 'line'){
+        self.feature = new Feature(self.source_name(),self.geometry,style,self.map,batch)
+    } else {
+        self.feature = new PointFeature(self.source_name(),self.raw_feature,style,self.map,batch);    
+    }
     /*
     feature_var.bindPopup(self.__popup_content());
 
@@ -93,32 +105,40 @@ var Section = function(map, feature, styles, type){
   };
   
   this.buildstart = function(batch){
+    self.status = 'buildstart';
     self.__has_building_data = true;
     if (self.feature) {
-      self.feature.change_style(self.__style('buildstart'),batch);
+        if (self.__type == 'line'){
+            self.feature.change_style(self.__style('buildstart'),batch);
+        }else{
+            self.feature.change_style(self.source_name(),self.__style('buildstart'),batch);
+        }
     } else {
      self.draw('buildstart',batch);
     }
-    self.status = 'buildstart';
   };
 
   this.open = function(batch){
+    self.status = 'opening';
     self.__been_inaugurated = true;
     if (self.feature) {
-      self.feature.change_style(self.__style('opening'),batch)
+        if (self.__type == 'line'){
+            self.feature.change_style(self.__style('opening'),batch)
+        }else{
+            self.feature.change_style(self.source_name(),self.__style('opening'),batch)    
+        }
     } else {
       self.draw('opening',batch)
     }
-    self.status = 'opening';
   };
 
   this.close = function(batch){
+    self.status = 'closure';
     if (self.feature){
       self.feature.remove(batch);
       self.feature = null;
     } else {
       //console.log('closure: inexistent ' + self.type());
     }
-    self.status = 'closure';
   };
 }
