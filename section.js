@@ -1,7 +1,7 @@
 var Section = function(map, feature, styles, type){
-  this.feature = null;
   this.status = null;
-
+  
+  this.feature = null;
   this.geometry = feature.geometry;
   this.map = map;
   this.styles = styles;
@@ -12,6 +12,10 @@ var Section = function(map, feature, styles, type){
   this.__length = feature.properties.length;
     
   var self = this;
+
+  this.source_name = function(){
+   return self.type() + '_' + self.properties.name  + '_' + self.properties.line +'_id_' + self.properties.id;
+  }
 
   this.has_building_data = function(){
     return self.__has_building_data;
@@ -66,27 +70,15 @@ var Section = function(map, feature, styles, type){
   };
 
   this.bring_to_front = function(){
-    if (self.feature) self.feature.bringToFront();
+    //FIXME: ver cómo reemplazar esto
+    //if (self.feature) self.feature.bringToFront();
   };
 
-  this.draw = function(operation){
-    var feature_var;
+  this.draw = function(operation,batch){
     var style = self.__style(operation);
-
-    switch(self.geometry.type){
-      case 'LineString':
-        var points =[];
-        self.geometry.coordinates.forEach(function(point){
-          points.push(new L.LatLng(point[1],point[0]))
-        });
-        feature_var = new L.Polyline(points, style);
-        break;
-      case 'Point':
-        var coords = [self.geometry.coordinates[1],self.geometry.coordinates[0]];
-        feature_var = L.circleMarker(coords,style);
-        break;
-    }
-
+    
+    self.feature = new Feature(self.source_name(),self.geometry,style,self.map,batch)
+    /*
     feature_var.bindPopup(self.__popup_content());
 
     feature_var.on('mouseover', function (e) {
@@ -96,35 +88,33 @@ var Section = function(map, feature, styles, type){
 
     feature_var.on('mouseout', function (e) {
       this.setStyle(self.__style(self.status));
-    });
+    });*/
 
-    feature_var.addTo(self.map);
-    self.feature = feature_var;
   };
-
-  this.buildstart = function(){
+  
+  this.buildstart = function(batch){
     self.__has_building_data = true;
     if (self.feature) {
-      self.feature.setStyle(self.__style('buildstart'));
+      self.feature.change_style(self.__style('buildstart'),batch);
     } else {
-     self.draw('buildstart');
+     self.draw('buildstart',batch);
     }
     self.status = 'buildstart';
   };
 
-  this.open = function(){
+  this.open = function(batch){
     self.__been_inaugurated = true;
     if (self.feature) {
-      self.feature.setStyle(self.__style('opening'));
+      self.feature.change_style(self.__style('opening'),batch)
     } else {
-      self.draw('opening')
+      self.draw('opening',batch)
     }
     self.status = 'opening';
   };
 
-  this.close = function(){
+  this.close = function(batch){
     if (self.feature){
-      self.map.removeLayer(self.feature);
+      self.feature.remove(batch);
       self.feature = null;
     } else {
       //console.log('closure: inexistent ' + self.type());

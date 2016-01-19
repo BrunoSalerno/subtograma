@@ -98,39 +98,41 @@ var Timeline = function(data,map,years,styles){
     } else {
       lines = self.lines();
     }
+    
+    self.map.batch(function(batch){ 
+        for (var l in lines){
+          ['line','station'].forEach(function(type){
+            var category = (type == 'line') ? 'lines' : 'stations';
+            if (current_year_data && current_year_data[category]){
+              for (var c in current_year_data[category]){
+                $.each(current_year_data[category][c],function(i,obj){
 
-    for (var l in lines){
-      ['line','station'].forEach(function(type){
-        var category = (type == 'line') ? 'lines' : 'stations';
-        if (current_year_data && current_year_data[category]){
-          for (var c in current_year_data[category]){
-            $.each(current_year_data[category][c],function(i,obj){
+                  if (obj.properties.line != l) return;
+                  if (!line && !self.__lines[obj.properties.line].show) return;
 
-              if (obj.properties.line != l) return;
-              if (!line && !self.__lines[obj.properties.line].show) return;
+                  var id = type + '_' + obj.properties.id;
 
-              var id = type + '_' + obj.properties.id;
+                  if (c=='opening'){
+                    if (!self.sections[id]) self.sections[id] = new Section(self.map,obj,self.styles,type);
+                    self.sections[id].open(batch)
+                  }
 
-              if (c=='opening'){
-                if (!self.sections[id]) self.sections[id] = new Section(self.map,obj,self.styles,type);
-                self.sections[id].open();
+                  if (c=='closure'){
+                    self.sections[id].close(batch);
+                  }
+
+                  if (c=='buildstart'){
+                    if (!self.sections[id]) self.sections[id] = new Section(self.map,obj,self.styles,type);
+                    self.sections[id].buildstart(batch);
+                  }
+
+                });
               }
-
-              if (c=='closure'){
-                self.sections[id].close();
-              }
-
-              if (c=='buildstart'){
-                if (!self.sections[id]) self.sections[id] = new Section(self.map,obj,self.styles,type);
-                self.sections[id].buildstart();
-              }
-
-            });
-          }
+            }
+            self.feature_to_front(type,l);
+          });
         }
-        self.feature_to_front(type,l);
-      });
-    }
+    });
   };
 
 
@@ -146,44 +148,46 @@ var Timeline = function(data,map,years,styles){
       lines = self.lines();
     }
 
-    for (var l in lines){
-      ['line','station'].forEach(function(type){
-        var category = (type == 'line') ? 'lines' : 'stations';
-        if (current_year_data && current_year_data[category]){
-          for (var c in current_year_data[category]){
-            current_year_data[category][c].forEach(function(obj){
+    self.map.batch(function(batch){ 
+        for (var l in lines){
+          ['line','station'].forEach(function(type){
+            var category = (type == 'line') ? 'lines' : 'stations';
+            if (current_year_data && current_year_data[category]){
+              for (var c in current_year_data[category]){
+                current_year_data[category][c].forEach(function(obj){
 
-              if (obj.properties.line != l) return;
-              if (!line && !self.__lines[obj.properties.line].show) return;
+                  if (obj.properties.line != l) return;
+                  if (!line && !self.__lines[obj.properties.line].show) return;
 
-              var id = type + '_' + obj.properties.id;
-              if (!self.sections[id]) return;
+                  var id = type + '_' + obj.properties.id;
+                  if (!self.sections[id]) return;
 
-              if (c=='opening'){
-                if (self.sections[id].has_building_data()){
-                  self.sections[id].buildstart();
-                } else {
-                  self.sections[id].close();
-                }
+                  if (c=='opening'){
+                    if (self.sections[id].has_building_data()){
+                      self.sections[id].buildstart(batch);
+                    } else {
+                      self.sections[id].close(batch);
+                    }
+                  }
+
+                  if (c=='closure'){
+                    if (self.sections[id].been_inaugurated()){
+                      self.sections[id].open(batch);
+                    } else {
+                      self.sections[id].buildstart(batch);
+                    }
+                  }
+
+                  if (c=='buildstart'){
+                    self.sections[id].close(batch);
+                  }
+                });
               }
-
-              if (c=='closure'){
-                if (self.sections[id].been_inaugurated()){
-                  self.sections[id].open();
-                } else {
-                  self.sections[id].buildstart();
-                }
-              }
-
-              if (c=='buildstart'){
-                self.sections[id].close();
-              }
-            });
-          }
+            }
+            self.feature_to_front(type,l);
+          });
         }
-        self.feature_to_front(type,l);
-      });
-    }
+    });
   };
 
   this.set_year = function(year){

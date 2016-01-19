@@ -2,19 +2,15 @@
   "line": {
     "buildstart": {
       "color": "#A4A4A4",
-      "weight": 7,
+      "line-width": 7,
       "opacity": 1,
-      "smoothFactor": 0,
-      "lineJoin": "round",
-      "lineCap": "round"
+      "smoothFactor": 0
     },
     "opening": {
       "default": {
-        "weight": 7,
+        "line-width": 7,
         "opacity": 1,
-        "smoothFactor": 0,
-        "lineJoin": "round",
-        "lineCap": "round"
+        "smoothFactor": 0
       },
       "A": {
         "color": "#01A9DB"
@@ -37,16 +33,14 @@
       },
       "P": {
         "color": "#FF8000",
-        "weight": 4
+        "line-width": 4
       }
     },
     "project":{
       "default":{
         "weight": 7,
         "opacity": 1,
-        "smoothFactor": 0,
-        "lineJoin": "round",
-        "lineCap": "round"
+        "smoothFactor": 0
       },
       "Ley 670":{
         "F":{

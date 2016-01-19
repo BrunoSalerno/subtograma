@@ -148,10 +148,11 @@
         if (year) $('.current-year').val(year);
         var y_i = self.timeline.year_information();
         var current_km = round(y_i.km_operating + self.planification.current_km()); 
-        var y_i_str = '<strong>'+current_km+'</strong> km <br />'; 
-        y_i_str += '<strong>'+y_i.km_under_construction+'</strong>  km en obra <br />';
-        y_i_str += '<strong>'+y_i.stations+'</strong> estaciones';
-        
+        var y_i_str = (current_km > 0)? current_km+' km <br />' : '';
+        y_i_str += (y_i.km_under_construction > 0)? y_i.km_under_construction+' km en obra<br />':'';
+        y_i_str += (y_i.stations > 0)? y_i.stations+' estaciones' : '';
+       
+        if (y_i_str == '') y_i_str = 'No hay información para este año'  
         $('.current-year-container .information').html(y_i_str)
     };
 
@@ -241,29 +242,37 @@
   };
 
   var load_map = function(defaults,callback){
-    $.get('php/map_url.php',function(map_url){
-      var options = {
+    //$.get('php/map_url.php',function(map_url){
+      mapboxgl.accessToken = 'pk.eyJ1IjoiYnJ1bm9zYWxlcm5vIiwiYSI6IlJxeWpheTAifQ.yoZDrB8Hrn4TvSzcVUFHBA';
+      var map = new mapboxgl.Map({
+        container: 'map', // container id
+        style: 'mapbox://styles/brunosalerno/cijg9rg5f001k93lyyw319qqu', //stylesheet location
+        center: defaults.coords, // starting position
+        zoom: defaults.zoom // starting zoom
+        });
+
+      //FIXME: Replicar funcionamiento de lo que está comentado 
+      // (Por ej., posición del zoom, attribution)
+      /*var options = {
         zoomControl: false,
-      };
+      };*/
 
-      var map = L.map('map', options).setView(defaults.coords, defaults.zoom);
 
-      tile_options = {
+      /*tile_options = {
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://mapbox.com/attributions">MapBox</a>',
       }  
       
-      L.tileLayer(map_url,tile_options).addTo(map);
 
       L.control.zoom({position:'topright'}).addTo(map);
-
-      map.whenReady(function(){
+        */
+      map.on('load',function(){
         if (typeof callback === 'function') callback(map);
       });
 
       map.on('moveend',function(){
         save_params(null,map);
       });
-    });
+    //});
   };
 
   var load_data = function(callback){
@@ -295,10 +304,10 @@
 
   $(document).ready(function(){
     var defaults = {
-      coords : [-34.6050499,-58.4122003],
+      coords : [-58.4122003,-34.6050499],
       zoom   : 13,
       init_year : 1911,
-      speed : 50,
+      speed : 1,
       years: {start:1910,end:2016, current:null, previous:null}
     };
 
