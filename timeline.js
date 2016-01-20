@@ -50,13 +50,6 @@ var Timeline = function(data,map,years,styles){
     }
   };
 
-  this.feature_to_front  = function(type,line){
-    for (var f in self.sections){
-      if (self.sections[f].type()==type &&
-        self.sections[f].line() == line) self.sections[f].bring_to_front();
-    }
-  };
-
   this.__load_data = function(data){
     var t = {};
 
@@ -129,7 +122,6 @@ var Timeline = function(data,map,years,styles){
                 });
               }
             }
-            self.feature_to_front(type,l);
           });
         }
     });
@@ -184,7 +176,6 @@ var Timeline = function(data,map,years,styles){
                 });
               }
             }
-            self.feature_to_front(type,l);
           });
         }
     });

@@ -118,27 +118,16 @@
   },
   "point": {
     "buildstart": {
-      "weight": 2,
-      "radius": 5,
-      "stroke": true,
-      "opacity": 1,
-      "fillOpacity": 1,
+      "circle-radius": 7,
       "color":"#A4A4A4",
       "fillColor": "#E6E6E6"
     },
     "opening": {
-      "weight": 2,
-      "radius": 5,
-      "stroke": true,
-      "opacity": 1,
-      "fillOpacity": 1,
+      "circle-radius": 7,
       "fillColor": "#E6E6E6"
     },
     "project":{
-      "weight": 2,
-      "radius": 5,
-      "stroke": true,
-      "opacity": 1,
+      "circle-radius": 7,
       "fillOpacity": 1,
       "fillColor": "#E6E6E6"
     }

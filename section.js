@@ -3,10 +3,9 @@ var Section = function(map, feature, styles, type){
   
   this.raw_feature = feature;
   this.feature = null;
-  this.geometry = feature.geometry;
+  this.properties = feature.properties;
   this.map = map;
   this.styles = styles;
-  this.properties = feature.properties;
   this.__has_building_data = false;
   this.__been_inaugurated = false;
   this.__type = type;
@@ -15,12 +14,7 @@ var Section = function(map, feature, styles, type){
   var self = this;
 
   this.source_name = function(){
-   var str = '';
-   if (self.__type == 'line'){
-    str = self.type() + '_' + self.properties.name  + '_' + self.properties.line +'_id_' + self.properties.id;
-   }else{
-    str = self.__type+"_line_" + self.properties.line + "_" + self.status;
-   }
+   var str = self.__type+"_line_" + self.properties.line + "_" + self.status;
    return str;
   }
 
@@ -44,6 +38,8 @@ var Section = function(map, feature, styles, type){
     return round((self.__length/1000)); //in km
   };
 
+  // FiXME: Move this logic to main.js::LoadMap
+  /*
   this.__popup_content = function(){
 
     var content ='<div class="info-window"><div>';
@@ -57,7 +53,7 @@ var Section = function(map, feature, styles, type){
     if (self.properties.closure) content += '<li>Clausura: ' + self.properties.closure;
     content +='</ul></div>'
     return content;
-  }
+  }*/
 
   this.__style = function(operation){
     var style;
@@ -76,19 +72,10 @@ var Section = function(map, feature, styles, type){
     return style;
   };
 
-  this.bring_to_front = function(){
-    //FIXME: ver cómo reemplazar esto
-    //if (self.feature) self.feature.bringToFront();
-  };
-
   this.draw = function(operation,batch){
     var style = self.__style(operation);
    
-    if (self.__type == 'line'){
-        self.feature = new Feature(self.source_name(),self.geometry,style,self.map,batch)
-    } else {
-        self.feature = new PointFeature(self.source_name(),self.raw_feature,style,self.map,batch);    
-    }
+    self.feature = new Feature(self.source_name(),self.raw_feature,style,self.map,batch);    
     /*
     feature_var.bindPopup(self.__popup_content());
 
@@ -107,13 +94,9 @@ var Section = function(map, feature, styles, type){
     self.status = 'buildstart';
     self.__has_building_data = true;
     if (self.feature) {
-        if (self.__type == 'line'){
-            self.feature.change_style(self.__style('buildstart'),batch);
-        }else{
-            self.feature.change_style(self.source_name(),self.__style('buildstart'),batch);
-        }
+        self.feature.change_style(self.source_name(),self.__style('buildstart'),batch);
     } else {
-     self.draw('buildstart',batch);
+        self.draw(self.status, batch);    
     }
   };
 
@@ -121,13 +104,9 @@ var Section = function(map, feature, styles, type){
     self.status = 'opening';
     self.__been_inaugurated = true;
     if (self.feature) {
-        if (self.__type == 'line'){
-            self.feature.change_style(self.__style('opening'),batch)
-        }else{
-            self.feature.change_style(self.source_name(),self.__style('opening'),batch)    
-        }
+       self.feature.change_style(self.source_name(),self.__style('opening'),batch)    
     } else {
-      self.draw('opening',batch)
+        self.draw(self.status, batch);    
     }
   };
 
