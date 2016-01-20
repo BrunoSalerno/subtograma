@@ -20,7 +20,6 @@ var Section = function(map, feature, styles, type){
     str = self.type() + '_' + self.properties.name  + '_' + self.properties.line +'_id_' + self.properties.id;
    }else{
     str = self.__type+"_line_" + self.properties.line + "_" + self.status;
-    console.log(str);
    }
    return str;
   }
