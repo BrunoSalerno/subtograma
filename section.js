@@ -16,6 +16,7 @@ var Section = function(map, feature, styles, type){
 
   this.source_name = function(){
    var str = self.__type+"_line_" + self.properties.line + "_" + self.status;
+   if (self.status=='buildstart') str = self.__type + '_' + self.status;
    return str;
   }
 

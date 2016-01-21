@@ -1,6 +1,3 @@
-    // FIXME:
-    // Hacer mecanismo de popups unificado en main.js. 
-
 var Feature = function(source_name,feature,style,map,initial_batch){
     var self = this;
     self.source_name = source_name;
@@ -9,10 +6,7 @@ var Feature = function(source_name,feature,style,map,initial_batch){
     self.feature = feature;
     
     this.source_name_station_version = function(){
-        var parts = self.source_name.split('_');
-        parts[0]='station';
-        parts[parts.length-1]='buildstart';
-        return parts.join('_');    
+        return 'station_buildstart';
     }
     
     this.source_data = function(features){
