@@ -39,7 +39,7 @@ var Feature = function(initial_batch,opts){
     this.feature_included = function(source){
         var included = false;
         $.each(source['_data']['features'],function(i,element){
-            if (element.properties.id == self.feature.properties.id) included = true;    
+            if (self.match_condition(element)) included = true;
         });
         return included;    
     }
@@ -54,13 +54,22 @@ var Feature = function(initial_batch,opts){
     this.remove = function(batch){
         var source = self.map.getSource(self.source_name);
         
-        features = $.grep(source['_data']['features'], function(value) {
-              return value.properties.id != self.feature.properties.id;
+        features = $.grep(source['_data']['features'], function(element) {
+              return (!self.match_condition(element));
         });
 
         source.setData(self.source_data(features).data);
     };
     
+    this.match_condition = function(element){
+        return (!self.feature.properties.plan &&
+        !element.properties.plan && 
+        element.properties.id == self.feature.properties.id) || 
+        (self.feature.properties.plan &&
+        self.feature.properties.plan == element.properties.plan &&
+        self.feature.properties.id == element.properties.id) 
+    }
+
     this._layer = function(style){
         var layer = {
                 "id": self.source_name,
@@ -82,7 +91,7 @@ var Feature = function(initial_batch,opts){
     
     // Fixme, mover esto a otro lado
     this._format_style = function(s){
-        if (self.feature.geometry.type == 'LineString'){
+        if (self.type == 'line'){
             s["line-color"]=s["color"];
         } else {
             s["circle-color"] = s["color"];

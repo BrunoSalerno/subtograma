@@ -19,19 +19,20 @@ var load_layers_control = function(starting_lines,starting_plans,app){
         line + '</label></li>';
     }
     lines_str +='</ul></li>'
+    
     var plans = app.planification.plans();
     $.each(plans,function(i,plan){
       lines_str += '<li class="plan-label"><div>'+plan.label+'</div>';
       lines_str +='<a href="'+plan.url+'" target="_blank" + title="Link a la ley"><img src="img/link.svg" class="plan-link"></img></a>';
       lines_str +='<ul class="plan-list">'
       for (var line in plan.lines){
-        var label_font_color = app.styles.line.project[plan.name][line].labelFontColor ? 'color: ' + app.styles.line.project[plan.name][line].labelFontColor+';' : '';
+        var label_font_color = app.styles.line.opening[line].labelFontColor ? 'color: ' + app.styles.line.opening[line].labelFontColor+';' : '';
         var checked_str = (plan.lines[line].show) ? 'checked' : '';
         lines_str += '<li><input type="checkbox" id="checkbox_'+plan.name.replace(' ','-')+
           '_'+line+'" ' + checked_str + '/>' +
           '<label id="label_'+plan.name.replace(' ','-')+'_'+line +
           '" for="checkbox_'+plan.name.replace(' ','-')+'_'+line +
-          '" style="' + label_font_color + 'background-color: '+ app.styles.line.project[plan.name][line].color+'">' +
+          '" style="' + label_font_color + 'background-color: '+ app.styles.line.opening[line].color+'">' +
           line + '</label></li>';
       }
       lines_str += '</ul></li>';
