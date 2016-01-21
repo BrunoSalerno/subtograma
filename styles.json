@@ -128,7 +128,6 @@
     },
     "project":{
       "circle-radius": 7,
-      "fillOpacity": 1,
       "fillColor": "#E6E6E6"
     }
   }

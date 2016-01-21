@@ -3,6 +3,7 @@ var Section = function(map, feature, styles, type){
   
   this.raw_feature = feature;
   this.feature = null;
+  this.feature_extra = null;
   this.properties = feature.properties;
   this.map = map;
   this.styles = styles;
@@ -75,7 +76,11 @@ var Section = function(map, feature, styles, type){
   this.draw = function(operation,batch){
     var style = self.__style(operation);
    
-    self.feature = new Feature(self.source_name(),self.raw_feature,style,self.map,batch);    
+    if (self.__type == 'station'){
+        self.feature_extra = new Feature('station_inner',self.raw_feature,style,self.map,batch);
+    }
+    
+    self.feature = new Feature(self.source_name(),self.raw_feature,style,self.map,batch);
     /*
     feature_var.bindPopup(self.__popup_content());
 
@@ -104,7 +109,7 @@ var Section = function(map, feature, styles, type){
     self.status = 'opening';
     self.__been_inaugurated = true;
     if (self.feature) {
-       self.feature.change_style(self.source_name(),self.__style('opening'),batch)    
+       self.feature.change_style(self.source_name(),self.__style('opening'),batch);          
     } else {
         self.draw(self.status, batch);    
     }
@@ -115,6 +120,11 @@ var Section = function(map, feature, styles, type){
     if (self.feature){
       self.feature.remove(batch);
       self.feature = null;
+      
+      if (self.feature_extra){
+        self.feature_extra.remove(batch);
+        self.feature_extra = null;
+      }
     } else {
       //console.log('closure: inexistent ' + self.type());
     }

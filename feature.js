@@ -8,6 +8,13 @@ var Feature = function(source_name,feature,style,map,initial_batch){
     self.map = map;
     self.feature = feature;
     
+    this.source_name_station_version = function(){
+        var parts = self.source_name.split('_');
+        parts[0]='station';
+        parts[parts.length-1]='buildstart';
+        return parts.join('_');    
+    }
+    
     this.source_data = function(features){
         return {"data":{
                     "type" : "FeatureCollection",
@@ -20,7 +27,14 @@ var Feature = function(source_name,feature,style,map,initial_batch){
         if (!source){
             source = new mapboxgl.GeoJSONSource(self.source_data([self.feature]))
             batch.addSource(self.source_name, source)
-            batch.addLayer(self._layer());
+            
+            var before = null;
+            if (self.feature.geometry.type == 'LineString'){
+                before = self.source_name_station_version();    
+            } else {
+                if (self.map.getLayer('station_inner')) before = 'station_inner';
+            };
+            batch.addLayer(self._layer(),before);
         }else{
             features = source._data.features
             features.push(self.feature)
@@ -56,11 +70,10 @@ var Feature = function(source_name,feature,style,map,initial_batch){
     this._layer = function(style){
         var layer = {
                 "id": self.source_name,
-                "source": self.source_name,
-                "paint": style || self.style
-            };
+                "source": self.source_name
+                };
         
-        layer["paint"] = self._format_style(layer["paint"]);
+        layer["paint"] = self._format_style($.extend(true,{},(style || self.style)));
          
         if (self.feature.geometry.type == 'LineString'){
             $.extend(layer,{"layout": {
@@ -77,7 +90,11 @@ var Feature = function(source_name,feature,style,map,initial_batch){
         if (self.feature.geometry.type == 'LineString'){
             s["line-color"]=s["color"];
         } else {
-            s["circle-color"]=s["color"];
+            s["circle-color"] = s["color"];
+            if (self.source_name =='station_inner') {
+                s["circle-color"] = s["fillColor"];
+                s["circle-radius"] = s["circle-radius"] - 3;    
+            }
         }
         return s;
     } 

@@ -94,7 +94,7 @@ var Timeline = function(data,map,years,styles){
     
     self.map.batch(function(batch){ 
         for (var l in lines){
-          ['line','station'].forEach(function(type){
+          ['station','line'].forEach(function(type){
             var category = (type == 'line') ? 'lines' : 'stations';
             if (current_year_data && current_year_data[category]){
               for (var c in current_year_data[category]){
@@ -142,7 +142,7 @@ var Timeline = function(data,map,years,styles){
 
     self.map.batch(function(batch){ 
         for (var l in lines){
-          ['line','station'].forEach(function(type){
+          ['station','line'].forEach(function(type){
             var category = (type == 'line') ? 'lines' : 'stations';
             if (current_year_data && current_year_data[category]){
               for (var c in current_year_data[category]){
