@@ -1,13 +1,12 @@
-var Feature = function(source_name,feature,style,map,initial_batch){
+var Feature = function(initial_batch,opts){
     var self = this;
-    self.source_name = source_name;
-    self.style = style;
-    self.map = map;
-    self.feature = feature;
-    
-    this.source_name_station_version = function(){
-        return 'station_buildstart';
-    }
+    self.source_name = opts.source_name;
+    self.style = opts.style;
+    self.feature = opts.feature;
+    self.map = opts.map;
+    self.station_inner_layer = opts.station_inner_layer;
+    self.line_before_layer = opts.line_before_layer;
+    self.type = opts.type;
     
     this.source_data = function(features){
         return {"data":{
@@ -23,10 +22,11 @@ var Feature = function(source_name,feature,style,map,initial_batch){
             batch.addSource(self.source_name, source)
             
             var before = null;
-            if (self.feature.geometry.type == 'LineString'){
-                before = self.source_name_station_version();    
+            if (self.type == 'line'){
+                before = self.line_before_layer;    
             } else {
-                if (self.map.getLayer('station_inner')) before = 'station_inner';
+                if (self.map.getLayer(self.station_inner_layer)) 
+                    before = self.station_inner_layer;
             };
             batch.addLayer(self._layer(),before);
         }else{
@@ -69,7 +69,7 @@ var Feature = function(source_name,feature,style,map,initial_batch){
         
         layer["paint"] = self._format_style($.extend(true,{},(style || self.style)));
          
-        if (self.feature.geometry.type == 'LineString'){
+        if (self.type == 'line'){
             $.extend(layer,{"layout": {
                 "line-join": "round",
                 "line-cap": "round"},
@@ -80,12 +80,13 @@ var Feature = function(source_name,feature,style,map,initial_batch){
         return layer;
     }
     
+    // Fixme, mover esto a otro lado
     this._format_style = function(s){
         if (self.feature.geometry.type == 'LineString'){
             s["line-color"]=s["color"];
         } else {
             s["circle-color"] = s["color"];
-            if (self.source_name =='station_inner') {
+            if (self.source_name == self.station_inner_layer) {
                 s["circle-color"] = s["fillColor"];
                 s["circle-radius"] = s["circle-radius"] - 3;    
             }

@@ -11,13 +11,28 @@ var Section = function(map, feature, styles, type){
   this.__been_inaugurated = false;
   this.__type = type;
   this.__length = feature.properties.length;
-    
+  
   var self = this;
+  
+  const STATION_INNER_LAYER = 'station_inner';
+  
+  this.source_name = function(t,s){
+    var t = t || self.__type;
+    var s = s || self.status;
+      
+    var str = t + "_";
 
-  this.source_name = function(){
-   var str = self.__type+"_line_" + self.properties.line + "_" + self.status;
-   if (self.status=='buildstart') str = self.__type + '_' + self.status;
-   return str;
+    if (self.status=='buildstart')
+       str += s;
+    else
+       str += self.properties.line;
+
+    return str;
+  }
+
+
+  this.line_before_layer = function(){
+    return self.source_name('station','buildstart');
   }
 
   this.has_building_data = function(){
@@ -76,12 +91,24 @@ var Section = function(map, feature, styles, type){
 
   this.draw = function(operation,batch){
     var style = self.__style(operation);
-   
+  
+    var opts = {
+        map:self.map,
+        source_name:self.source_name(),
+        feature:self.raw_feature,
+        style:style,
+        station_inner_layer: STATION_INNER_LAYER,
+        line_before_layer: self.line_before_layer(),
+        type:self.__type
+    }
+
     if (self.__type == 'station'){
-        self.feature_extra = new Feature('station_inner',self.raw_feature,style,self.map,batch);
+        var extra_opts = $.extend({},opts)
+        extra_opts.source_name = STATION_INNER_LAYER; 
+        self.feature_extra = new Feature(batch,extra_opts);
     }
     
-    self.feature = new Feature(self.source_name(),self.raw_feature,style,self.map,batch);
+    self.feature = new Feature(batch,opts);
     /*
     feature_var.bindPopup(self.__popup_content());
 
