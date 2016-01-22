@@ -245,26 +245,14 @@
     //$.get('php/map_url.php',function(map_url){
       mapboxgl.accessToken = 'pk.eyJ1IjoiYnJ1bm9zYWxlcm5vIiwiYSI6IlJxeWpheTAifQ.yoZDrB8Hrn4TvSzcVUFHBA';
       var map = new mapboxgl.Map({
-        container: 'map', // container id
-        style: 'mapbox://styles/brunosalerno/cijg9rg5f001k93lyyw319qqu', //stylesheet location
-        center: defaults.coords, // starting position
-        zoom: defaults.zoom // starting zoom
-        });
+        container: 'map',
+        style: 'mapbox://styles/brunosalerno/cijg9rg5f001k93lyyw319qqu',
+        center: defaults.coords,
+        zoom: defaults.zoom,
+        bearing: defaults.bearing 
+      });
 
-      //FIXME: Replicar funcionamiento de lo que está comentado 
-      // (Por ej., posición del zoom, attribution)
-      /*var options = {
-        zoomControl: false,
-      };*/
-
-
-      /*tile_options = {
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://mapbox.com/attributions">MapBox</a>',
-      }  
-      
-
-      L.control.zoom({position:'topright'}).addTo(map);
-        */
+      map.addControl(new mapboxgl.Navigation()); 
       map.on('load',function(){
         if (typeof callback === 'function') callback(map);
       });
@@ -306,6 +294,7 @@
     var defaults = {
       coords : [-58.4122003,-34.6050499],
       zoom   : 13,
+      bearing : 0,
       init_year : 1911,
       speed : 1,
       years: {start:1910,end:2016, current:null, previous:null}
@@ -318,6 +307,7 @@
     if (params.coords) {
       defaults.coords = [params.coords.lon,params.coords.lat];
       defaults.zoom = params.coords.z;
+      defaults.bearing = params.coords.bearing;
     }
 
     load_map(defaults, function(map){
