@@ -46,7 +46,7 @@ function save_params(year,map,lines,plans){
 
   if (map){
     var center = map.getCenter();
-    url += '&coords=' + center.lat + ',' + center.lng + ',' + map.getZoom() + ',' + map.getBearing();
+    url += '&coords=' + center.lat + ',' + center.lng + ',' + map.getZoom() + ',' + parseInt(map.getBearing());
   } else if (current_params.coords) {
     url += '&coords=' + current_params.coords.lat + ',' + current_params.coords.lon + ',' + current_params.coords.z + ',' + current_params.coords.bearing;
   }
