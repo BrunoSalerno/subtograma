@@ -19,7 +19,7 @@ function transformToAssocArray( prmstr ) {
       var splitted = tmparr[1].split(",");
       params[tmparr[0]] = { lat:parseFloat(splitted[0]),
         lon:parseFloat(splitted[1]),
-        z:parseInt(splitted[2]),
+        z:parseFloat(splitted[2]),
         bearing:parseFloat(splitted[3])};
 
     } else if (tmparr[0] == 'year') {
@@ -46,7 +46,7 @@ function save_params(year,map,lines,plans){
 
   if (map){
     var center = map.getCenter();
-    url += '&coords=' + center.lat + ',' + center.lng + ',' + map.getZoom() + ',' + parseInt(map.getBearing());
+    url += '&coords=' + center.lat.toFixed(6) + ',' + center.lng.toFixed(6) + ',' + map.getZoom().toFixed(2) + ',' + map.getBearing().toFixed(2);
   } else if (current_params.coords) {
     url += '&coords=' + current_params.coords.lat + ',' + current_params.coords.lon + ',' + current_params.coords.z + ',' + current_params.coords.bearing;
   }
