@@ -135,9 +135,10 @@ body {
 
 .current-year-container {
     position:absolute;
-    margin:2.5%;
+    margin:2%;
     padding:10px;
     padding-top:5px;
+    padding-bottom:5px;
     min-width:170px;
     left:0;
     top:0;
