@@ -228,7 +228,7 @@
 
     // Init to the start year
     // ----------------------
-    this.timeline.up_to_year(this.years.start);
+    self.timeline.up_to_year(this.years.start);
     self.set_current_year_info(this.years.start);
     self.set_year_maker(this.years.start);
 
@@ -316,7 +316,7 @@
     var params = getSearchParameters();
 
     if (params.coords) {
-      defaults.coords = [params.coords.lat,params.coords.lon];
+      defaults.coords = [params.coords.lon,params.coords.lat];
       defaults.zoom = params.coords.z;
     }
 
