@@ -1,5 +1,4 @@
 var load_layers_control = function(starting_lines,starting_plans,app){
-    
     if (starting_lines) {
       app.timeline.set_lines(starting_lines);
     }
