@@ -31,8 +31,10 @@ var Section = function(map, feature, styles, type){
   }
 
 
-  this.line_before_layer = function(){
-    return self.source_name('station','buildstart');
+  this.before_layer = function(){
+    var b = self.source_name('station','buildstart');
+    if (self.__type == 'station') b = STATION_INNER_LAYER;
+    return b;
   }
 
   this.has_building_data = function(){
@@ -107,15 +109,17 @@ var Section = function(map, feature, styles, type){
         source_name:self.source_name(),
         feature:self.raw_feature,
         style:style,
-        station_inner_layer: STATION_INNER_LAYER,
-        line_before_layer: self.line_before_layer(),
+        before_layer: self.before_layer(),
         type:self.__type
     }
 
     if (self.__type == 'station'){
-        var extra_opts = $.extend({},opts)
-        extra_opts.source_name = STATION_INNER_LAYER; 
-        extra_opts.style = self.__style(operation,{source_name:extra_opts.source_name});
+        var extra_opts = $.extend({},opts,{
+            source_name: STATION_INNER_LAYER,
+            before_layer: null,
+            style: self.__style(operation,{source_name: STATION_INNER_LAYER})
+        });
+        
         self.feature_extra = new Feature(batch,extra_opts);
     }
     

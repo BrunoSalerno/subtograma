@@ -4,8 +4,7 @@ var Feature = function(initial_batch,opts){
     self.style = opts.style;
     self.feature = opts.feature;
     self.map = opts.map;
-    self.station_inner_layer = opts.station_inner_layer;
-    self.line_before_layer = opts.line_before_layer;
+    self.before_layer = opts.before_layer;
     self.type = opts.type;
     
     this.source_data = function(features){
@@ -20,15 +19,7 @@ var Feature = function(initial_batch,opts){
         if (!source){
             source = new mapboxgl.GeoJSONSource(self.source_data([self.feature]))
             batch.addSource(self.source_name, source)
-            
-            var before = null;
-            if (self.type == 'line'){
-                before = self.line_before_layer;    
-            } else {
-                if (self.map.getLayer(self.station_inner_layer)) 
-                    before = self.station_inner_layer;
-            };
-            batch.addLayer(self._layer(),before);
+            batch.addLayer(self._layer(),self.before_layer);
         }else{
             features = source._data.features
             features.push(self.feature)
@@ -55,7 +46,7 @@ var Feature = function(initial_batch,opts){
         var source = self.map.getSource(self.source_name);
         
         features = $.grep(source['_data']['features'], function(element) {
-              return (!self.match_condition(element));
+            return (!self.match_condition(element));
         });
 
         source.setData(self.source_data(features).data);
@@ -73,7 +64,8 @@ var Feature = function(initial_batch,opts){
     this._layer = function(){
         var layer = {
                 "id": self.source_name,
-                "source": self.source_name
+                "source": self.source_name,
+                "interactive":true
                 };
         
         layer["paint"] = $.extend(true,{},self.style);
