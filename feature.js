@@ -50,6 +50,11 @@ var Feature = function(initial_batch,opts){
         });
 
         source.setData(self.source_data(features).data);
+
+        if (features.length == 0){
+            batch.removeLayer(self.source_name);
+            batch.removeSource(self.source_name);    
+        }
     };
     
     this.match_condition = function(element){

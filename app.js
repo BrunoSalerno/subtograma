@@ -223,7 +223,11 @@ var App = function(defaults,data,projects_data,map,styles,params,callback){
     // Layers
     // ------
     load_layers_control(starting_lines,starting_plans,this);
-
+    
+    // Popups
+    //-------
+    self.mouse_events = new MouseEvents(map,self.styles,self.planification,self.timeline);
+    
     // Init to the start year
     // ----------------------
     self.timeline.up_to_year(this.years.start);

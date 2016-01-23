@@ -1,5 +1,11 @@
 {
   "line": {
+    "hover": {
+      "color": "#000",
+      "line-width": 7,
+      "opacity": 1,
+      "smoothFactor": 0
+    },
     "buildstart": {
       "color": "#A4A4A4",
       "line-width": 7,
@@ -53,6 +59,10 @@
     }
   },
   "point": {
+    "hover":{
+      "circle-radius": 7,
+      "color":"#000"
+    },  
     "buildstart": {
       "circle-radius": 7,
       "color":"#A4A4A4",

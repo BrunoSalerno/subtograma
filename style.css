@@ -13,18 +13,6 @@ a:hover {
     text-decoration:underline;    
 }
 
-a.leaflet-control-zoom-in, a.leaflet-control-zoom-out {
-    color: black !important;
-}
-
-a.leaflet-popup-close-button { 
-    color: #c3c3c3 !important;
-}
-
-a.leaflet-popup-close-button:hover {
-    color: #999 !important;
-}
-
 i {
     font-style: italic;
 }
@@ -35,6 +23,10 @@ html,body {
 
 body {
     overflow: hidden;
+}
+
+strong, b {
+    font-weight: bold !important;
 }
 
 #map {
@@ -234,11 +226,6 @@ Taken from http://stephanwagner.me/only-css-loading-spinner
     z-index:10000;
 }
 
-.leaflet-control-attribution.leaflet-control {
-  margin-right:3px;
-  margin-bottom:3px;
-}
-
 
 @media (max-width: 1000px){
     .slider .reference-container{
@@ -260,9 +247,6 @@ Taken from http://stephanwagner.me/only-css-loading-spinner
         display:none;
     }
 
-    .leaflet-control-attribution.leaflet-control {
-        width:150px;
-    }
 /*
     .plan-label div{
         font-size:12px;
@@ -279,10 +263,6 @@ Taken from http://stephanwagner.me/only-css-loading-spinner
     .panel .content.layers {
      padding-left:5px !important;    
     }
-}
-
-.leaflet-popup-content-wrapper {
-    border-radius: 5px;
 }
 
 .logo {
@@ -496,10 +476,6 @@ input[type="checkbox"]:not(:checked) + label:hover {
 
 .action.pause {
     background: url(img/play_pause.svg) 15px 0;
-}
-
-.leaflet-bottom.leaflet-right.back {
-    z-index:30 !important;
 }
 
 /* CSS bug fix for slideToggle */

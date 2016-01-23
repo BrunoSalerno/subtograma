@@ -40,16 +40,6 @@ var Plan = function(map,plan_name,year,url,styles){
     self.__lines[line].section.feature);
   };
 
-  /*this.__popup_content = function(line,name){
-    var content ='<div class="info-window"><div>';
-    if (name) content += name + ' - ';
-    content += 'Línea '+ line + '</div>';
-    content +='<ul>';
-    content += '<li>' + self.label();
-    if (!name) content += '<li>Longitud: ~<strong>' + round(self.__lines[line].length) + '</strong> km';
-    content +='</ul></div>';
-    return content;
-  };*/
   this.draw = function(line){
     self.map.batch(function(batch){
         if (!self.__lines[line].section)
@@ -59,36 +49,14 @@ var Plan = function(map,plan_name,year,url,styles){
                                                      'line');
         
         self.__lines[line].section.open(batch);
-        /*
-        f.bindPopup(self.__popup_content(line, null));
-
-        f.on('mouseover', function (e){
-          this.setStyle({color:'#2E2E2E'});
-        });
-
-        f.on('mouseout', function (e){
-          this.setStyle(self.__style('line',line));
-        });
-        */
+        
         $.each(self.__lines[line].stations,function(i,s){
           if (!s.section)
             s.section = new Section(self.map,
                                     s.raw_feature,
                                     self.__styles,
                                     'station');
-          
           s.section.open(batch);
-          /*  
-          s.feature.bindPopup(self.__popup_content(line, s.properties.name));
-
-          s.feature.on('mouseover', function (e){
-            this.setStyle({color:'#2E2E2E'});
-            this.setStyle({weight:3});
-          });
-
-          s.feature.on('mouseout', function (e){
-            this.setStyle(self.__style('point',line));
-          });*/
         });
     });
   };
