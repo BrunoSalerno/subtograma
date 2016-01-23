@@ -27,7 +27,7 @@
 { "type": "Feature", "properties": { "id": 23, "name": "Cid Campeador", "line": "G", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.445961094894891, -34.607697229209712 ] } },
 { "type": "Feature", "properties": { "id": 22, "name": "Parque Centenario", "line": "G", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.435453589169917, -34.608734008253684 ] } },
 { "type": "Feature", "properties": { "id": 24, "name": "Costa Rica", "line": "I", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.423909745151256, -34.590247989198168 ] } },
-{ "type": "Feature", "properties": { "id": 23, "name": "Plaza Italia", "line": "I", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.421501289197948, -34.581039590866091 ] } },
+{ "type": "Feature", "properties": { "id": 63, "name": "Plaza Italia", "line": "I", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.421501289197948, -34.581039590866091 ] } },
 { "type": "Feature", "properties": { "id": 25, "name": "Córdoba", "line": "I", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.4300227329311, -34.594280543066851 ] } },
 { "type": "Feature", "properties": { "id": 26, "name": "Corrientes", "line": "I", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.438646229882572, -34.599791383453699 ] } },
 { "type": "Feature", "properties": { "id": 27, "name": "Warnes", "line": "I", "plan": "Ley 670" }, "geometry": { "type": "Point", "coordinates": [ -58.442473225571106, -34.602244261887336 ] } },
