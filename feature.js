@@ -70,13 +70,13 @@ var Feature = function(initial_batch,opts){
         self.feature.properties.id == element.properties.id) 
     }
 
-    this._layer = function(style){
+    this._layer = function(){
         var layer = {
                 "id": self.source_name,
                 "source": self.source_name
                 };
         
-        layer["paint"] = self._format_style($.extend(true,{},(style || self.style)));
+        layer["paint"] = $.extend(true,{},self.style);
          
         if (self.type == 'line'){
             $.extend(layer,{"layout": {
@@ -88,20 +88,6 @@ var Feature = function(initial_batch,opts){
         }
         return layer;
     }
-    
-    // Fixme, mover esto a otro lado
-    this._format_style = function(s){
-        if (self.type == 'line'){
-            s["line-color"]=s["color"];
-        } else {
-            s["circle-color"] = s["color"];
-            if (self.source_name == self.station_inner_layer) {
-                s["circle-color"] = s["fillColor"];
-                s["circle-radius"] = s["circle-radius"] - 3;    
-            }
-        }
-        return s;
-    } 
     
     this.load(initial_batch);    
 }

@@ -72,18 +72,28 @@ var Section = function(map, feature, styles, type){
     return content;
   }*/
 
-  this.__style = function(operation){
+  this.__style = function(operation,opts){
+    var opts = opts || {};
     var style;
     switch (self.__type){
       case 'line':
         style = (operation == 'opening') ?
           $.extend(true,{},self.styles.line[operation]["default"],self.styles.line[operation][self.properties.line]) :
-          self.styles.line[operation];
+          $.extend(true,{},self.styles.line[operation]);
+          
+        style["line-color"] = style["color"];
         break;
+      
       case 'station':
         style = (operation == 'opening') ?
           $.extend(true,{},self.styles.point[operation],self.styles.line[operation][self.properties.line]) :
-          self.styles.point[operation];
+          $.extend(true,{},self.styles.point[operation]);
+        
+        style["circle-color"] = style["color"];
+        if (opts.source_name == STATION_INNER_LAYER) {
+            style["circle-color"] = style["fillColor"];
+            style["circle-radius"] = style["circle-radius"] - 3;    
+        }
         break;
     }
     return style;
@@ -105,6 +115,7 @@ var Section = function(map, feature, styles, type){
     if (self.__type == 'station'){
         var extra_opts = $.extend({},opts)
         extra_opts.source_name = STATION_INNER_LAYER; 
+        extra_opts.style = self.__style(operation,{source_name:extra_opts.source_name});
         self.feature_extra = new Feature(batch,extra_opts);
     }
     
