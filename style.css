@@ -131,7 +131,7 @@ strong, b {
     padding:10px;
     padding-top:5px;
     padding-bottom:5px;
-    min-width:170px;
+    width:170px;
     left:0;
     top:0;
     background-color:white;
@@ -148,7 +148,6 @@ strong, b {
     border-bottom:1px solid #e6e6e6;
     background-color:transparent;
     padding-bottom:2px;
-    width:200px;
 }
 
 .current-year-container .information {
