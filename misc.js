@@ -20,7 +20,7 @@ function transformToAssocArray( prmstr ) {
       params[tmparr[0]] = { lat:parseFloat(splitted[0]),
         lon:parseFloat(splitted[1]),
         z:parseFloat(splitted[2]),
-        bearing:parseFloat(splitted[3])};
+        bearing:parseFloat(splitted[3] || 0)};
 
     } else if (tmparr[0] == 'year') {
       params[tmparr[0]] = parseInt(tmparr[1]);
