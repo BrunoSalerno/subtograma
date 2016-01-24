@@ -11,6 +11,7 @@ var MouseEvents = function(map,style,planification,timeline){
 
     const STATION_INNER_LAYER = 'station_inner';
     const STATION_HOVER_LAYER = 'station_hover';
+    const RADIUS = 12;
 
     function hover(id,type,feature,batch){
         var layer = type + '_hover';
@@ -49,7 +50,7 @@ var MouseEvents = function(map,style,planification,timeline){
     }
     
     map.on('click',function(e){
-        map.featuresAt(e.point, {layer:self.layers,radius: 5}, function (err, features) {
+        map.featuresAt(e.point, {layer:self.layers,radius: RADIUS}, function (err, features) {
             var html = '';
             features.forEach(function(f){
                 html+= '<p><b>' + f.layer.id + '</b></p>';
@@ -67,7 +68,7 @@ var MouseEvents = function(map,style,planification,timeline){
     });
 
     map.on("mousemove", function(e){
-        map.featuresAt(e.point, {layer:self.layers,radius: 12}, function (err, features) {
+        map.featuresAt(e.point, {layer:self.layers,radius: RADIUS}, function (err, features) {
             map.batch(function(batch){
                 var ids = [];
                 features.forEach(function(f){
