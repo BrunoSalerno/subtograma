@@ -148,6 +148,7 @@ strong, b {
     border-bottom:1px solid #e6e6e6;
     background-color:transparent;
     padding-bottom:2px;
+    width:200px;
 }
 
 .current-year-container .information {
@@ -157,8 +158,6 @@ strong, b {
     color:#585858;
     border-bottom-left-radius:4px;
     border-bottom-right-radius:4px;
-    font-size:14.5px;
-    line-height:15px;
     padding-top:8px;
 }
 
@@ -480,3 +479,15 @@ input[type="checkbox"]:not(:checked) + label:hover {
 
 /* CSS bug fix for slideToggle */
 ol.message_list { position: relative }
+
+.mapboxgl-popup-content {
+    color:#424242 !important;
+    box-shadow:0 0 1px #888 !important;
+    border-radius:4px !important;
+    padding-top:15px !important;    
+}
+
+.mapboxgl-popup-close-button {
+    margin-right:7px;
+    font-size:18px !important;    
+}

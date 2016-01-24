@@ -146,11 +146,11 @@ var App = function(defaults,data,projects_data,map,styles,params,callback){
         if (year) $('.current-year').val(year);
         var y_i = self.timeline.year_information();
         var current_km = round(y_i.km_operating + self.planification.current_km()); 
-        var y_i_str = (current_km > 0)? current_km+' km <br />' : '';
-        y_i_str += (y_i.km_under_construction > 0)? y_i.km_under_construction+' km en obra<br />':'';
-        y_i_str += (y_i.stations > 0)? y_i.stations+' estaciones' : '';
+        var y_i_str = (current_km > 0)? '<p>' + current_km+' km </p>' : '';
+        y_i_str += (y_i.km_under_construction > 0)? '<p>' + y_i.km_under_construction+' km en obra</p>':'';
+        y_i_str += (y_i.stations > 0)? '<p>' + y_i.stations+' estaciones </p>' : '';
        
-        if (y_i_str == '') y_i_str = 'No hay información para este año'  
+        if (y_i_str == '') y_i_str = '<p>No hay información para este año</p>'  
         $('.current-year-container .information').html(y_i_str)
     };
 
@@ -224,8 +224,8 @@ var App = function(defaults,data,projects_data,map,styles,params,callback){
     // ------
     load_layers_control(starting_lines,starting_plans,this);
     
-    // Popups
-    //-------
+    // Hover & Popup
+    //--------------
     self.mouse_events = new MouseEvents(map,self.styles,self.planification,self.timeline);
     
     // Init to the start year
