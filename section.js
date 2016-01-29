@@ -15,7 +15,7 @@ var Section = function(map, feature, styles, type){
   var self = this;
   
   const STATION_INNER_LAYER = 'station_inner';
-  const STATION_TOP_LAYER = 'station_hover';
+  const STATION_TOP_LAYER = 'line_hover';
    
   this.source_name = function(t,s){
     var t = t || self.__type;
@@ -37,7 +37,8 @@ var Section = function(map, feature, styles, type){
 
   this.before_layer = function(){
     var b = self.source_name('station','buildstart');
-    if (self.__type == 'station') b = STATION_TOP_LAYER;
+    if (self.__type == 'station' || !self.map.getLayer(b)) b = STATION_TOP_LAYER;
+    if (!self.map.getLayer(b)) b = STATION_INNER_LAYER;
     return b;
   }
 

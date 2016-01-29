@@ -71,6 +71,10 @@ var MouseEvents = function(map,style,planification,timeline){
         map.featuresAt(e.point, {layer:self.layers,radius: RADIUS}, function (err, features) {
             map.batch(function(batch){
                 var ids = [];
+                
+                // Cursor pointer
+                map.getCanvas().style.cursor = features.length ? 'pointer' : '';
+
                 features.forEach(function(f){
                     var type = f.layer.type == 'circle'? 'station' : 'line';
                     var id = type +'_' + f.properties.id + '_' + f.properties.line + '_' + f.properties.plan;
