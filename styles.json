@@ -3,7 +3,7 @@
     "hover": {
       "color": "#000",
       "line-width": 7,
-      "opacity": 1,
+      "line-opacity": 0.4,
       "smoothFactor": 0
     },
     "buildstart": {
@@ -61,7 +61,8 @@
   "point": {
     "hover":{
       "circle-radius": 7,
-      "color":"#000"
+      "color":"#000",
+      "circle-opacity":0.4
     },  
     "buildstart": {
       "circle-radius": 7,
