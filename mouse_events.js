@@ -49,14 +49,28 @@ var MouseEvents = function(map,style,planification,timeline){
         return l;
     }
     
+    function feature_info(f){
+        str = '';
+        if (f.name) {
+            str += '<p><b> Estación ' + f.name + ' (línea '+f.line+')</b></p>';
+        } else {
+            str += '<p><b> ' + ((f.plan)? 'Línea ' : 'Tramo de la línea ') + f.line +'</b></p>'
+        }
+
+        if (f.buildstart) str += '<p>La construcción empezó en '+f.buildstart;
+        if (f.opening) str += '<p>Se inauguró en '+f.opening;
+        if (f.closure) str += '<p>Se cerró en '+f.closure;
+        if (f.plan && f.year) str +='<p>'+f.plan + ' (' + f.year + ')</p>'
+        if (f.length) str += '<p>Longitud aproximada: '+(parseFloat(f.length)/1000).toFixed(2)+'km';
+        if (f.plan && f.url) str += '<p><a target="_blank" href="'+f.url+'">Más información</a></p>'
+        return str;
+    }
+      
     map.on('click',function(e){
         map.featuresAt(e.point, {layer:self.layers,radius: RADIUS}, function (err, features) {
             var html = '';
             features.forEach(function(f){
-                html+= '<p><b>' + f.layer.id + '</b></p>';
-                for (var prop in f.properties){
-                    html+= '<p>' + prop + ': ' + f.properties[prop];
-                }    
+                html+= feature_info(f.properties);
             });
 
             if (html == '') return;
