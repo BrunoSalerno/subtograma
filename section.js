@@ -116,21 +116,15 @@ var Section = function(map, feature, styles, type){
   this.buildstart = function(batch){
     self.status = 'buildstart';
     self.__has_building_data = true;
-    if (self.feature) {
-        self.feature.change_style(self.source_name(),self.__style('buildstart'),batch);
-    } else {
-        self.draw(self.status, batch);    
-    }
+    if (self.feature) self.feature.remove(batch);
+    self.draw(self.status,batch);
   };
 
   this.open = function(batch){
     self.status = 'opening';
     self.__been_inaugurated = true;
-    if (self.feature) {
-       self.feature.change_style(self.source_name(),self.__style('opening'),batch);          
-    } else {
-        self.draw(self.status, batch);    
-    }
+    if (self.feature) self.feature.remove(batch);
+    self.draw(self.status, batch);    
   };
 
   this.close = function(batch){

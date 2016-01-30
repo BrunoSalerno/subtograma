@@ -43,13 +43,6 @@ var Feature = function(initial_batch,opts){
         return included;    
     }
 
-    this.change_style = function(new_source_name,style,batch){
-        self.remove(batch);
-        self.source_name = new_source_name;
-        self.style = style;
-        self.load(batch); 
-    }
-
     this.remove = function(batch){
         var source = self.map.getSource(self.source_name);
         
@@ -60,7 +53,8 @@ var Feature = function(initial_batch,opts){
         source.setData(self.source_data(features).data);
 
         if (features.length == 0){
-            if (self.source_name.indexOf('hover') == -1){
+            if (self.source_name.indexOf('hover') == -1 &&
+                self.map.getLayer(self.source_name)){
                 batch.removeLayer(self.source_name);
                 batch.removeSource(self.source_name);
             }
