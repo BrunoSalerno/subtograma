@@ -22,8 +22,9 @@ var Feature = function(initial_batch,opts){
             batch.addLayer(self._layer(),self.before_layer);
             
             // Remove hover layers if this layer is not a hover layer
-            if (self.source_name.indexOf('hover') == -1 && self.map.getLayer('line_hover')){
+            if (self.source_name.indexOf('hover') == -1){
                 ['line_hover','station_hover'].forEach(function(l){
+                    if (!self.map.getLayer(l)) return;
                     batch.removeLayer(l);        
                     batch.removeSource(l);
                 })
@@ -51,14 +52,6 @@ var Feature = function(initial_batch,opts){
         });
 
         source.setData(self.source_data(features).data);
-
-        if (features.length == 0){
-            if (self.source_name.indexOf('hover') == -1 &&
-                self.map.getLayer(self.source_name)){
-                batch.removeLayer(self.source_name);
-                batch.removeSource(self.source_name);
-            }
-        }
     };
     
     this.match_condition = function(element){
