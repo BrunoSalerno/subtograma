@@ -80,12 +80,21 @@ var Section = function(map, feature, styles, type){
           $.extend(true,{},self.styles.point[operation]);
         
         style["circle-color"] = style["color"];
+         
         if (opts.source_name == STATION_INNER_LAYER) {
             style["circle-color"] = style["fillColor"];
             style["circle-radius"] = style["circle-radius"] - 3;    
         }
+        
+        delete style["line-width"];
+        
         break;
     }
+    
+    delete style["labelFontColor"];    
+    delete style["fillColor"];
+    delete style["color"];
+     
     return style;
   };
 

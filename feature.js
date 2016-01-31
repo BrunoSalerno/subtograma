@@ -72,21 +72,19 @@ var Feature = function(initial_batch,opts){
 
     this._layer = function(){
         var layer = {
-                "id": self.source_name,
-                "source": self.source_name,
-                "interactive":true
-                };
-        
-        layer["paint"] = $.extend(true,{},self.style);
-         
+                id: self.source_name,
+                source: self.source_name,
+                interactive:true,
+                type: (self.type =='line') ? self.type : 'circle',
+                paint:$.extend(true,{},self.style)
+            };
+
         if (self.type == 'line'){
             $.extend(layer,{"layout": {
-                "line-join": "round",
-                "line-cap": "round"},
-                "type":"line"})
-        } else {
-            $.extend(layer,{"type":"circle"})
+                    "line-join": "round",
+                    "line-cap": "round"}})
         }
+
         return layer;
     }
     

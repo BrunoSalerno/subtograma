@@ -1,22 +1,17 @@
 {
   "line": {
     "hover": {
-      "color": "#000",
+      "line-color": "#000",
       "line-width": 7,
-      "line-opacity": 0.4,
-      "smoothFactor": 0
+      "line-opacity": 0.4
     },
     "buildstart": {
       "color": "#A4A4A4",
-      "line-width": 7,
-      "opacity": 1,
-      "smoothFactor": 0
+      "line-width": 7
     },
     "opening": {
       "default": {
-        "line-width": 7,
-        "opacity": 1,
-        "smoothFactor": 0
+        "line-width": 7
       },
       "A": {
         "color": "#01A9DB"
@@ -61,7 +56,7 @@
   "point": {
     "hover":{
       "circle-radius": 7,
-      "color":"#000",
+      "circle-color":"#000",
       "circle-opacity":0.4
     },  
     "buildstart": {

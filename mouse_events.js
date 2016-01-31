@@ -82,7 +82,7 @@ var MouseEvents = function(map,style,planification,timeline){
     });
 
     map.on("mousemove", function(e){
-        map.featuresAt(e.point, {layer:self.layers,radius: RADIUS}, function (err, features) {
+        map.featuresAt(e.point, {layer:self.layers,radius: RADIUS,type:'vector'}, function (err, features) {
             map.batch(function(batch){
                 var ids = [];
                 
@@ -93,7 +93,7 @@ var MouseEvents = function(map,style,planification,timeline){
                     var type = f.layer.type == 'circle'? 'station' : 'line';
                     var id = type +'_' + f.properties.id + '_' + f.properties.line + '_' + f.properties.plan;
                     ids.push(id);
-
+                        
                     var raw_feature;
                     
                     if (f.properties.plan){
@@ -111,6 +111,7 @@ var MouseEvents = function(map,style,planification,timeline){
                     } else {
                         raw_feature = self.timeline.sections[type+'_'+f.properties.id].raw_feature;
                     }
+                    
                     hover(id,type,raw_feature,batch);
                 });
                 
