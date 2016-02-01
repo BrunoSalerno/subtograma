@@ -26,7 +26,7 @@
   var DataLoader = function(){
     this.deferred = new $.Deferred();
     var self = this;
-    var data = {stations:null,lines:null};
+    var data = {station:null,line:null};
     var project_data = {stations:null,lines:null};
 
     $.when($.getJSON('geojson/estaciones.geojson'),
@@ -34,8 +34,8 @@
            $.getJSON('geojson/projects-lines.geojson'),
            $.getJSON('geojson/projects-stations.geojson'))
     .then(function(stations,lines,p_lines,p_stations){
-      data.stations = stations[0];
-      data.lines = lines[0];
+      data.station = stations[0];
+      data.line = lines[0];
       project_data.lines = p_lines[0];
       project_data.stations = p_stations[0];
       

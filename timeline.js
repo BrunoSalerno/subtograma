@@ -45,8 +45,8 @@ var Timeline = function(data,map,years,styles){
 
   this.__init_year = function(){
     return {
-      stations: {buildstart:[],opening:[],closure:[]},
-      lines: {buildstart:[],opening:[],closure:[]}
+      station: {buildstart:[],opening:[],closure:[]},
+      line: {buildstart:[],opening:[],closure:[]}
     }
   };
 
@@ -67,7 +67,7 @@ var Timeline = function(data,map,years,styles){
             if (!t[year]) t[year] = self.__init_year();
             t[year][category][y].push(element)
 
-            if (category == 'lines'){
+            if (category == 'line'){
               if (!self.__lines[element.properties.line]){
                 self.__lines[element.properties.line]={show:true}
               }
@@ -94,8 +94,7 @@ var Timeline = function(data,map,years,styles){
     
     self.map.batch(function(batch){ 
         for (var l in lines){
-          ['station','line'].forEach(function(type){
-            var category = (type == 'line') ? 'lines' : 'stations';
+          ['station','line'].forEach(function(category){
             if (current_year_data && current_year_data[category]){
               for (var c in current_year_data[category]){
                 $.each(current_year_data[category][c],function(i,obj){
@@ -103,10 +102,10 @@ var Timeline = function(data,map,years,styles){
                   if (obj.properties.line != l) return;
                   if (!line && !self.__lines[obj.properties.line].show) return;
 
-                  var id = type + '_' + obj.properties.id;
+                  var id = category + '_' + obj.properties.id;
 
                   if (c=='opening'){
-                    if (!self.sections[id]) self.sections[id] = new Section(self.map,obj,self.styles,type);
+                    if (!self.sections[id]) self.sections[id] = new Section(self.map,obj,self.styles,category);
                     self.sections[id].open(batch)
                   }
 
@@ -115,7 +114,7 @@ var Timeline = function(data,map,years,styles){
                   }
 
                   if (c=='buildstart'){
-                    if (!self.sections[id]) self.sections[id] = new Section(self.map,obj,self.styles,type);
+                    if (!self.sections[id]) self.sections[id] = new Section(self.map,obj,self.styles,category);
                     self.sections[id].buildstart(batch);
                   }
 
@@ -142,8 +141,7 @@ var Timeline = function(data,map,years,styles){
 
     self.map.batch(function(batch){ 
         for (var l in lines){
-          ['station','line'].forEach(function(type){
-            var category = (type == 'line') ? 'lines' : 'stations';
+          ['station','line'].forEach(function(category){
             if (current_year_data && current_year_data[category]){
               for (var c in current_year_data[category]){
                 current_year_data[category][c].forEach(function(obj){
@@ -151,7 +149,7 @@ var Timeline = function(data,map,years,styles){
                   if (obj.properties.line != l) return;
                   if (!line && !self.__lines[obj.properties.line].show) return;
 
-                  var id = type + '_' + obj.properties.id;
+                  var id = category + '_' + obj.properties.id;
                   if (!self.sections[id]) return;
 
                   if (c=='opening'){
@@ -180,6 +178,126 @@ var Timeline = function(data,map,years,styles){
         }
     });
   };
+
+
+  this.silent_down_to_year = function(start_year,end_year,lines){
+    var features = self.features_in_a_year(start_year,lines); 
+    
+    features['buildstart'] = features['buildstart'] || [];
+    features['opening'] = features['opening'] || [];
+    features['closure'] = features['closure'] || [];
+    
+    var current_year_data;
+    
+    for (var year = start_year;year > end_year-1;year--){
+        current_year_data = self.data[year]
+        if (!current_year_data) continue;
+        
+        ['station','line'].forEach(function(category){
+            for (var c in current_year_data[category]){
+                current_year_data[category][c].forEach(function(obj){
+                    if (lines.indexOf(obj.properties.line) == -1) return;
+                    var id = category + '_' + obj.properties.id;
+                    
+                    if (!self.sections[id]) self.sections[id] = new Section(self.map,obj,self.styles,category);          
+                     
+                    if (c == 'opening'){
+                        features['opening'] = $.grep(features['opening'],function(element){
+                            return (element != id);
+                        });
+                        if (self.sections[id].has_building_data()){
+                            features['buildstart'].push(id);
+                        }else{
+                            features['closure'].push(id); 
+                        }
+                    }
+
+                    if (c == 'buildstart'){
+                        features['buildstart'] = $.grep(features['buildstart'],function(element){
+                            return (element != id);
+                        });
+                        features['closure'].push(id); 
+                    }
+
+                    if (c == 'closure'){
+                        features['closure'] = $.grep(features['closure'],function(element){
+                            return (element != id);
+                        });
+                        if (self.sections[id].been_inaugurated()){
+                            features['opening'].push(id);    
+                        } else {
+                            features['buildstart'].push(id);    
+                        }
+                    }
+                });
+            };
+        });
+    }
+    
+    self.features_to_map(features);
+  };
+  
+  this.silent_up_to_year = function(year,lines){
+    var features = self.features_in_a_year(year,lines); 
+    self.features_to_map(features);
+  };
+  
+  this.features_in_a_year = function(year_end,lines){
+    var features = {};
+    var current_year_data;
+    
+    for (var year = self.years.start; year < (year_end+1);year++){    
+        current_year_data = self.data[year];
+        if (!current_year_data) continue;
+
+        ['station','line'].forEach(function(category){
+            for (var c in current_year_data[category]){
+                current_year_data[category][c].forEach(function(obj){
+                    if (lines.indexOf(obj.properties.line) == -1) return;
+                    
+                    var id = category + '_' + obj.properties.id;
+
+                    if (c=='buildstart' || c=='opening') {
+                        if (!features[c]) features[c] = [];
+                        if (!self.sections[id]) self.sections[id] = new Section(self.map,obj,self.styles,category);          
+                        features[c].push(id)       
+                        
+                        if (c=='opening'){
+                            features['buildstart'] = $.grep(features['buildstart'],function(element){
+                                return (element != id)
+                            });
+                        }
+                    }
+
+                    if (c == 'closure'){
+                        ['buildstart','opening'].forEach(function(cc){   
+                            features[cc] = $.grep(features[cc],function(element){
+                                return (element != id);
+                            });
+                        });
+                    }
+                });
+            };
+        });
+    }
+    return features;    
+  };
+   
+  this.features_to_map = function(features){
+    self.map.batch(function(batch){
+        for(var o in features){
+            if (!features[o]) return;
+            features[o].forEach(function(id){
+                if (o == 'buildstart')
+                    self.sections[id].buildstart(batch);
+                else if (o == 'opening')
+                    self.sections[id].open(batch);
+                else
+                    self.sections[id].close(batch) 
+            });
+        };
+    });
+  } 
 
   this.set_year = function(year){
     self.years.previous = self.years.current;

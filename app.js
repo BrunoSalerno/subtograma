@@ -16,27 +16,11 @@ var App = function(defaults,data,projects_data,map,styles,params,callback){
       var interval;
 
       if (year_end > year_start) {
-        interval = setInterval(function(){
-          if (y > year_end) {
-            self.timeline.release();
-            clearInterval(interval);
-            if (typeof callback == 'function') callback();
-          } else {
-            self.timeline.up_to_year(y,line);
-          }
-          y++;
-        },speed);
+        self.timeline.silent_up_to_year(year_end,[line]);
+        self.timeline.release();
       } else {
-        interval = setInterval(function(){
-          if (y < year_end) {
-            self.timeline.release();
-            clearInterval(interval);
-            if (typeof callback == 'function') callback();
-          } else {
-            self.timeline.down_to_year(y,line);
-          }
-          y--;
-        },speed);
+        self.timeline.silent_down_to_year(year_start,year_end,[line]);
+        self.timeline.release();
       }
     };
 
