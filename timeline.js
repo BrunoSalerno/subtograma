@@ -18,6 +18,14 @@ var Timeline = function(data,map,years,styles){
     }
   };
 
+  this.visible_lines = function(){
+    lines = [];
+    for (var l in self.__lines){
+        if (self.__lines[l].show) lines.push(l);
+    }
+    return lines;
+  }
+
   this.toggle_line = function(line){
     self.__lines[line].show = !self.__lines[line].show
     var lines_params = [];
@@ -80,116 +88,16 @@ var Timeline = function(data,map,years,styles){
     return t;
   };
 
-  this.draw = function(year,line){
-    var current_year_data = self.data[year];
-    var lines;
-
-    if (line) {
-      var o ={};
-      o[line] = 'temporary obj';
-      lines = o;
-    } else {
-      lines = self.lines();
-    }
+  this.down_to_year = function(start_year,end_year,lines){
+    lines = lines || self.visible_lines();
     
-    self.map.batch(function(batch){ 
-        for (var l in lines){
-          ['station','line'].forEach(function(category){
-            if (current_year_data && current_year_data[category]){
-              for (var c in current_year_data[category]){
-                $.each(current_year_data[category][c],function(i,obj){
-
-                  if (obj.properties.line != l) return;
-                  if (!line && !self.__lines[obj.properties.line].show) return;
-
-                  var id = category + '_' + obj.properties.id;
-
-                  if (c=='opening'){
-                    if (!self.sections[id]) self.sections[id] = new Section(self.map,obj,self.styles,category);
-                    self.sections[id].open(batch)
-                  }
-
-                  if (c=='closure'){
-                    self.sections[id].close(batch);
-                  }
-
-                  if (c=='buildstart'){
-                    if (!self.sections[id]) self.sections[id] = new Section(self.map,obj,self.styles,category);
-                    self.sections[id].buildstart(batch);
-                  }
-
-                });
-              }
-            }
-          });
-        }
-    });
-  };
-
-
-  this.undraw = function(year,line) {
-    var current_year_data = self.data[year + 1];
-    var lines;
-
-    if (line) {
-      var o ={};
-      o[line] = 'temporary obj';
-      lines = o;
-    } else {
-      lines = self.lines();
-    }
-
-    self.map.batch(function(batch){ 
-        for (var l in lines){
-          ['station','line'].forEach(function(category){
-            if (current_year_data && current_year_data[category]){
-              for (var c in current_year_data[category]){
-                current_year_data[category][c].forEach(function(obj){
-
-                  if (obj.properties.line != l) return;
-                  if (!line && !self.__lines[obj.properties.line].show) return;
-
-                  var id = category + '_' + obj.properties.id;
-                  if (!self.sections[id]) return;
-
-                  if (c=='opening'){
-                    if (self.sections[id].has_building_data()){
-                      self.sections[id].buildstart(batch);
-                    } else {
-                      self.sections[id].close(batch);
-                    }
-                  }
-
-                  if (c=='closure'){
-                    if (self.sections[id].been_inaugurated()){
-                      self.sections[id].open(batch);
-                    } else {
-                      self.sections[id].buildstart(batch);
-                    }
-                  }
-
-                  if (c=='buildstart'){
-                    self.sections[id].close(batch);
-                  }
-                });
-              }
-            }
-          });
-        }
-    });
-  };
-
-
-  this.silent_down_to_year = function(start_year,end_year,lines){
-    var features = self.features_in_a_year(start_year,lines); 
-    
-    features['buildstart'] = features['buildstart'] || [];
-    features['opening'] = features['opening'] || [];
-    features['closure'] = features['closure'] || [];
-    
+    var features = {};
+    features['buildstart'] = [];
+    features['opening'] = [];
+    features['closure'] = [];
     var current_year_data;
     
-    for (var year = start_year;year > end_year-1;year--){
+    for (var year = start_year+1;year > end_year;year--){
         current_year_data = self.data[year]
         if (!current_year_data) continue;
         
@@ -237,16 +145,21 @@ var Timeline = function(data,map,years,styles){
     self.features_to_map(features);
   };
   
-  this.silent_up_to_year = function(year,lines){
-    var features = self.features_in_a_year(year,lines); 
+  this.up_to_year = function(year_start,year,lines){
+    lines = lines || self.visible_lines();
+    var features = self.features_in_a_year(year_start,year,lines); 
     self.features_to_map(features);
   };
   
-  this.features_in_a_year = function(year_end,lines){
+  this.features_in_a_year = function(year_start,year_end,lines){
     var features = {};
+    features['buildstart'] = [];
+    features['opening'] = [];
+    features['closure'] = [];
+    
     var current_year_data;
     
-    for (var year = self.years.start; year < (year_end+1);year++){    
+    for (var year = year_start; year < (year_end+1);year++){    
         current_year_data = self.data[year];
         if (!current_year_data) continue;
 
@@ -256,10 +169,10 @@ var Timeline = function(data,map,years,styles){
                     if (lines.indexOf(obj.properties.line) == -1) return;
                     
                     var id = category + '_' + obj.properties.id;
-
+                    if (!self.sections[id]) self.sections[id] = new Section(self.map,obj,self.styles,category);          
+                    
                     if (c=='buildstart' || c=='opening') {
                         if (!features[c]) features[c] = [];
-                        if (!self.sections[id]) self.sections[id] = new Section(self.map,obj,self.styles,category);          
                         features[c].push(id)       
                         
                         if (c=='opening'){
@@ -275,6 +188,7 @@ var Timeline = function(data,map,years,styles){
                                 return (element != id);
                             });
                         });
+                        features[c].push(id);
                     }
                 });
             };
@@ -302,16 +216,6 @@ var Timeline = function(data,map,years,styles){
   this.set_year = function(year){
     self.years.previous = self.years.current;
     self.years.current = year;
-  };
-
-  this.up_to_year = function(year,line){
-    if (!line) self.set_year(year);
-    self.draw(year,line);
-  };
-
-  this.down_to_year = function(year,line){
-    if (!line) self.set_year(year);
-    self.undraw(year,line);
   };
 
   this.year_information = function(){

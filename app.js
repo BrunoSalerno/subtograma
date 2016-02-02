@@ -10,29 +10,36 @@ var App = function(defaults,data,projects_data,map,styles,params,callback){
 
     this.change_line_to_year = function(year_start,year_end,line,callback){
       if (self.timeline.busy()) return;
-      var speed=1;
       self.timeline.get_busy();
-      var y = year_start;
-      var interval;
 
       if (year_end > year_start) {
-        self.timeline.silent_up_to_year(year_end,[line]);
+        self.timeline.up_to_year(year_start,year_end,[line]);
         self.timeline.release();
       } else {
-        self.timeline.silent_down_to_year(year_start,year_end,[line]);
+        self.timeline.down_to_year(year_start,year_end,[line]);
         self.timeline.release();
       }
     };
 
-    this.change_to_year = function(year,speed,from_input, callback){
+    this.change_to_year = function(year,speed,from_input,callback){
       if (year > self.years.end) return;
       if (self.timeline.busy()) return;
-
+      
       self.timeline.get_busy();
 
       var y = self.timeline.current_year();
-
+      var old_year = y;
+      
       if (year > self.timeline.current_year()) {
+        if (speed == 0){
+            self.timeline.up_to_year(self.timeline.current_year(),year);
+            self.timeline.set_year(year);
+            self.set_year_marker(year);
+            self.set_current_year_info(year);
+            self.timeline.release(); 
+            if (typeof callback == 'function') callback(true);
+            return;
+        }
         self.interval = setInterval(function(){
           if (y > year) {
             save_params(year);
@@ -40,13 +47,24 @@ var App = function(defaults,data,projects_data,map,styles,params,callback){
             self.timeline.release();
             if (typeof callback == 'function') callback(true);
           }else{
-            self.timeline.up_to_year(y);
+            self.timeline.up_to_year(old_year,y);
+            self.timeline.set_year(y);
             if (!from_input) self.set_current_year_info(y); 
-            self.set_year_maker(y);
+            self.set_year_marker(y);
           }
+          old_year = y;
           y++;
         }, speed || defaults.speed);
       } else if (year < self.timeline.current_year()){
+        if (speed == 0){
+            self.timeline.down_to_year(self.timeline.current_year(),year);
+            self.timeline.set_year(year);
+            self.set_year_marker(year);
+            self.set_current_year_info(year); 
+            self.timeline.release();
+            if (typeof callback == 'function') callback(true);
+            return;
+        }
         self.interval = setInterval(function(){
           if (y < year) {
             save_params(year);
@@ -54,10 +72,12 @@ var App = function(defaults,data,projects_data,map,styles,params,callback){
             self.timeline.release();
             if (typeof callback == 'function') callback(true);
           }else{
-            self.timeline.down_to_year(y);
+            self.timeline.down_to_year(old_year,y);
+            self.timeline.set_year(y);
             if (!from_input) self.set_current_year_info(y);
-            self.set_year_maker(y);
+            self.set_year_marker(y);
           }
+          old_year = y;
           y--;
         }, speed || defaults.speed);
       } else {
@@ -81,7 +101,7 @@ var App = function(defaults,data,projects_data,map,styles,params,callback){
         var left = (e.pageX - posX) / $(this).width();
         var year = parseInt(left * (self.years.end - self.years.start +5) + self.years.start);
         self.action_button_is_playing();
-        self.change_to_year(year,null,null,function(){
+        self.change_to_year(year,null,false,function(){
           self.action_button_is_paused();
         });
       }).
@@ -106,14 +126,14 @@ var App = function(defaults,data,projects_data,map,styles,params,callback){
       $('.action').removeClass('pause').addClass('play');
     };
 
-    this.set_year_maker = function (y){
+    this.set_year_marker = function(y){
       var left =(y-self.years.start)/(self.years.end-self.years.start+5)*100;
       $('.year-marker').css('left',left+'%');
     };
 
     this.play = function(){
       self.action_button_is_playing();
-      self.change_to_year(self.years.end,null,null, function(){
+      self.change_to_year(self.years.end,null,false,function(){
         self.action_button_is_paused();
       });
     };
@@ -215,11 +235,12 @@ var App = function(defaults,data,projects_data,map,styles,params,callback){
     // Init to the start year
     // ----------------------
     self.timeline.up_to_year(this.years.start);
+    self.timeline.set_year(this.years.start);
     self.set_current_year_info(this.years.start);
-    self.set_year_maker(this.years.start);
+    self.set_year_marker(this.years.start);
 
     if (starting_year) {
-        this.change_to_year(starting_year,1,null,function(){
+        this.change_to_year(starting_year,0,false,function(){
             if (typeof callback === 'function') callback();
         });
     }else{
