@@ -17,7 +17,8 @@
     <link rel="icon" type="image/png" href="img/favicon-32x32.png" sizes="32x32">
 
     <link rel="stylesheet" href="style.css" />
-    
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"> 
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato">
   
     <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
@@ -54,9 +55,12 @@
         <div id="map"></div>
         
         <div class="current-year-container">
-            <input class="current-year" type="number" />
+            <div class="city-container">
+                <div class="city">Buenos Aires</div><input class="current-year" type="number" />
+            </div>
             <div class="information"> 
             </div>
+            <div class="info-toggler fa fa-angle-double-down"></div>
         </div>
         <div class="footer">
         <div class="panel-container">
@@ -89,7 +93,7 @@
             </div>
             <div class="reference-container">
                 <div class="action-container">
-                    <div class="action play"></div>
+                    <span class="action fa fa-play"></span>
                 </div>
                 <div class="year-hover"></div>
                 <div class="reference">

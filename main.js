@@ -55,7 +55,7 @@
   $(document).ready(function(){
     var defaults = {
       coords : [-58.4122003,-34.6050499],
-      zoom   : 13,
+      zoom   : 12,
       bearing : 0,
       init_year : 1911,
       speed : 1,

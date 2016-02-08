@@ -120,11 +120,11 @@ var App = function(defaults,data,projects_data,map,styles,params,callback){
     };
 
     this.action_button_is_playing = function(){
-      $('.action').removeClass('play').addClass('pause');
+      $('.action').removeClass('fa-play').addClass('fa-pause');
     };
 
     this.action_button_is_paused = function(){
-      $('.action').removeClass('pause').addClass('play');
+      $('.action').removeClass('fa-pause').addClass('fa-play');
     };
 
     this.set_year_marker = function(y){
@@ -218,7 +218,7 @@ var App = function(defaults,data,projects_data,map,styles,params,callback){
     // Play/Pause
     // ----------
     $('.action').click(function(){
-      if ($(this).hasClass('play')){
+      if ($(this).hasClass('fa-play')){
         self.play();
       } else {
         self.pause();

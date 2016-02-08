@@ -53,24 +53,23 @@ strong, b {
     height: 58px;
     z-index:50;
     background-color:#D8D8D8;
-    box-shadow:0 0 1px #929292;
 }
 
 .slider .reference-container {
     position:relative;
     margin:0 auto;
     width:60%;
-    height: 25%;
+    height: 16px;
+    padding-top:22px;
 }
 
 .slider .reference {
     position:relative;
     width:100%;
     height: 100%;
-    margin-top: 23px;
     cursor:pointer;
     float:right;
-    background-color: #585858;
+    background-color: #6E6E6E;
     border-radius: 2px;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -83,11 +82,12 @@ strong, b {
 .year-hover{
     display: none;
     position:absolute;
-    bottom:-6px;
+    bottom:17px;
     height:16px;
     text-align: center;
     border-radius: 3px;
     width:42px;
+    line-height:15px;
     margin-left: -25px;
     color:white;
     background-color: #1C1C1C;
@@ -126,26 +126,37 @@ strong, b {
 }
 
 .current-year-container {
+    display:inline-block;
     position:absolute;
     margin:2%;
     padding:2px 10px;
-    width:170px;
     left:0;
     top:0;
     background-color:white;
-    border-radius:4px;    
-    box-shadow:0 0 1px #888;
+    border-radius:3px;    
+    box-shadow:0 1px 2px rgba(0,0,0,0.10);
     display: none;
 }
 
+.city-container {
+    margin-top:5px;
+    margin-bottom:5px;    
+}
+
+.city {
+    display:inline-block;
+    font-size:22px;
+    font-weight:bold;
+    color:#585858;
+}
+
 .current-year{
-    font-size:50px;
-    color:#424242;
-    width:100%;
+    font-size:22px;
+    color:#585858;
     border:none;
-    border-bottom:1px solid #e6e6e6;
     background-color:transparent;
-    padding-bottom:2px;
+    margin-left:10px;
+    font-weight:bold;
 }
 
 .current-year-container .information {
@@ -155,7 +166,7 @@ strong, b {
     color:#585858;
     border-bottom-left-radius:4px;
     border-bottom-right-radius:4px;
-    padding-top:8px;
+    display:none;
 }
 
 small {
@@ -270,7 +281,7 @@ Taken from http://stephanwagner.me/only-css-loading-spinner
     padding-right: 5px;
     width:170px;
     height:100%;
-    color: #585858;
+    color: #6E6E6E;
     text-shadow: 0 1px 0 #fff;
     font-size: 22px;
     font-weight:bold;
@@ -294,7 +305,7 @@ Taken from http://stephanwagner.me/only-css-loading-spinner
     display:none;
     width:100%;
     background-color: white;
-    box-shadow:0 0 1px #888;
+    box-shadow:0 -1px 2px rgba(0,0,0,0.10);
 }
 
 .tab-container{
@@ -309,8 +320,8 @@ Taken from http://stephanwagner.me/only-css-loading-spinner
     background-repeat: no-repeat;
     width:26px;
     height:22px;
-    border-top-right-radius: 4px;
-    border-top-left-radius: 4px;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
     margin-left: 8px;
     background-color: white;
     padding:5px;
@@ -321,7 +332,7 @@ Taken from http://stephanwagner.me/only-css-loading-spinner
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    box-shadow:0 3px 1px #fff,0 0px 2px #888;
+    box-shadow:0 3px 1px #fff,0 -1px 2px rgba(0,0,0,0.10);
     display:inline-block;
 }
 
@@ -370,7 +381,6 @@ ul.plan-list li{
 }
 
 .panel .content {
-    box-shadow:inset 0 -1px 1px #BDBDBD;    
     padding:10px;
 }
 
@@ -400,7 +410,7 @@ input[type="checkbox"] + label {
 input[type="checkbox"]:checked + label {
     color:white;
     /*border: solid 1px transparent;*/
-    box-shadow: 0 1px 1px #888;
+    box-shadow:0 1px 2px rgba(0,0,0,0.20);
 }
 
 input[type="checkbox"]:not(:checked) + label {
@@ -414,16 +424,14 @@ input[type="checkbox"]:not(:checked) + label:hover {
     background-color:#E6E6E6 !important;
 }
 .lines-label {
-    background-color:transparent !important;    
 }
 .plan-label {
-    background-color:#fbfbfb;
+    background-color:#D8D8D8;
     padding-right:4px !important;
     padding-left:4px !important;
-    border-radius:3px;
+    border-radius:6px;
     width:auto;
     margin-right:5px;
-    border: 1px dotted #cacaca;
 }
 
 .plan-label div {
@@ -453,37 +461,25 @@ input[type="checkbox"]:not(:checked) + label:hover {
 
 .action-container {
     position:absolute;
-    height: 100%;
     width:30px;
-    left:-30px;
+    left:-27px;
+    height:16px;
+    bottom:1px;
 }
 
 .action {
-    width:15px;
-    height:29px;
-    margin-top:16px;
     cursor:pointer;
-    background-size: 30px 29px !important;
-    background-repeat: no-repeat;
+    color: #6E6E6E;
 }
 
-.action.play {
-    background: url(img/play_pause.svg) 0 0;
-}
-
-.action.pause {
-    background: url(img/play_pause.svg) 15px 0;
-}
 
 /* CSS bug fix for slideToggle */
 ol.message_list { position: relative }
 
 .mapboxgl-popup-content {
     color:#424242 !important;
-    box-shadow:0 0 1px #888 !important;
-    border-radius:4px !important;
-    padding-top:20px !important;    
-    padding-right:15px !important;
+    padding-top:15px !important;    
+    padding-right:10px !important;
 
     -webkit-filter: blur(0);
     -webkit-transform: translate3d(-0.01%, -0.01%, 0);
@@ -493,4 +489,15 @@ ol.message_list { position: relative }
 .mapboxgl-popup-close-button {
     margin-right:7px;
     font-size:18px !important;    
+}
+
+.info-toggler {
+    color:#585858;
+    position:absolute;
+    bottom:5px;
+    right:5px;
+}
+
+.info-toggle:hover {
+    color:black;    
 }
