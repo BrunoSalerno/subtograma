@@ -6,7 +6,8 @@ var Feature = function(initial_batch,opts){
     self.map = opts.map;
     self.before_layer = opts.before_layer;
     self.type = opts.type;
-    
+    self.__check_duplicated_feature = false;
+     
     this.source_data = function(features){
         return {"data":{
                     "type" : "FeatureCollection",
@@ -17,7 +18,8 @@ var Feature = function(initial_batch,opts){
     this.load = function(batch){
         var source = self.map.getSource(self.source_name);
         if (!source){
-            source = new mapboxgl.GeoJSONSource(self.source_data([self.feature]))
+            var feature = self.feature instanceof Array ? self.feature : [self.feature]
+            source = new mapboxgl.GeoJSONSource(self.source_data(feature))
             batch.addSource(self.source_name, source)
             batch.addLayer(self._layer(),self.before_layer);
             
@@ -30,8 +32,16 @@ var Feature = function(initial_batch,opts){
                 })
             }        
         }else{
-            features = source._data.features
-            features.push(self.feature)
+            if (self.__check_duplicated_feature && 
+                self.feature_included(source)) return;
+
+            features = source._data.features;
+
+            if (self.feature instanceof Array){
+                features = features.concat(self.feature);
+            }else{
+                features.push(self.feature);
+            }
             source.setData(self.source_data(features).data);
         }
     }
