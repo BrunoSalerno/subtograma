@@ -159,7 +159,7 @@ var Timeline = function(data,map,years,styles){
     
     var current_year_data;
     
-    for (var year = year_start; year < (year_end+1);year++){    
+    for (var year = year_start + 1; year <= year_end;year++){    
         current_year_data = self.data[year];
         if (!current_year_data) continue;
 

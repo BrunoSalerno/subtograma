@@ -100,6 +100,7 @@ var Section = function(map, feature, styles, type){
 
   this.draw = function(operation,batch){
     var style = self.__style(operation);
+    var f_extra = null;
     var opts = {
         map:self.map,
         source_name:self.source_name(),
@@ -119,21 +120,26 @@ var Section = function(map, feature, styles, type){
         self.feature_extra = new Feature(batch,extra_opts);
     }
     
-    self.feature = new Feature(batch,opts);
+    return new Feature(batch,opts);
   };
   
+  this.__update_feature = function(batch){
+    if (self.feature) {
+        self.feature.remove(batch);
+    }
+    self.feature = self.draw(self.status,batch);
+  }
+
   this.buildstart = function(batch){
     self.status = 'buildstart';
     self.__has_building_data = true;
-    if (self.feature) self.feature.remove(batch);
-    self.draw(self.status,batch);
+    self.__update_feature(batch);
   };
 
   this.open = function(batch){
     self.status = 'opening';
     self.__been_inaugurated = true;
-    if (self.feature) self.feature.remove(batch);
-    self.draw(self.status, batch);    
+    self.__update_feature(batch);
   };
 
   this.close = function(batch){

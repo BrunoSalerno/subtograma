@@ -27,12 +27,11 @@ var App = function(defaults,data,projects_data,map,styles,params,callback){
       
       self.timeline.get_busy();
 
-      var y = self.timeline.current_year();
-      var old_year = y;
+      var old_year = self.timeline.current_year();
       
       if (year > self.timeline.current_year()) {
         if (speed == 0){
-            self.timeline.up_to_year(self.timeline.current_year(),year);
+            self.timeline.up_to_year(old_year,year);
             self.timeline.set_year(year);
             self.set_year_marker(year);
             self.set_current_year_info(year);
@@ -40,6 +39,7 @@ var App = function(defaults,data,projects_data,map,styles,params,callback){
             if (typeof callback == 'function') callback(true);
             return;
         }
+        var y = self.timeline.current_year()+1;
         self.interval = setInterval(function(){
           if (y > year) {
             save_params(year);
@@ -57,7 +57,7 @@ var App = function(defaults,data,projects_data,map,styles,params,callback){
         }, speed || defaults.speed);
       } else if (year < self.timeline.current_year()){
         if (speed == 0){
-            self.timeline.down_to_year(self.timeline.current_year(),year);
+            self.timeline.down_to_year(old_year,year);
             self.timeline.set_year(year);
             self.set_year_marker(year);
             self.set_current_year_info(year); 
@@ -65,6 +65,7 @@ var App = function(defaults,data,projects_data,map,styles,params,callback){
             if (typeof callback == 'function') callback(true);
             return;
         }
+        var y = self.timeline.current_year();
         self.interval = setInterval(function(){
           if (y < year) {
             save_params(year);
