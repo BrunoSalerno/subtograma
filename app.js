@@ -200,12 +200,25 @@ var App = function(defaults,data,projects_data,map,styles,params,callback){
             $(".tab").not(".tab."+tab).addClass('not-selected');
             $(".tab."+tab).removeClass('not-selected');
           }
-          panel.slideToggle(500); 
+          
+          if ($(".panel").css('position') != 'fixed')
+            panel.slideToggle(500); 
+          else
+            panel.toggle();  
+      
       }else{
           if (clicked_tab_content.is(":visible")){
-            panel.slideToggle(500,function(){
-                $(".leaflet-bottom.leaflet-right").removeClass("back");
-            });    
+            
+            if ($(".panel").css('position') != 'fixed'){
+                panel.slideToggle(500,function(){
+                    $(".leaflet-bottom.leaflet-right").removeClass("back");
+                });  
+            } else {
+                panel.toggle(function(){
+                    $(".leaflet-bottom.leaflet-right").removeClass("back");
+                });
+            }
+          
           } else {
             other_tab_content.hide();
             clicked_tab_content.show();      
@@ -214,6 +227,10 @@ var App = function(defaults,data,projects_data,map,styles,params,callback){
           }  
       }
     });
+
+    $('.panel-close').click(function(){
+        $(".panel").hide();
+    })
 
     // Play/Pause
     // ----------
