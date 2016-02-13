@@ -263,6 +263,10 @@ Taken from http://stephanwagner.me/only-css-loading-spinner
         clear:both;
         display:block !important;    
     }
+
+    .mapboxgl-ctrl.mapboxgl-ctrl-attrib{
+        width:190px;
+    }
 }
 
 .logo {
