@@ -7,8 +7,6 @@ var Section = function(map, feature, styles, type){
   this.properties = feature.properties;
   this.map = map;
   this.styles = styles;
-  this.__has_building_data = false;
-  this.__been_inaugurated = false;
   this.__type = type;
   this.__length = feature.properties.length;
   
@@ -34,7 +32,6 @@ var Section = function(map, feature, styles, type){
     return str;
   }
 
-
   this.before_layer = function(){
     var b = self.source_name('station','buildstart');
     if (self.__type == 'station' || !self.map.getLayer(b)) b = STATION_TOP_LAYER;
@@ -43,11 +40,11 @@ var Section = function(map, feature, styles, type){
   }
 
   this.has_building_data = function(){
-    return self.__has_building_data;
+    return self.properties.buildstart != null;
   };
 
   this.been_inaugurated = function(){
-    return self.__been_inaugurated;
+    return self.properties.opening != null;
   };
 
   this.line = function(){
@@ -132,13 +129,11 @@ var Section = function(map, feature, styles, type){
 
   this.buildstart = function(batch){
     self.status = 'buildstart';
-    self.__has_building_data = true;
     self.__update_feature(batch);
   };
 
   this.open = function(batch){
     self.status = 'opening';
-    self.__been_inaugurated = true;
     self.__update_feature(batch);
   };
 
