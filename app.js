@@ -225,6 +225,22 @@ var App = function(defaults,data,projects_data,map,styles,params,callback){
       }
     });
 
+    $('.info-toggler').click(function(){
+        var info = $('.information');
+        var info_toggler = $(this)
+        info.slideToggle(500,function(){
+            if (info.is(":visible")) {
+                info_toggler.
+                removeClass('fa-angle-double-down').
+                addClass('fa-angle-double-up');
+            } else {
+                info_toggler.
+                removeClass('fa-angle-double-up').
+                addClass('fa-angle-double-down');
+            }
+        });
+    });
+
     // Layers
     // ------
     load_layers_control(starting_lines,starting_plans,this);

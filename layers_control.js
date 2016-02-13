@@ -22,7 +22,7 @@ var load_layers_control = function(starting_lines,starting_plans,app){
     var plans = app.planification.plans();
     $.each(plans,function(i,plan){
       lines_str += '<li class="plan-label"><div>'+plan.label+'</div>';
-      lines_str +='<a href="'+plan.url+'" target="_blank" + title="Link a la ley"><img src="img/link.svg" class="plan-link"></img></a>';
+      lines_str +='<a href="'+plan.url+'" target="_blank" + title="Link a la ley"><span class="plan-link fa fa-external-link"></span></a>';
       lines_str +='<ul class="plan-list">'
       for (var line in plan.lines){
         var label_font_color = app.styles.line.opening[line].labelFontColor ? 'color: ' + app.styles.line.opening[line].labelFontColor+';' : '';
