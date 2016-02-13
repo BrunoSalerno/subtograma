@@ -158,6 +158,7 @@ strong, b {
     background-color:transparent;
     margin-left:15px;
     font-weight:bold;
+    width:75px;
 }
 
 .current-year-container .information {
