@@ -56,6 +56,11 @@ var MouseEvents = function(map,style,planification,timeline){
             str += '<p><b> ' + ((f.plan)? 'Línea ' : 'Tramo de la línea ') + f.line +'</b></p>'
         }
 
+        // We have to parse null values because Mapbox GL stringifies them.
+        for (var key in f) {
+            if (f[key] == 'null') f[key] = null;
+        }
+
         if (f.buildstart) str += '<p>La construcción empezó en '+f.buildstart;
         if (f.opening) str += '<p>Se inauguró en '+f.opening;
         if (f.closure) str += '<p>Se cerró en '+f.closure;
