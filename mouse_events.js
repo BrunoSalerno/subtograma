@@ -11,7 +11,6 @@ var MouseEvents = function(map,style,planification,timeline){
 
     const STATION_INNER_LAYER = 'station_inner';
     const STATION_HOVER_LAYER = 'station_hover';
-    const RADIUS = 12;
 
     function hover(id,type,feature,batch){
         var layer = type + '_hover';
@@ -67,61 +66,42 @@ var MouseEvents = function(map,style,planification,timeline){
     }
       
     map.on('click',function(e){
-        map.featuresAt(e.point, {layer:self.layers,radius: RADIUS}, function (err, features) {
-            var html = '';
-            features.forEach(function(f){
-                html+= feature_info(f.properties);
-            });
-
-            if (html == '') return;
-            var popup = new mapboxgl.Popup()
-            .setLngLat(e.lngLat)
-            .setHTML(html)
-            .addTo(map); 
+        var point = [e.point.x,e.point.y];
+        var features = map.queryRenderedFeatures(point, {layers:self.layers});
+        var html = '';
+        features.forEach(function(f){
+            html+= feature_info(f.properties);
         });
+
+        if (html == '') return;
+        var popup = new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(html)
+        .addTo(map);
     });
 
     map.on("mousemove", function(e){
-        map.featuresAt(e.point, {layer:self.layers,radius: RADIUS,type:'vector'}, function (err, features) {
-            map.batch(function(batch){
-                var ids = [];
-                
-                // Cursor pointer
-                map.getCanvas().style.cursor = features.length ? 'pointer' : '';
+        var point = [e.point.x,e.point.y];
+        var features = map.queryRenderedFeatures(point, {layers:self.layers});
+        map.batch(function(batch){
+            var ids = [];
 
-                features.forEach(function(f){
-                    var type = f.layer.type == 'circle'? 'station' : 'line';
-                    var id = type +'_' + f.properties.id + '_' + f.properties.line + '_' + f.properties.plan;
-                    ids.push(id);
-                        
-                    var raw_feature;
-                    
-                    if (f.properties.plan){
-                        if (type == 'line')
-                            raw_feature = self.planification.__plans[f.properties.plan]
-                            .lines()[f.properties.line].section.raw_feature;
-                        if (type == 'station')
-                            $.each(self.planification.__plans[f.properties.plan]
-                            .lines()[f.properties.line].stations,function(i,s){
-                                if (s.section.raw_feature.properties.id == f.properties.id) {
-                                    raw_feature = s.section.raw_feature;
-                                    return;
-                                }
-                            })
-                    } else {
-                        raw_feature = self.timeline.sections[type+'_'+f.properties.id].raw_feature;
-                    }
-                    
-                    hover(id,type,raw_feature,batch);
-                });
-                
-                for (var i in self.features){
-                    if (ids.indexOf(i) == -1){
-                        self.features[i].remove(batch);
-                        delete self.features[i];
-                    }
-                };
+            // Cursor pointer
+            map.getCanvas().style.cursor = features.length ? 'pointer' : '';
+
+            features.forEach(function(f){
+                var type = f.layer.type == 'circle'? 'station' : 'line';
+                var id = type +'_' + f.properties.id + '_' + f.properties.line + '_' + f.properties.plan;
+                ids.push(id);
+                hover(id,type,f,batch);
             });
+
+            for (var i in self.features){
+                if (ids.indexOf(i) == -1){
+                    self.features[i].remove(batch);
+                    delete self.features[i];
+                }
+            };
         });
     });
 }
