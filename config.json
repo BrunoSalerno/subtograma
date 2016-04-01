@@ -1,0 +1,12 @@
+{
+  "mapboxgl" : {
+      "access_token": "pk.eyJ1IjoiYnJ1bm9zYWxlcm5vIiwiYSI6IlJxeWpheTAifQ.yoZDrB8Hrn4TvSzcVUFHBA",
+      "style": "mapbox://styles/brunosalerno/cik1r04uq013l90lx3ytut8yv"},
+  "defaults": {
+      "coords": [-58.4122003,-34.6050499],
+      "zoom": 12,
+      "bearing": 0,
+      "speed": 1,
+      "years": {"start":1910,"end":2016,"current":null,"previous":null}
+  }
+}

@@ -1,15 +1,14 @@
 (function(){
-  var MapLoader = function(defaults){
+  var MapLoader = function(config){
     this.deferred = new $.Deferred();
     var self = this;
-    //$.get('php/map_url.php',function(map_url){
-      mapboxgl.accessToken = 'pk.eyJ1IjoiYnJ1bm9zYWxlcm5vIiwiYSI6IlJxeWpheTAifQ.yoZDrB8Hrn4TvSzcVUFHBA';
+      mapboxgl.accessToken = config.mapboxgl.access_token;
       var map = new mapboxgl.Map({
         container: 'map',
-        style:'mapbox://styles/brunosalerno/cik1r04uq013l90lx3ytut8yv',
-        center: defaults.coords,
-        zoom: defaults.zoom,
-        bearing: defaults.bearing 
+        style: config.mapboxgl.style,
+        center: config.defaults.coords,
+        zoom: config.defaults.zoom,
+        bearing: config.defaults.bearing
       });
 
       map.addControl(new mapboxgl.Navigation()); 
@@ -20,7 +19,6 @@
       map.on('moveend',function(){
         save_params(null,map);
       });
-    //});
   };
 
   var DataLoader = function(){
@@ -52,42 +50,45 @@
     });
   };
 
-  $(document).ready(function(){
-    var defaults = {
-      coords : [-58.4122003,-34.6050499],
-      zoom   : 12,
-      bearing : 0,
-      init_year : 1911,
-      speed : 1,
-      years: {start:1910,end:2016, current:null, previous:null}
-    };
+  // Config loader
+  var ConfigLoader = function(){
+    this.deferred = $.Deferred();
+    var self = this;
+    $.getJSON('config.json', function(json){
+        self.deferred.resolve(json);
+    });
+  }
 
+  $(document).ready(function(){
     $(".spinner-container").show().addClass('spinner');
 
-    var params = getSearchParameters();
+    var config_loader = new ConfigLoader();
+    $.when(config_loader.deferred).then(function(config){
+        var params = getSearchParameters();
 
-    if (params.coords) {
-      defaults.coords = [params.coords.lon,params.coords.lat];
-      defaults.zoom = params.coords.z;
-      defaults.bearing = params.coords.bearing;
-    }
-    
-    var m = new MapLoader(defaults);
-    var d = new DataLoader();
-    var s = new StyleLoader();
+        if (params.coords) {
+          config.defaults.coords = [params.coords.lon,params.coords.lat];
+          config.defaults.zoom = params.coords.z;
+          config.defaults.bearing = params.coords.bearing;
+        }
 
-    $.when(m.deferred,d.deferred,s.deferred)
-    .then(function(map,ddata,style){
-      var app = new App(defaults,
-                        ddata[0],
-                        ddata[1],
-                        map,
-                        style,
-                        params, function(){
-          $(".spinner-container").fadeOut();
-          $(".footer").show();
-          $(".current-year-container").fadeIn();
-      });
+        var m = new MapLoader(config);
+        var d = new DataLoader();
+        var s = new StyleLoader();
+
+        $.when(m.deferred,d.deferred,s.deferred)
+        .then(function(map,ddata,style){
+          var app = new App(config.defaults,
+                            ddata[0],
+                            ddata[1],
+                            map,
+                            style,
+                            params, function(){
+              $(".spinner-container").fadeOut();
+              $(".footer").show();
+              $(".current-year-container").fadeIn();
+          });
+        });
     });
   });
 })();
