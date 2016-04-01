@@ -16,19 +16,25 @@
 
     <link rel="icon" type="image/png" href="img/favicon-32x32.png" sizes="32x32">
 
-    <link rel="stylesheet" href="//cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
     <link rel="stylesheet" href="style.css" />
-    
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"> 
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato">
   
     <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-    <script src="//cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+
+    <script src='vendor/mapbox-gl/mapbox-gl.js'></script>
+    <link href='vendor/mapbox-gl/mapbox-gl.css' rel='stylesheet'/>
 
     <script src="misc.js"></script>
+    <script src="feature.js"></script>
+    <script src="plan.js"></script>
     <script src="planification.js"></script>
     <script src="section.js"></script>
     <script src="timeline.js"></script>
-    <script src="layers_helpers.js"></script>
+    <script src="layers_control.js"></script>
+    <script src="mouse_events.js"></script>
+    <script src="app.js"></script>
     <script src="main.js"></script>
 
     <script>
@@ -49,21 +55,28 @@
         <div id="map"></div>
         
         <div class="current-year-container">
-            <input class="current-year" type="number" />
+            <div class="city-container">
+                <div class="city">Buenos Aires</div><input class="current-year" type="number" />
+            </div>
             <div class="information"> 
             </div>
+            <div class="info-toggler fa fa-angle-double-down"></div>
         </div>
         <div class="footer">
         <div class="panel-container">
             <div class='tab-container'>
-                <div class="tab layers"></div>
-                <div class="tab about not-selected"></div>
+                <div class="tab layers"><span class="tab-icon fa fa-list"></span></div>
+                <div class="tab about not-selected"><span class="tab-icon fa fa-info"></span></div>
             </div>
             <div class="panel">
-                <div class="content layers"></div>
+                <div class="panel-close"><span>×</span></div>
+                <div class="content layers">
+                    <h1>Líneas y planes</h1>
+                </div>
                 <div class="content about">
-                    <i>Subtograma</i> pretende ser una guía visual de la historia y de los planes del Subte de Buenos Aires.</br>
-                    Contactame en <a target="_blank" href="https://twitter.com/SalernoBr">@SalernoBr</a>, y/o contribuí en el <a target="_blank" href="https://github.com/BrunoSalerno/subtograma">repositorio de GitHub</a>. Los íconos son de <a target="_blank" href="https://thenounproject.com/">NounProject</a>.
+                    <h1>Sobre Subtograma</h1>
+                    <p>Queremos construir una historia visual del Subte de Buenos Aires y de sus proyectos.</p>
+                    <p>Contactame en <a target="_blank" href="https://twitter.com/SalernoBr">@SalernoBr</a>, y/o contribuí en el <a target="_blank" href="https://github.com/BrunoSalerno/subtograma">repositorio de GitHub</a><p>
                 </div>
             </div>
         </div>
@@ -80,11 +93,11 @@
                 <!-- AddToAny END -->
             </div>
             <div class="logo">
-                Subtograma
+                <span class="fa fa-subway" style="margin-right:10px;margin-left:5px;font-size:0.9em"></span>Subtograma
             </div>
             <div class="reference-container">
                 <div class="action-container">
-                    <div class="action play"></div>
+                    <span class="action fa fa-play"></span>
                 </div>
                 <div class="year-hover"></div>
                 <div class="reference">

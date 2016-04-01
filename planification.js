@@ -25,7 +25,6 @@ var Planification = function(data,map,styles){
       var l={};
       for (var k in self.__plans[plan].lines()){
 
-        // Si está el feature, es que está dibujada
         l[k] = {show: (self.__plans[plan].is_drawn(k)) ? true : false}
       }
 
@@ -83,154 +82,17 @@ var Planification = function(data,map,styles){
       }
 
       if (!self.__plans[plan_name].lines()[line_name]){
-        self.__plans[plan_name].add_line(line_name,line.geometry,length)
+        self.__plans[plan_name].add_line(line_name,line,length)
       }
     });
 
     $.each(data.stations.features, function(index,station){
       plan_name = station.properties.plan;
       line_name = station.properties.line;
-      station['feature'] = null;
-      self.__plans[plan_name].add_station(line_name,station);
+      var obj ={section: null,raw_feature:station};
+      self.__plans[plan_name].add_station(line_name,obj);
     });
   };
 
   this.__load_data(data);
-};
-
-var Plan = function(map,plan_name,year,url,styles){
-  // Soporta por plan y por línea una sóla polilínea.
-
-  this.__year = year;
-  this.__name = plan_name;
-  this.__styles = styles;
-  this.__lines = {};
-  this.__url = url;
-  this.map = map;
-  var self = this;
-  
-  this.url = function(){
-    return self.__url;
-  };
-
-  this.lines = function(){
-    return self.__lines;
-  };
-
-  this.add_line = function(name, geometry,length){
-    self.__lines[name] = {
-        geometry:geometry,
-        feature:null,
-        stations:[],
-        length: round(length/1000)}
-  };
-
-  this.add_station = function(line,station){
-    self.__lines[line].stations.push(station)
-  };
-
-  this.label = function(){
-    return self.__name +' <small>('+self.__year+')</small>';
-  };
-
-  this.year = function(){
-    return self.__year;
-  };
-
-  this.is_drawn = function(line){
-    return (self.__lines[line].feature) ? true : false;
-  };
-
-  this.__popup_content = function(line,name){
-    var content ='<div class="info-window"><div>';
-    if (name) content += name + ' - ';
-    content += 'Línea '+ line + '</div>';
-    content +='<ul>';
-    content += '<li>' + self.label();
-    if (!name) content += '<li>Longitud: ~<strong>' + round(self.__lines[line].length) + '</strong> km';
-    content +='</ul></div>';
-    return content;
-  };
-
-  this.__style = function(type,line){
-    var style = self.__styles[type]['project'];
-    if (type== 'line') {
-      style = $.extend(true,{},style['default'],style[self.__name][line]);
-    }else{
-      style = $.extend(true,{},style,styles['line']['project'][self.__name][line]);
-    }
-
-    return style;
-  };
-
-  this.draw_feature = function(geometry,line){
-    var feature_var;
-    switch(geometry.type){
-      case 'MultiLineString':
-        var lines = [];
-        geometry.coordinates.forEach(function(line){
-            var points=[];
-            line.forEach(function(point){
-                points.push(new L.LatLng(point[1],point[0]));
-            });
-            lines.push(points);
-        });
-        feature_var = new L.multiPolyline(lines, self.__style('line',line));
-        break;
-      case 'LineString':
-        var points =[];
-        geometry.coordinates.forEach(function(point){
-          points.push(new L.LatLng(point[1],point[0]))
-        });
-        feature_var = new L.Polyline(points, self.__style('line',line));
-        break;
-      case 'Point':
-        var coords = [geometry.coordinates[1],geometry.coordinates[0]];
-        feature_var = L.circleMarker(coords, self.__style('point',line));
-        break;
-    }
-    return feature_var;
-  };
-
-  this.draw = function(line){
-    var f = self.draw_feature(self.__lines[line].geometry,line);
-    self.__lines[line].feature= f;
-    f.bindPopup(self.__popup_content(line, null));
-
-    f.on('mouseover', function (e){
-      this.setStyle({color:'#2E2E2E'});
-    });
-
-    f.on('mouseout', function (e){
-      this.setStyle(self.__style('line',line));
-    });
-
-    f.addTo(self.map);
-
-    $.each(self.__lines[line].stations,function(i,s){
-      var f = self.draw_feature(s.geometry,line);
-      s.feature = f;
-
-      s.feature.bindPopup(self.__popup_content(line, s.properties.name));
-
-      s.feature.on('mouseover', function (e){
-        this.setStyle({color:'#2E2E2E'});
-        this.setStyle({weight:3});
-      });
-
-      s.feature.on('mouseout', function (e){
-        this.setStyle(self.__style('point',line));
-      });
-      f.addTo(self.map);
-    });
-  };
-
-  this.undraw = function(line){
-    self.map.removeLayer(self.__lines[line].feature);
-    self.__lines[line].feature = null;
-    $.each(self.__lines[line].stations,function(i,s){
-      self.map.removeLayer(s.feature);
-      s.feature = null;
-    });
-  };
 };

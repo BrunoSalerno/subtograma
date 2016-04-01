@@ -18,6 +18,14 @@ var Timeline = function(data,map,years,styles){
     }
   };
 
+  this.visible_lines = function(){
+    lines = [];
+    for (var l in self.__lines){
+        if (self.__lines[l].show) lines.push(l);
+    }
+    return lines;
+  }
+
   this.toggle_line = function(line){
     self.__lines[line].show = !self.__lines[line].show
     var lines_params = [];
@@ -45,15 +53,8 @@ var Timeline = function(data,map,years,styles){
 
   this.__init_year = function(){
     return {
-      stations: {buildstart:[],opening:[],closure:[]},
-      lines: {buildstart:[],opening:[],closure:[]}
-    }
-  };
-
-  this.feature_to_front  = function(type,line){
-    for (var f in self.sections){
-      if (self.sections[f].type()==type &&
-        self.sections[f].line() == line) self.sections[f].bring_to_front();
+      station: {buildstart:[],opening:[],closure:[]},
+      line: {buildstart:[],opening:[],closure:[]}
     }
   };
 
@@ -74,7 +75,7 @@ var Timeline = function(data,map,years,styles){
             if (!t[year]) t[year] = self.__init_year();
             t[year][category][y].push(element)
 
-            if (category == 'lines'){
+            if (category == 'line'){
               if (!self.__lines[element.properties.line]){
                 self.__lines[element.properties.line]={show:true}
               }
@@ -87,118 +88,134 @@ var Timeline = function(data,map,years,styles){
     return t;
   };
 
-  this.draw = function(year,line){
-    var current_year_data = self.data[year];
-    var lines;
+  this.down_to_year = function(start_year,end_year,lines){
+    lines = lines || self.visible_lines();
+    
+    var features = {};
+    features['buildstart'] = [];
+    features['opening'] = [];
+    features['closure'] = [];
+    var current_year_data;
+    
+    for (var year = start_year+1;year > end_year;year--){
+        current_year_data = self.data[year]
+        if (!current_year_data) continue;
+        
+        ['station','line'].forEach(function(category){
+            for (var c in current_year_data[category]){
+                current_year_data[category][c].forEach(function(obj){
+                    if (lines.indexOf(obj.properties.line) == -1) return;
+                    var id = category + '_' + obj.properties.id;
+                    
+                    if (!self.sections[id]) self.sections[id] = new Section(self.map,obj,self.styles,category);          
+                     
+                    if (c == 'opening'){
+                        features['opening'] = $.grep(features['opening'],function(element){
+                            return (element != id);
+                        });
+                        if (self.sections[id].has_building_data()){
+                            features['buildstart'].push(id);
+                        }else{
+                            features['closure'].push(id); 
+                        }
+                    }
 
-    if (line) {
-      var o ={};
-      o[line] = 'temporary obj';
-      lines = o;
-    } else {
-      lines = self.lines();
+                    if (c == 'buildstart'){
+                        features['buildstart'] = $.grep(features['buildstart'],function(element){
+                            return (element != id);
+                        });
+                        features['closure'].push(id); 
+                    }
+
+                    if (c == 'closure'){
+                        features['closure'] = $.grep(features['closure'],function(element){
+                            return (element != id);
+                        });
+                        if (self.sections[id].been_inaugurated()){
+                            features['opening'].push(id);    
+                        } else {
+                            features['buildstart'].push(id);    
+                        }
+                    }
+                });
+            };
+        });
     }
-
-    for (var l in lines){
-      ['line','station'].forEach(function(type){
-        var category = (type == 'line') ? 'lines' : 'stations';
-        if (current_year_data && current_year_data[category]){
-          for (var c in current_year_data[category]){
-            $.each(current_year_data[category][c],function(i,obj){
-
-              if (obj.properties.line != l) return;
-              if (!line && !self.__lines[obj.properties.line].show) return;
-
-              var id = type + '_' + obj.properties.id;
-
-              if (c=='opening'){
-                if (!self.sections[id]) self.sections[id] = new Section(self.map,obj,self.styles,type);
-                self.sections[id].open();
-              }
-
-              if (c=='closure'){
-                self.sections[id].close();
-              }
-
-              if (c=='buildstart'){
-                if (!self.sections[id]) self.sections[id] = new Section(self.map,obj,self.styles,type);
-                self.sections[id].buildstart();
-              }
-
-            });
-          }
-        }
-        self.feature_to_front(type,l);
-      });
-    }
+    
+    self.features_to_map(features);
   };
-
-
-  this.undraw = function(year,line) {
-    var current_year_data = self.data[year + 1];
-    var lines;
-
-    if (line) {
-      var o ={};
-      o[line] = 'temporary obj';
-      lines = o;
-    } else {
-      lines = self.lines();
-    }
-
-    for (var l in lines){
-      ['line','station'].forEach(function(type){
-        var category = (type == 'line') ? 'lines' : 'stations';
-        if (current_year_data && current_year_data[category]){
-          for (var c in current_year_data[category]){
-            current_year_data[category][c].forEach(function(obj){
-
-              if (obj.properties.line != l) return;
-              if (!line && !self.__lines[obj.properties.line].show) return;
-
-              var id = type + '_' + obj.properties.id;
-              if (!self.sections[id]) return;
-
-              if (c=='opening'){
-                if (self.sections[id].has_building_data()){
-                  self.sections[id].buildstart();
-                } else {
-                  self.sections[id].close();
-                }
-              }
-
-              if (c=='closure'){
-                if (self.sections[id].been_inaugurated()){
-                  self.sections[id].open();
-                } else {
-                  self.sections[id].buildstart();
-                }
-              }
-
-              if (c=='buildstart'){
-                self.sections[id].close();
-              }
-            });
-          }
-        }
-        self.feature_to_front(type,l);
-      });
-    }
+  
+  this.up_to_year = function(year_start,year,lines){
+    lines = lines || self.visible_lines();
+    var features = self.features_in_a_year(year_start,year,lines); 
+    self.features_to_map(features);
   };
+  
+  this.features_in_a_year = function(year_start,year_end,lines){
+    var features = {};
+    features['buildstart'] = [];
+    features['opening'] = [];
+    features['closure'] = [];
+    
+    var current_year_data;
+    
+    for (var year = year_start + 1; year <= year_end;year++){    
+        current_year_data = self.data[year];
+        if (!current_year_data) continue;
+
+        ['station','line'].forEach(function(category){
+            for (var c in current_year_data[category]){
+                current_year_data[category][c].forEach(function(obj){
+                    if (lines.indexOf(obj.properties.line) == -1) return;
+                    
+                    var id = category + '_' + obj.properties.id;
+                    if (!self.sections[id]) self.sections[id] = new Section(self.map,obj,self.styles,category);          
+                    
+                    if (c=='buildstart' || c=='opening') {
+                        if (!features[c]) features[c] = [];
+                        features[c].push(id)       
+                        
+                        if (c=='opening'){
+                            features['buildstart'] = $.grep(features['buildstart'],function(element){
+                                return (element != id)
+                            });
+                        }
+                    }
+
+                    if (c == 'closure'){
+                        ['buildstart','opening'].forEach(function(cc){   
+                            features[cc] = $.grep(features[cc],function(element){
+                                return (element != id);
+                            });
+                        });
+                        features[c].push(id);
+                    }
+                });
+            };
+        });
+    }
+    return features;    
+  };
+   
+  this.features_to_map = function(features){
+    self.map.batch(function(batch){
+        for(var o in features){
+            if (!features[o]) return;
+            features[o].forEach(function(id){
+                if (o == 'buildstart')
+                    self.sections[id].buildstart(batch);
+                else if (o == 'opening')
+                    self.sections[id].open(batch);
+                else
+                    self.sections[id].close(batch) 
+            });
+        };
+    });
+  } 
 
   this.set_year = function(year){
     self.years.previous = self.years.current;
     self.years.current = year;
-  };
-
-  this.up_to_year = function(year,line){
-    if (!line) self.set_year(year);
-    self.draw(year,line);
-  };
-
-  this.down_to_year = function(year,line){
-    if (!line) self.set_year(year);
-    self.undraw(year,line);
   };
 
   this.year_information = function(){

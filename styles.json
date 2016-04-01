@@ -1,20 +1,17 @@
 {
   "line": {
+    "hover": {
+      "line-color": "#000",
+      "line-width": 7,
+      "line-opacity": 0.4
+    },
     "buildstart": {
       "color": "#A4A4A4",
-      "weight": 7,
-      "opacity": 1,
-      "smoothFactor": 0,
-      "lineJoin": "round",
-      "lineCap": "round"
+      "line-width": 7
     },
     "opening": {
       "default": {
-        "weight": 7,
-        "opacity": 1,
-        "smoothFactor": 0,
-        "lineJoin": "round",
-        "lineCap": "round"
+        "line-width": 7
       },
       "A": {
         "color": "#01A9DB"
@@ -37,115 +34,42 @@
       },
       "P": {
         "color": "#FF8000",
-        "weight": 4
-      }
-    },
-    "project":{
-      "default":{
-        "weight": 7,
-        "opacity": 1,
-        "smoothFactor": 0,
-        "lineJoin": "round",
-        "lineCap": "round"
+        "line-width": 4
       },
-      "Ley 670":{
-        "F":{
-          "color":"#8A0808"
-        },
-        "G":{
-          "color":"#FA58F4"
-        },
-        "I":{
-          "color":"#DF7401"
-        }
+      "F":{
+        "color":"#8A0808"
       },
-      "Ley 317":{
-        "H":{
-          "labelFontColor":"#848484",
-          "color":"#FFFF00"
-        }
+      "G":{
+        "color":"#FA58F4"
       },
-      "Ley 5233":{
-        "H":{
-          "labelFontColor":"#848484",
-          "color":"#FFFF00"
-        }
+      "J":{
+        "color":"#FF00BF"
       },
-      "PETERS 1":{
-        "E-H":{
-          "color":"#DE9236"
-        },
-        "G":{
-          "color":"#FA58F4"
-        },
-        "J":{
-          "color":"#FF00BF"
-        },
-        "F":{
-          "color":"#8A0808"
-        },
-        "C":{
-          "color":"#0000FF"
-        }
+      "I":{
+        "color":"#DF7401"
       },
-      "PETERS 2":{
-        "E-H":{
-          "color":"#DE9236"
-        },
-        "G":{
-          "color":"#FA58F4"
-        },
-        "F":{
-          "color":"#8A0808"
-        },
-        "C":{
-          "color":"#0000FF"
-        }
-      },
-      "PETERS 3":{
-        "E":{
-          "color":"#8A084B"
-        },
-        "G":{
-          "color":"#FA58F4"
-        },
-        "F":{
-          "color":"#8A0808"
-        },
-        "C":{
-          "color":"#0000FF"
-        },
-        "H":{
-          "labelFontColor":"#848484",
-          "color":"#FFFF00"
-        }
+      "E-H":{
+        "color":"#DE9236"
       }
     }
   },
   "point": {
+    "hover":{
+      "circle-radius": 7,
+      "circle-color":"#000",
+      "circle-opacity":0.4
+    },  
     "buildstart": {
-      "weight": 2,
-      "radius": 5,
-      "stroke": true,
-      "opacity": 1,
-      "fillOpacity": 1,
+      "circle-radius": 7,
       "color":"#A4A4A4",
       "fillColor": "#E6E6E6"
     },
     "opening": {
-      "weight": 2,
-      "radius": 5,
-      "stroke": true,
-      "opacity": 1,
-      "fillOpacity": 1,
+      "circle-radius": 7,
       "fillColor": "#E6E6E6"
     },
     "project":{
-      "weight": 2,
-      "radius": 5,
-      "stroke": true,
-      "opacity": 1,
-      "fillOpacity": 1,
+      "circle-radius": 7,
       "fillColor": "#E6E6E6"
     }
   }
