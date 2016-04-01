@@ -1,3 +1,5 @@
+"use strict";
+
 (function(){
   var MapLoader = function(config){
     this.deferred = new $.Deferred();
