@@ -8,6 +8,9 @@ Useful data
 -----------
 
 * Subtograma uses [Mapbox GL](https://github.com/mapbox/mapbox-gl-js).
-* The data about the lines and stations is stored in the `geojson` folder.
+* The data about lines and stations is stored in the `geojson` and `shp` folders.
 
-Fork and contribute ;)
+Contribute
+----------
+
+If you wish to contribute please contact me!

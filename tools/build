@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# This shell script does the following:
+# - Creates a backup of the geojson layers
+# - Converts the shp layers to geojson
+# - Copies Subtograma to /var/www/html
+
+NAME="../geojson_backup/layers_"
+NAME+=$(date "+%Y-%m-%H:%M:%S.tar.gz")
+
+tar cvzf $NAME geojson/*.geojson
+rm geojson/*
+
+ogr2ogr -f GeoJSON geojson/projects-lines.geojson shp/projects-lines.shp
+ogr2ogr -f GeoJSON geojson/projects-stations.geojson shp/projects-stations.shp
+ogr2ogr -f GeoJSON geojson/estaciones.geojson shp/estaciones_de_subte_wgs84.shp
+ogr2ogr -f GeoJSON geojson/subte.geojson shp/subte.shp
+
+sudo rm -r /var/www/html/subtograma/*
+sudo cp -a ./* /var/www/html/subtograma/
+
+echo Build exitoso.
