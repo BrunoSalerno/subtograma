@@ -1,8 +1,13 @@
-var Timeline = function(data,map,years,styles){
+var Timeline = function(data,map,years,style){
   var self = this;
 
   this.__busy = false;
   this.__lines = {};
+
+  this.map = map;
+  this.years = years;
+  this.style = style;
+  this.sections = {};
 
   this.busy = function(){
     return self.__busy;
@@ -107,7 +112,7 @@ var Timeline = function(data,map,years,styles){
                     if (lines.indexOf(obj.properties.line) == -1) return;
                     var id = category + '_' + obj.properties.id;
                     
-                    if (!self.sections[id]) self.sections[id] = new Section(self.map,obj,self.styles,category);          
+                    if (!self.sections[id]) self.sections[id] = new Section(self.map,obj,self.style,category);          
                      
                     if (c == 'opening'){
                         features['opening'] = $.grep(features['opening'],function(element){
@@ -169,7 +174,7 @@ var Timeline = function(data,map,years,styles){
                     if (lines.indexOf(obj.properties.line) == -1) return;
                     
                     var id = category + '_' + obj.properties.id;
-                    if (!self.sections[id]) self.sections[id] = new Section(self.map,obj,self.styles,category);          
+                    if (!self.sections[id]) self.sections[id] = new Section(self.map,obj,self.style,category);          
                     
                     if (c=='buildstart' || c=='opening') {
                         if (!features[c]) features[c] = [];
@@ -198,19 +203,17 @@ var Timeline = function(data,map,years,styles){
   };
    
   this.features_to_map = function(features){
-    self.map.batch(function(batch){
-        for(var o in features){
-            if (!features[o]) return;
-            features[o].forEach(function(id){
-                if (o == 'buildstart')
-                    self.sections[id].buildstart(batch);
-                else if (o == 'opening')
-                    self.sections[id].open(batch);
-                else
-                    self.sections[id].close(batch) 
-            });
-        };
-    });
+    for(var o in features){
+        if (!features[o]) return;
+        features[o].forEach(function(id){
+            if (o == 'buildstart')
+                self.sections[id].buildstart();
+            else if (o == 'opening')
+                self.sections[id].open();
+            else
+                self.sections[id].close();
+        });
+    };
   } 
 
   this.set_year = function(year){
@@ -252,9 +255,5 @@ var Timeline = function(data,map,years,styles){
   };
 
   this.data = this.__load_data(data);
-  this.map = map;
-  this.years = years;
-  this.styles = styles;
-  this.sections = {};
 
 };

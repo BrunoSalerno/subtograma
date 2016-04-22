@@ -1,4 +1,4 @@
-var Section = function(map, feature, styles, type){
+var Section = function(map, feature, style, type){
   this.status = null;
   
   this.raw_feature = feature;
@@ -6,7 +6,7 @@ var Section = function(map, feature, styles, type){
   this.feature_extra = null;
   this.properties = feature.properties;
   this.map = map;
-  this.styles = styles;
+  this.style = style;
   this.__type = type;
   this.__length = feature.properties.length;
   
@@ -25,7 +25,9 @@ var Section = function(map, feature, styles, type){
     } else {
         if (self.status=='buildstart')
            str += self.status;
-        else
+        else if (self.status=='opening' && self.__type == 'station')
+           str += 'opening';
+        else // line cases
            str += self.properties.line;
     }
 
@@ -60,42 +62,10 @@ var Section = function(map, feature, styles, type){
   };
 
   this.__style = function(operation,opts){
-    var opts = opts || {};
-    var style;
-    switch (self.__type){
-      case 'line':
-        style = (operation == 'opening') ?
-          $.extend(true,{},self.styles.line[operation]["default"],self.styles.line[operation][self.properties.line]) :
-          $.extend(true,{},self.styles.line[operation]);
-          
-        style["line-color"] = style["color"];
-        break;
-      
-      case 'station':
-        style = (operation == 'opening') ?
-          $.extend(true,{},self.styles.point[operation],self.styles.line[operation][self.properties.line]) :
-          $.extend(true,{},self.styles.point[operation]);
-        
-        style["circle-color"] = style["color"];
-         
-        if (opts.source_name == STATION_INNER_LAYER) {
-            style["circle-color"] = style["fillColor"];
-            style["circle-radius"] = style["circle-radius"] - 3;    
-        }
-        
-        delete style["line-width"];
-        
-        break;
-    }
-    
-    delete style["labelFontColor"];    
-    delete style["fillColor"];
-    delete style["color"];
-     
-    return style;
+    return self.style.calculate(self.type(),operation,self.line(),opts); 
   };
 
-  this.draw = function(operation,batch){
+  this.draw = function(operation){
     var style = self.__style(operation);
     var f_extra = null;
     var opts = {
@@ -114,37 +84,37 @@ var Section = function(map, feature, styles, type){
             style: self.__style(operation,{source_name: STATION_INNER_LAYER})
         });
         
-        self.feature_extra = new Feature(batch,extra_opts);
+        self.feature_extra = new Feature(extra_opts);
     }
     
-    return new Feature(batch,opts);
+    return new Feature(opts);
   };
   
-  this.__update_feature = function(batch){
+  this.__update_feature = function(){
     if (self.feature) {
-        self.feature.remove(batch);
+        self.feature.remove();
     }
-    self.feature = self.draw(self.status,batch);
+    self.feature = self.draw(self.status);
   }
 
-  this.buildstart = function(batch){
+  this.buildstart = function(){
     self.status = 'buildstart';
-    self.__update_feature(batch);
+    self.__update_feature();
   };
 
-  this.open = function(batch){
+  this.open = function(){
     self.status = 'opening';
-    self.__update_feature(batch);
+    self.__update_feature();
   };
 
-  this.close = function(batch){
+  this.close = function(){
     self.status = 'closure';
     if (self.feature){
-      self.feature.remove(batch);
+      self.feature.remove();
       self.feature = null;
       
       if (self.feature_extra){
-        self.feature_extra.remove(batch);
+        self.feature_extra.remove();
         self.feature_extra = null;
       }
     } else {

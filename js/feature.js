@@ -1,4 +1,4 @@
-var Feature = function(initial_batch,opts){
+var Feature = function(opts){
     var self = this;
     self.source_name = opts.source_name;
     self.style = opts.style;
@@ -6,7 +6,6 @@ var Feature = function(initial_batch,opts){
     self.map = opts.map;
     self.before_layer = opts.before_layer;
     self.type = opts.type;
-    self.__check_duplicated_feature = false;
      
     this.source_data = function(features){
         return {"data":{
@@ -15,26 +14,23 @@ var Feature = function(initial_batch,opts){
                 }}
     }
     
-    this.load = function(batch){
+    this.load = function(){
         var source = self.map.getSource(self.source_name);
         if (!source){
             var feature = self.feature instanceof Array ? self.feature : [self.feature]
             source = new mapboxgl.GeoJSONSource(self.source_data(feature))
-            batch.addSource(self.source_name, source)
-            batch.addLayer(self._layer(),self.before_layer);
+            self.map.addSource(self.source_name, source)
+            self.map.addLayer(self._layer(),self.before_layer);
             
             // Remove hover layers if this layer is not a hover layer
             if (self.source_name.indexOf('hover') == -1){
                 ['line_hover','station_hover'].forEach(function(l){
                     if (!self.map.getLayer(l)) return;
-                    batch.removeLayer(l);        
-                    batch.removeSource(l);
+                    self.map.removeLayer(l);
+                    self.map.removeSource(l);
                 })
             }        
         }else{
-            if (self.__check_duplicated_feature && 
-                self.feature_included(source)) return;
-
             features = source._data.features;
 
             if (self.feature instanceof Array){
@@ -45,16 +41,8 @@ var Feature = function(initial_batch,opts){
             source.setData(self.source_data(features).data);
         }
     }
-    
-    this.feature_included = function(source){
-        var included = false;
-        $.each(source['_data']['features'],function(i,element){
-            if (self.match_condition(element)) included = true;
-        });
-        return included;    
-    }
 
-    this.remove = function(batch){
+    this.remove = function(){
         var source = self.map.getSource(self.source_name);
         
         features = $.grep(source['_data']['features'], function(element) {
@@ -91,5 +79,5 @@ var Feature = function(initial_batch,opts){
         return layer;
     }
     
-    this.load(initial_batch);    
+    this.load();
 }

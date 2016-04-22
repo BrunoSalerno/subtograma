@@ -1,7 +1,7 @@
-var Plan = function(map,plan_name,year,url,styles){
+var Plan = function(map,plan_name,year,url,style){
   this.__year = year;
   this.__name = plan_name;
-  this.__styles = styles;
+  this.__style = style;
   this.__lines = {};
   this.__url = url;
   this.map = map;
@@ -41,32 +41,28 @@ var Plan = function(map,plan_name,year,url,styles){
   };
 
   this.draw = function(line){
-    self.map.batch(function(batch){
-        if (!self.__lines[line].section)
-            self.__lines[line].section = new Section(self.map,
-                                                     self.__lines[line].raw_feature,
-                                                     self.__styles,
-                                                     'line');
-        
-        self.__lines[line].section.open(batch);
-        
-        $.each(self.__lines[line].stations,function(i,s){
-          if (!s.section)
-            s.section = new Section(self.map,
-                                    s.raw_feature,
-                                    self.__styles,
-                                    'station');
-          s.section.open(batch);
-        });
+    if (!self.__lines[line].section)
+        self.__lines[line].section = new Section(self.map,
+                                                 self.__lines[line].raw_feature,
+                                                 self.__style,
+                                                 'line');
+
+    self.__lines[line].section.open();
+
+    $.each(self.__lines[line].stations,function(i,s){
+      if (!s.section)
+        s.section = new Section(self.map,
+                                s.raw_feature,
+                                self.__style,
+                                'station');
+      s.section.open();
     });
   };
 
   this.undraw = function(line){
-    self.map.batch(function(batch){
-        self.__lines[line].section.close(batch);
-        $.each(self.__lines[line].stations,function(i,s){
-          s.section.close(batch);
-        });
+    self.__lines[line].section.close();
+    $.each(self.__lines[line].stations,function(i,s){
+      s.section.close();
     });
   };
 };
