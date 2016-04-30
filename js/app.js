@@ -1,7 +1,6 @@
 var App = function(defaults,data,projects_data,map,styles,params,callback){
     this.interval = null;
     var self = this;
-    this.styles = styles;
     this.years = defaults.years;
 
     var starting_year = params.year;
@@ -158,9 +157,10 @@ var App = function(defaults,data,projects_data,map,styles,params,callback){
         if (y_i_str == '') y_i_str = '<p>No hay información para este año</p>'  
         $('.current-year-container .information').html(y_i_str)
     };
-
-    this.planification = new Planification(projects_data,map,this.styles);
-    this.timeline = new Timeline(data,map,this.years,this.styles);
+    
+    this.style = new Style(styles);
+    this.planification = new Planification(projects_data,map,this.style);
+    this.timeline = new Timeline(data,map,this.years,this.style);
     this.create_slider();
 
     // Current year functionality
@@ -264,7 +264,7 @@ var App = function(defaults,data,projects_data,map,styles,params,callback){
     
     // Hover & Popup
     //--------------
-    self.mouse_events = new MouseEvents(map,self.styles,self.planification,self.timeline);
+    self.mouse_events = new MouseEvents(map,self.style,self.planification,self.timeline);
     
     // Init to the start year
     // ----------------------

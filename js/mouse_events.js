@@ -12,27 +12,27 @@ var MouseEvents = function(map,style,planification,timeline){
     const STATION_INNER_LAYER = 'station_inner';
     const STATION_HOVER_LAYER = 'station_hover';
 
-    function hover(id,type,feature,batch){
+    function hover(id,type,feature){
         var layer = type + '_hover';
         if (!self.features[id]){
             var opts = {
                 source_name: layer,
-                style: self.style[(type == 'station')? 'point' : type]["hover"],
+                style: self.style.hover(type),
                 feature: feature,
                 map: self.map,
                 before_layer: type == 'station' ? STATION_INNER_LAYER : STATION_HOVER_LAYER,
                 type:type
             }
-            self.features[id] = new Feature(batch, opts)
+            self.features[id] = new Feature(opts)
         }
     }
     
     function layers(){
-        l = ['station_buildstart','line_buildstart'];
+        l = ['station_opening','station_buildstart','line_buildstart'];
         
         var lines = self.timeline.lines();
         for (var line in lines){
-            ['line','station'].forEach(function(el){
+            ['line'].forEach(function(el){
                 l.push(el+'_'+line);
             })
         }
@@ -88,25 +88,23 @@ var MouseEvents = function(map,style,planification,timeline){
     map.on("mousemove", function(e){
         var point = [e.point.x,e.point.y];
         var features = map.queryRenderedFeatures(point, {layers:self.layers});
-        map.batch(function(batch){
-            var ids = [];
+        var ids = [];
 
-            // Cursor pointer
-            map.getCanvas().style.cursor = features.length ? 'pointer' : '';
+        // Cursor pointer
+        map.getCanvas().style.cursor = features.length ? 'pointer' : '';
 
-            features.forEach(function(f){
-                var type = f.layer.type == 'circle'? 'station' : 'line';
-                var id = type +'_' + f.properties.id + '_' + f.properties.line + '_' + f.properties.plan;
-                ids.push(id);
-                hover(id,type,f,batch);
-            });
-
-            for (var i in self.features){
-                if (ids.indexOf(i) == -1){
-                    self.features[i].remove(batch);
-                    delete self.features[i];
-                }
-            };
+        features.forEach(function(f){
+            var type = f.layer.type == 'circle'? 'station' : 'line';
+            var id = type +'_' + f.properties.id + '_' + f.properties.line + '_' + f.properties.plan;
+            ids.push(id);
+            hover(id,type,f);
         });
+
+        for (var i in self.features){
+            if (ids.indexOf(i) == -1){
+                self.features[i].remove();
+                delete self.features[i];
+            }
+        };
     });
 }

@@ -1,7 +1,7 @@
-var Planification = function(data,map,styles){
+var Planification = function(data,map,style){
   this.data = data;
   this.map = map;
-  this.styles = styles;
+  this.style = style;
   this.__plans = {};
 
   var self = this;
@@ -78,7 +78,7 @@ var Planification = function(data,map,styles){
       var length = line.properties.length;
 
       if (!self.__plans[plan_name]) {
-        self.__plans[plan_name] = new Plan(self.map,plan_name,line.properties.year,plan_url,styles);
+        self.__plans[plan_name] = new Plan(self.map,plan_name,line.properties.year,plan_url,self.style);
       }
 
       if (!self.__plans[plan_name].lines()[line_name]){

@@ -10,11 +10,11 @@ var load_layers_control = function(starting_lines,starting_plans,app){
     var lines = app.timeline.lines();
     var lines_str='<ul class="lines"><li class="plan-label lines-label"><ul class="plan-list">';
     for (var line in lines){
-      var label_font_color = app.styles.line.opening[line].labelFontColor ? 'color: '+ app.styles.line.opening[line].labelFontColor+';' : '';  
+      var label_font_color = app.style.lineLabelFontColor(line) ? 'color: '+ app.style.lineLabelFontColor(line) + ';' : '';  
       var checked_str = (lines[line].show) ? 'checked' : '';
       lines_str += '<li><input type="checkbox" id="checkbox_'+line+'" ' + checked_str + '/>' +
         '<label id="label_'+line+
-        '" for="checkbox_'+line+'" style="'+ label_font_color +'background-color: '+ app.styles.line.opening[line].color+'">' +
+        '" for="checkbox_'+line+'" style="'+ label_font_color +'background-color: '+ app.style.lineColor(line) +'">' +
         line + '</label></li>';
     }
     lines_str +='</ul></li>'
@@ -25,13 +25,13 @@ var load_layers_control = function(starting_lines,starting_plans,app){
       lines_str +='<a href="'+plan.url+'" target="_blank" + title="Link a la ley"><span class="plan-link fa fa-external-link"></span></a>';
       lines_str +='<ul class="plan-list">'
       for (var line in plan.lines){
-        var label_font_color = app.styles.line.opening[line].labelFontColor ? 'color: ' + app.styles.line.opening[line].labelFontColor+';' : '';
+        var label_font_color = app.style.lineLabelFontColor(line) ? 'color: ' + app.style.lineLabelFontColor(line) + ';' : '';
         var checked_str = (plan.lines[line].show) ? 'checked' : '';
         lines_str += '<li><input type="checkbox" id="checkbox_'+plan.name.replace(' ','-')+
           '_'+line+'" ' + checked_str + '/>' +
           '<label id="label_'+plan.name.replace(' ','-')+'_'+line +
           '" for="checkbox_'+plan.name.replace(' ','-')+'_'+line +
-          '" style="' + label_font_color + 'background-color: '+ app.styles.line.opening[line].color+'">' +
+          '" style="' + label_font_color + 'background-color: '+ app.style.lineColor(line) + '">' +
           line + '</label></li>';
       }
       lines_str += '</ul></li>';
