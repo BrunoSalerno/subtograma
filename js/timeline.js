@@ -102,7 +102,7 @@ var Timeline = function(data,map,years,style){
     features['closure'] = [];
     var current_year_data;
     
-    for (var year = start_year+1;year > end_year;year--){
+    for (var year = start_year;year > end_year;year--){
         current_year_data = self.data[year]
         if (!current_year_data) continue;
         
@@ -147,13 +147,13 @@ var Timeline = function(data,map,years,style){
         });
     }
     
-    self.features_to_map(features);
+    self.featuresToMap(features);
   };
   
   this.up_to_year = function(year_start,year,lines){
     lines = lines || self.visible_lines();
     var features = self.features_in_a_year(year_start,year,lines); 
-    self.features_to_map(features);
+    self.featuresToMap(features);
   };
   
   this.features_in_a_year = function(year_start,year_end,lines){
@@ -201,20 +201,28 @@ var Timeline = function(data,map,years,style){
     }
     return features;    
   };
-   
-  this.features_to_map = function(features){
-    for(var o in features){
+
+  this.featuresToMap = function(features){
+      var changes = [];
+      for (var o in features){
         if (!features[o]) return;
+
         features[o].forEach(function(id){
+            var action;
             if (o == 'buildstart')
-                self.sections[id].buildstart();
+                action = self.sections[id].buildstart();
             else if (o == 'opening')
-                self.sections[id].open();
+                action = self.sections[id].open();
             else
-                self.sections[id].close();
+                action = self.sections[id].close();
+
+            changes.push(action);
         });
-    };
-  } 
+      }
+
+      var renderUpdates = new RenderUpdates({map: self.map});
+      renderUpdates.render(changes);
+    }
 
   this.set_year = function(year){
     self.years.previous = self.years.current;
@@ -231,24 +239,22 @@ var Timeline = function(data,map,years,style){
     var y = self.years.current;
     for (var s in self.sections){
       var section = self.sections[s];
-      if (section.feature){
-          switch (section.type()){
-            case 'line':
-                if (section.status == 'opening'){
-                    information.km_operating += section.length();
-                    information.km_operating = round(information.km_operating);
-                } else if (section.status == 'buildstart') {
-                    information.km_under_construction += section.length();    
-                    information.km_under_construction = round(information.km_under_construction);
-                }
-            break;
-            case 'station':
-                if (section.status == 'opening'){
-                    information.stations += 1;
-                }
-            break;
-          }
-      }   
+      switch (section.type()){
+        case 'line':
+            if (section.status == 'opening'){
+                information.km_operating += section.length();
+                information.km_operating = round(information.km_operating);
+            } else if (section.status == 'buildstart') {
+                information.km_under_construction += section.length();
+                information.km_under_construction = round(information.km_under_construction);
+            }
+        break;
+        case 'station':
+            if (section.status == 'opening'){
+                information.stations += 1;
+            }
+        break;
+      }
     };      
     
     return information;

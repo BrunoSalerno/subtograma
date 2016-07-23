@@ -4,6 +4,8 @@ var Planification = function(data,map,style){
   this.style = style;
   this.__plans = {};
 
+  this.drawnLines = {};
+
   var self = this;
   
   this.current_km = function(){
@@ -11,7 +13,7 @@ var Planification = function(data,map,style){
     
     for (var plan in self.__plans){
         for (var k in self.__plans[plan].lines()){
-          if (self.__plans[plan].is_drawn(k)) {
+          if (self.drawnLines[plan + '_' + k]) {
             km += self.__plans[plan].lines()[k].length
           }
         }
@@ -25,7 +27,7 @@ var Planification = function(data,map,style){
       var l={};
       for (var k in self.__plans[plan].lines()){
 
-        l[k] = {show: (self.__plans[plan].is_drawn(k)) ? true : false}
+        l[k] = {show: (self.drawnLines[plan + '_' + k]) ? true : false}
       }
 
       var p ={name:plan,
@@ -42,26 +44,40 @@ var Planification = function(data,map,style){
 
   this.set_plans_lines = function(plan_lines){
     if (plan_lines == 0) return;
+    var changes = []
     $.each(plan_lines,function(i,p){
       var param = p.split('.');
       var line = param[1];
       var plan = param[0].replace('_',' ');
-      self.toggle(plan,line);
+
+      self.drawnLines[plan + '_' + line] = true;
+      changes = changes.concat(self.__plans[plan].draw(line));
     })
+
+    var renderUpdates = new RenderUpdates({map: self.map});
+    renderUpdates.render(changes);
   };
 
   this.toggle = function(plan,line){
-    if (self.__plans[plan].is_drawn(line)){
-      self.__plans[plan].undraw(line);
+    var changes;
+    var planLineKey = plan + '_' + line;
+
+    if (self.drawnLines[planLineKey]){
+      delete self.drawnLines[planLineKey];
+      changes = self.__plans[plan].undraw(line);
     } else {
-      self.__plans[plan].draw(line);
+      self.drawnLines[planLineKey] = true;
+      changes = self.__plans[plan].draw(line);
     }
+
+    var renderUpdates = new RenderUpdates({map: self.map});
+    renderUpdates.render(changes);
 
     var plan_lines = [];
 
     for (var plan in self.__plans){
         for (var k in self.__plans[plan].lines()){
-          if (self.__plans[plan].is_drawn(k)) {
+          if (self.drawnLines[plan + '_' + k]) {
             plan_lines.push(plan.replace(' ','_')+'.'+k)
           }
         }
