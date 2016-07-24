@@ -35,19 +35,15 @@ var Plan = function(map,plan_name,year,url,style){
     return self.__year;
   };
 
-  this.is_drawn = function(line){
-    return (self.__lines[line].section &&
-    self.__lines[line].section.feature);
-  };
-
   this.draw = function(line){
+    var changes = [];
     if (!self.__lines[line].section)
         self.__lines[line].section = new Section(self.map,
                                                  self.__lines[line].raw_feature,
                                                  self.__style,
                                                  'line');
 
-    self.__lines[line].section.open();
+    changes.push(self.__lines[line].section.open())
 
     $.each(self.__lines[line].stations,function(i,s){
       if (!s.section)
@@ -55,14 +51,19 @@ var Plan = function(map,plan_name,year,url,style){
                                 s.raw_feature,
                                 self.__style,
                                 'station');
-      s.section.open();
+      changes.push(s.section.open());
     });
+
+    return changes;
   };
 
   this.undraw = function(line){
-    self.__lines[line].section.close();
+    var changes = [];
+    changes.push(self.__lines[line].section.close());
     $.each(self.__lines[line].stations,function(i,s){
-      s.section.close();
+      changes.push(s.section.close());
     });
+
+    return changes;
   };
 };

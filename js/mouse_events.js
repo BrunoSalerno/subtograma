@@ -9,27 +9,15 @@ var MouseEvents = function(map,style,planification,timeline){
     
     this.layers = layers();
 
-    const STATION_INNER_LAYER = 'station_inner';
-    const STATION_HOVER_LAYER = 'station_hover';
+    var STATION_INNER_LAYER = 'station_inner';
+    var STATION_HOVER_LAYER = 'station_hover';
 
-    function hover(id,type,feature){
-        var layer = type + '_hover';
-        if (!self.features[id]){
-            var opts = {
-                source_name: layer,
-                style: self.style.hover(type),
-                feature: feature,
-                map: self.map,
-                before_layer: type == 'station' ? STATION_INNER_LAYER : STATION_HOVER_LAYER,
-                type:type
-            }
-            self.features[id] = new Feature(opts)
-        }
-    }
-    
     function layers(){
         l = ['station_opening','station_buildstart','line_buildstart'];
         
+        // FIXME: simplify this when
+        // - 1) planification uses same layers than regular lines
+        // - 2) data-driven styles for lines are implemented
         var lines = self.timeline.lines();
         for (var line in lines){
             ['line'].forEach(function(el){
@@ -93,18 +81,37 @@ var MouseEvents = function(map,style,planification,timeline){
         // Cursor pointer
         map.getCanvas().style.cursor = features.length ? 'pointer' : '';
 
+        hoverActions = [];
+
         features.forEach(function(f){
             var type = f.layer.type == 'circle'? 'station' : 'line';
             var id = type +'_' + f.properties.id + '_' + f.properties.line + '_' + f.properties.plan;
+
             ids.push(id);
-            hover(id,type,f);
+
+            if (!self.features[id]){
+               var style = self.style.hover(type);
+               var beforeLayer = (type == 'station')? STATION_INNER_LAYER : STATION_HOVER_LAYER;
+
+               var hoverFeature = {layerName: type + '_hover',
+                                   type: type,
+                                   feature: f,
+                                   style: style,
+                                   beforeLayer: beforeLayer};
+
+                self.features[id] = hoverFeature;
+                hoverActions.push({add: [hoverFeature]});
+            }
         });
 
         for (var i in self.features){
             if (ids.indexOf(i) == -1){
-                self.features[i].remove();
+                hoverActions.push({remove: [self.features[i]]});
                 delete self.features[i];
             }
         };
+
+        var renderUpdates = new RenderUpdates({map: self.map});
+        renderUpdates.render(hoverActions);
     });
 }
