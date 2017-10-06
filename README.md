@@ -1,7 +1,7 @@
 Subtograma
 ==========
 
-This repository contains the source-code of [Subtograma](http://subtograma.com.ar),
+This repository contains the source-code of [Subtograma](http://subtograma.com),
 a web app intended to help to analyze and describe the history of the Buenos Aires metro system (*Subte*).
 
 Useful data
